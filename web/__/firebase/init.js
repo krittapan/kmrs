@@ -3,11 +3,11 @@ if (typeof firebase === "undefined")
     "hosting/init-error: Firebase SDK not detected. You must include it before /__/firebase/init.js"
   );
 firebase.initializeApp({
-  apiKey: "AIzaSyDHnFipkKoszFHgNBb6fZnSXcTzNnzo8jk",
-  authDomain: "kmrs-9b736.firebaseapp.com",
-  projectId: "kmrs-9b736",
-  storageBucket: "kmrs-9b736.appspot.com",
-  messagingSenderId: "496452619712",
-  appId: "1:496452619712:web:90742b664ec81de62c4c25",
-  measurementId: "G-8TFV98BCXC"
+  apiKey: "AIzaSyBF-gjrVMB5w_HXT-mETU-SaIt7aIK-NIY",
+  authDomain: "kukmrs.firebaseapp.com",
+  projectId: "kukmrs",
+  storageBucket: "kukmrs.appspot.com",
+  messagingSenderId: "604681301186",
+  appId: "1:604681301186:web:15f29e5dc082f15dc95f5b",
+  measurementId: "G-FY75TDH4WR"
 });

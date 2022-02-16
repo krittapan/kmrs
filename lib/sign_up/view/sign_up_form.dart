@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:kmrs/sign_up/sign_up.dart';
 import 'package:formz/formz.dart';
+import 'package:kmrs/sign_up/sign_up.dart';
 
 class SignUpForm extends StatelessWidget {
   const SignUpForm({Key? key}) : super(key: key);

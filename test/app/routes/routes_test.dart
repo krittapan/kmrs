@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_test/flutter_test.dart';
 import 'package:kmrs/app/app.dart';
 import 'package:kmrs/home/home.dart';
 import 'package:kmrs/login/login.dart';
-import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   group('onGenerateAppViewPages', () {

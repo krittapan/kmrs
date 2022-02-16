@@ -1,8 +1,8 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:kmrs/app/app.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:kmrs/app/app.dart';
 
 class FakeBloc extends Fake implements Bloc<Object, Object> {}
 

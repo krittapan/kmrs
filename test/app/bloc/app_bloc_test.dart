@@ -1,8 +1,8 @@
 // ignore_for_file: prefer_const_constructors, must_be_immutable
 import 'package:authentication_repository/authentication_repository.dart';
 import 'package:bloc_test/bloc_test.dart';
-import 'package:kmrs/app/app.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:kmrs/app/app.dart';
 import 'package:mocktail/mocktail.dart';
 
 class MockAuthenticationRepository extends Mock

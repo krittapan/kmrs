@@ -1,9 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kmrs/admin_dashboard/admin_dashboard.dart';
 import 'package:kmrs/app/app.dart';
-import 'package:kmrs/home/home.dart';
-import 'package:kmrs/theme.dart';
+import 'package:kmrs/model/userData.dart';
+import 'package:kmrs/user_dashboard/user_dashboard.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -15,44 +16,35 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  CollectionReference users = FirebaseFirestore.instance.collection('users');
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
     final user = context.select((AppBloc bloc) => bloc.state.user);
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: theme.scaffoldBackgroundColor,
-        title: const Text('Home'),
-        actions: <Widget>[
-          ElevatedButton.icon(
-            style: ButtonStyle(
-                backgroundColor:
-                    MaterialStateProperty.all<Color>(Colors.white)),
-            onPressed: () async =>
-                context.read<AppBloc>().add(AppLogoutRequested()),
-            icon: const Icon(
-              Icons.logout_outlined,
-              color: Colors.red,
-            ),
-            label:
-                const Text('ออกจากระบบ', style: TextStyle(color: Colors.black)),
-          ),
-        ],
-      ),
-      body: Align(
-        alignment: const Alignment(0, -1 / 3),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            Avatar(photo: user.photo),
-            const SizedBox(height: 4),
-            Text(user.email ?? '', style: textTheme.headline6),
-            const SizedBox(height: 4),
-            Text(user.name ?? '', style: textTheme.headline5),
-            const SizedBox(height: 4),
-          ],
-        ),
-      ),
+    return FutureBuilder<DocumentSnapshot>(
+      future: users.doc(user.id).get(),
+      builder:
+          (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+        if (snapshot.hasError) {
+          return const Text('Something went wrong');
+        }
+
+        if (snapshot.hasData && !snapshot.data!.exists) {
+          return const Text('Document does not exist');
+        }
+
+        if (snapshot.connectionState == ConnectionState.done) {
+          UserData userData = UserData.fromDocument(snapshot.requireData);
+          switch (userData.userType) {
+            case 'user':
+              return UserDashboard(
+                userData: userData,
+              );
+            case 'admin':
+              return AdminDashboard(userData: userData);
+          }
+        }
+        return const Center(child: CircularProgressIndicator());
+      },
     );
   }
 }

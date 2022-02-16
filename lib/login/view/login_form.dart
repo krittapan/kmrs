@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:kmrs/login/login.dart';
-import 'package:kmrs/sign_up/sign_up.dart';
-import 'package:kmrs/theme.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:formz/formz.dart';
+import 'package:kmrs/login/login.dart';
+import 'package:kmrs/theme.dart';
 
 class LoginForm extends StatelessWidget {
   const LoginForm({Key? key}) : super(key: key);
@@ -116,43 +114,6 @@ class _LoginButton extends StatelessWidget {
   }
 }
 
-class _GoogleLoginButton extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    return ElevatedButton.icon(
-      key: const Key('loginForm_googleLogin_raisedButton'),
-      label: const Text(
-        'SIGN IN WITH GOOGLE',
-        style: TextStyle(color: Colors.white),
-      ),
-      style: ElevatedButton.styleFrom(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(30),
-        ),
-        primary: theme.colorScheme.secondary,
-      ),
-      icon: const Icon(FontAwesomeIcons.google, color: Colors.white),
-      onPressed: () => context.read<LoginCubit>().logInWithGoogle(),
-    );
-  }
-}
-
-class _SignUpButton extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    return TextButton(
-      key: const Key('loginForm_createAccount_flatButton'),
-      onPressed: () => Navigator.of(context).push<void>(SignUpPage.route()),
-      child: Text(
-        'CREATE ACCOUNT',
-        style: TextStyle(color: theme.primaryColor),
-      ),
-    );
-  }
-}
-
 class BackgroundLogIn extends StatelessWidget {
   const BackgroundLogIn({
     Key? key,
@@ -172,26 +133,26 @@ class BackgroundLogIn extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: const [
               Text(
-                "ระบบรายงานการจัดการความรู้ภายในส่วนงาน",
+                'ระบบรายงานการจัดการความรู้ภายในส่วนงาน',
                 style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 28,
+                  color: Color.fromRGBO(0, 102, 102, 1),
+                  fontSize: 32,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               Text(
-                "ส่วนงานการจัดการความรู้ภายใน",
+                'ส่วนงานการจัดการความรู้ภายใน',
                 style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 28,
+                  color: Color.fromRGBO(0, 102, 102, 1),
+                  fontSize: 32,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               Text(
-                "มหาวิทยาลัยเกษตรศาสตร",
+                'มหาวิทยาลัยเกษตรศาสตร',
                 style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 28,
+                  color: Color.fromRGBO(0, 102, 102, 1),
+                  fontSize: 32,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -212,17 +173,15 @@ class LoginCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
-      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             SizedBox(
               width: 425,
               child: Card(
                 margin: const EdgeInsets.all(40),
-                elevation: 4,
+                elevation: 10,
                 shape: const RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(
                     Radius.circular(25),
@@ -234,18 +193,20 @@ class LoginCard extends StatelessWidget {
                     child: Column(
                       children: [
                         const Text(
-                          "ลงชื่อเข้าใช้งาน",
+                          'เข้าสู่ระบบ',
                           style: TextStyle(
-                            fontSize: 18,
-                            color: Colors.black,
+                            fontSize: 32,
+                            fontWeight: FontWeight.bold,
+                            color: Color.fromRGBO(0, 102, 102, 1),
                           ),
                         ),
                         const SizedBox(height: 8),
-                        SizedBox(
-                          width: 100,
-                          child: Divider(
-                            color: theme.primaryColor,
-                            thickness: 2,
+                        const Text(
+                          'ลงชื่อเข้าใช้งาน เพื่อใช้งานระบบ ',
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                            color: Color.fromRGBO(70, 72, 74, 1),
                           ),
                         ),
                         const SizedBox(height: 32),
