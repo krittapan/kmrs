@@ -1,8 +1,8 @@
+// ignore: avoid_web_libraries_in_flutter
 import 'dart:html';
 import 'dart:ui' as ui;
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kmrs/app/app.dart';
@@ -80,15 +80,13 @@ class _UserDashboardState extends State<UserDashboard> {
             color: Colors.white,
           ),
         ),
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            Text(widget.userData.segmentNameTH),
-          ],
-        ),
+        title: Padding(
+            padding: const EdgeInsets.all(5),
+            child: Text(widget.userData.segmentNameTH,
+                overflow: TextOverflow.fade)),
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(
-            bottom: Radius.circular(20),
+            bottom: Radius.circular(15),
           ),
         ),
         actions: <Widget>[
