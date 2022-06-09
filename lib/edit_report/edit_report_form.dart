@@ -1474,7 +1474,14 @@ class _EditReportFormState extends State<EditReportForm> {
               ),
             ),
             const SizedBox(width: 10),
-            Text(organizationName),
+            SizedBox(
+                width: 300,
+                child: Text(
+                  organizationName,
+                  maxLines: 1,
+                  softWrap: false,
+                  overflow: TextOverflow.ellipsis,
+                )),
           ],
         ),
       ),

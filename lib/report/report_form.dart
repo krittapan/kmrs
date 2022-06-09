@@ -2147,7 +2147,7 @@ class _ReportFormState extends State<ReportForm> {
       child: Container(
         margin: const EdgeInsets.all(20),
         child: Row(
-          children: [
+          children: <Widget>[
             const Text(
               '1.ส่วนงาน',
               style: TextStyle(
@@ -2156,7 +2156,11 @@ class _ReportFormState extends State<ReportForm> {
               ),
             ),
             const SizedBox(width: 10),
-            Text(organizationName),
+            Text(
+              organizationName,
+              overflow: TextOverflow.fade,
+              maxLines: 1,
+            ),
           ],
         ),
       ),

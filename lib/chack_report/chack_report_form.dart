@@ -1056,6 +1056,9 @@ class _ChackReportFormState extends State<ChackReportForm> {
             const SizedBox(width: 10),
             Text(
               organizationName,
+              maxLines: 1,
+              softWrap: false,
+              overflow: TextOverflow.ellipsis,
               style: const TextStyle(
                 fontSize: 20,
               ),

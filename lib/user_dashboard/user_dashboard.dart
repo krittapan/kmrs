@@ -80,10 +80,11 @@ class _UserDashboardState extends State<UserDashboard> {
             color: Colors.white,
           ),
         ),
-        title: Padding(
-            padding: const EdgeInsets.all(5),
-            child: Text(widget.userData.segmentNameTH,
-                overflow: TextOverflow.fade)),
+        title: Container(
+          width: double.infinity,
+          child: Text(widget.userData.segmentNameTH,
+              overflow: TextOverflow.ellipsis),
+        ),
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(
             bottom: Radius.circular(15),
