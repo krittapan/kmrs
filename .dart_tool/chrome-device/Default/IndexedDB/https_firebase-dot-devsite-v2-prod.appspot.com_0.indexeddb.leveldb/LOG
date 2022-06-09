@@ -1,0 +1,6 @@
+2022/03/08-20:18:23.042 21317 Creating DB /private/var/folders/qz/6w86jpf13n58yq0789kr9gjr0000gn/T/flutter_tools.D8YQA4/flutter_tools_chrome_device.EVR6Xu/Default/IndexedDB/https_firebase-dot-devsite-v2-prod.appspot.com_0.indexeddb.leveldb since it was missing.
+2022/03/08-20:18:23.046 21317 Reusing MANIFEST /private/var/folders/qz/6w86jpf13n58yq0789kr9gjr0000gn/T/flutter_tools.D8YQA4/flutter_tools_chrome_device.EVR6Xu/Default/IndexedDB/https_firebase-dot-devsite-v2-prod.appspot.com_0.indexeddb.leveldb/MANIFEST-000001
+2022/03/08-20:18:25.120 d407 Level-0 table #5: started
+2022/03/08-20:18:25.125 d407 Level-0 table #5: 1283 bytes OK
+2022/03/08-20:18:25.129 d407 Delete type=0 #3
+2022/03/08-20:18:25.129 d407 Manual compaction at level-0 from (begin) .. (end); will stop at (end)

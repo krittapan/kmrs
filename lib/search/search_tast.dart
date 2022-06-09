@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:kmrs/app/app.dart';
 import 'package:kmrs/buttom_app_bar/buttom_app_bar.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kmrs/footer/footer.dart';
 
 class SearchTast extends StatefulWidget {
   const SearchTast({Key? key}) : super(key: key);
@@ -278,7 +279,7 @@ class _SearchTastState extends State<SearchTast> {
           ),
         ),
       ),
-      bottomNavigationBar: const ButtomAppBar(),
+      bottomNavigationBar: const Footer(),
     );
   }
 }

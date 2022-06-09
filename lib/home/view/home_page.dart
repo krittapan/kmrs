@@ -33,8 +33,8 @@ class _HomePageState extends State<HomePage> {
         }
 
         if (snapshot.connectionState == ConnectionState.done) {
-          UserData userData = UserData.fromDocument(snapshot.requireData);
-          switch (userData.userType) {
+          final userData = UserData.fromDocument(snapshot.requireData);
+          switch (userData.type) {
             case 'user':
               return UserDashboard(
                 userData: userData,
