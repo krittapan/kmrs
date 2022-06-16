@@ -16,6 +16,7 @@ class ApKuqs {
   bool? outputCheck;
   bool? successMetricsCheck;
   bool? knowledgeManagementActivitiesCheck;
+  bool? periodOperatedCheck;
 
   ApKuqs({
     required this.target,
@@ -33,6 +34,7 @@ class ApKuqs {
     this.outputCheck,
     this.successMetricsCheck,
     this.knowledgeManagementActivitiesCheck,
+    this.periodOperatedCheck,
   });
 
   factory ApKuqs.fromDocument(DocumentSnapshot doc) {
@@ -54,6 +56,7 @@ class ApKuqs {
       successMetricsCheck: doc['successMetricsCheck'] as bool,
       knowledgeManagementActivitiesCheck:
           doc['knowledgeManagementActivitiesCheck'] as bool,
+      periodOperatedCheck: doc['periodOperatedCheck'] as bool,
     );
   }
 
@@ -74,6 +77,7 @@ class ApKuqs {
     data['successMetricsCheck'] = this.successMetricsCheck;
     data['knowledgeManagementActivitiesCheck'] =
         this.knowledgeManagementActivitiesCheck;
+    data['periodOperatedCheck'] = this.periodOperatedCheck;
     return data;
   }
 
@@ -94,5 +98,6 @@ class ApKuqs {
         outputCheck = map['outputCheck'] as bool,
         successMetricsCheck = map['successMetricsCheck'] as bool,
         knowledgeManagementActivitiesCheck =
-            map['knowledgeManagementActivitiesCheck'] as bool;
+            map['knowledgeManagementActivitiesCheck'] as bool,
+        periodOperatedCheck = map['periodOperatedCheck'] as bool;
 }

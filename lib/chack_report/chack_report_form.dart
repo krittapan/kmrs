@@ -162,6 +162,7 @@ class _ChackReportFormState extends State<ChackReportForm> {
   @override
   Widget build(BuildContext context) {
     final user = context.select((AppBloc bloc) => bloc.state.user);
+    setPageTitle('ตรวจรายงาน $segmentNameTH', context);
     return Scaffold(
       backgroundColor: const Color(0xffeff5f5),
       appBar: AppBar(
@@ -524,6 +525,16 @@ class _ChackReportFormState extends State<ChackReportForm> {
                                                     alignment:
                                                         Alignment.bottomRight,
                                                     isExpanded: true,
+                                                    items: items.map<
+                                                            DropdownMenuItem<
+                                                                String>>(
+                                                        (String value) {
+                                                      return DropdownMenuItem<
+                                                          String>(
+                                                        value: value,
+                                                        child: Text(value),
+                                                      );
+                                                    }).toList(),
                                                     onChanged:
                                                         (String? newValue) {
                                                       setState(() {
@@ -531,19 +542,7 @@ class _ChackReportFormState extends State<ChackReportForm> {
                                                             newValue!;
                                                       });
                                                     },
-                                                    value: apkuqaList[index]
-                                                        .obligationsCheck!,
-                                                    items: items.map<
-                                                        DropdownMenuItem<
-                                                            String>>(
-                                                      (String value) {
-                                                        return DropdownMenuItem<
-                                                            String>(
-                                                          value: value,
-                                                          child: Text(value),
-                                                        );
-                                                      },
-                                                    ).toList(),
+                                                    value: dropdownValue,
                                                   ),
                                                 ),
                                               ),
@@ -624,11 +623,14 @@ class _ChackReportFormState extends State<ChackReportForm> {
                                                 .periodOperated),
                                             onChanged: (value) {
                                               setState(() {
-                                                apkuqaChack[6] =
-                                                    !apkuqaChack[6];
+                                                apkuqaList[index]
+                                                        .periodOperatedCheck =
+                                                    !apkuqaList[index]
+                                                        .periodOperatedCheck!;
                                               });
                                             },
-                                            value: apkuqaChack[6],
+                                            value: apkuqaList[index]
+                                                .periodOperatedCheck,
                                           ),
                                         ),
                                         Expanded(
@@ -1110,6 +1112,13 @@ class _ChackReportFormState extends State<ChackReportForm> {
       ),
     );
   }
+}
+
+void setPageTitle(String title, BuildContext context) {
+  SystemChrome.setApplicationSwitcherDescription(ApplicationSwitcherDescription(
+    label: title,
+    primaryColor: Theme.of(context).primaryColor.value, // This line is required
+  ));
 }
 
 class TextTableWidget extends StatelessWidget {

@@ -4,6 +4,7 @@ import 'dart:ui' as ui;
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kmrs/app/app.dart';
 import 'package:kmrs/edit_report/edit_report_form.dart';
@@ -67,8 +68,18 @@ class _UserDashboardState extends State<UserDashboard> {
     getDocstatus();
   }
 
+  void setPageTitle(String title, BuildContext context) {
+    SystemChrome.setApplicationSwitcherDescription(
+        ApplicationSwitcherDescription(
+      label: title,
+      primaryColor:
+          Theme.of(context).primaryColor.value, // This line is required
+    ));
+  }
+
   @override
   Widget build(BuildContext context) {
+    setPageTitle(widget.userData.segmentNameTH, context);
     return Scaffold(
       backgroundColor: const Color(0xffeff5f5),
       appBar: AppBar(
