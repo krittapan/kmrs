@@ -43,7 +43,9 @@ class _ChackReportFormState extends State<ChackReportForm> {
   late List<ApKuqs> apkuqaList = [];
   late List<Ap> apList = [];
   late String search;
-  bool tobeChack = false;
+  bool tobeCheck = false;
+  bool swotChack = false;
+  bool islodeing = false;
   List<bool> asisChack = [
     false,
     false,
@@ -62,7 +64,7 @@ class _ChackReportFormState extends State<ChackReportForm> {
   List<bool> apChack = [
     false,
   ];
-  bool swotChack = false;
+
   List<String> keywordList = [
     'สร้างสรรค์ภูมิปัญญา',
     'นวัตกรรม',
@@ -109,6 +111,8 @@ class _ChackReportFormState extends State<ChackReportForm> {
         setState(() {
           segmentNameTH = document['segmentNameTH'].toString();
           tobe = document['tobe'].toString();
+          tobeCheck = document['tobeCheck'] as bool;
+          swotChack = document['swotChack'] as bool;
           swotAsIs = document['swotAsIs'].toString();
           List<dynamic> ass;
           ass = document['asIs'] as List<dynamic>;
@@ -129,13 +133,16 @@ class _ChackReportFormState extends State<ChackReportForm> {
       } else {
         print('Document does not exist on the database');
       }
-    });
+    }).whenComplete(() => islodeing = true);
   }
 
   Future updateDoc() async {
     // Call the user's CollectionReference to add a new user
     return reports.doc(widget.reportId).update({
+      //'status': 'ส่งรายงานแผนแล้ว',
       'status': 'ตรวจสอบรายงานแผนแล้ว',
+      'tobeCheck': tobeCheck,
+      'swotChack': swotChack,
     });
   }
 
@@ -268,8 +275,11 @@ class _ChackReportFormState extends State<ChackReportForm> {
                               return Container(
                                 margin: const EdgeInsets.all(5),
                                 child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
                                     Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         Expanded(
                                           flex: 5,
@@ -278,10 +288,13 @@ class _ChackReportFormState extends State<ChackReportForm> {
                                                 Text(asisList[index].strengths),
                                             onChanged: (value) {
                                               setState(() {
-                                                asisChack[0] = !asisChack[0];
+                                                asisList[index].strengthsCheck =
+                                                    !asisList[index]
+                                                        .strengthsCheck!;
                                               });
                                             },
-                                            value: asisChack[0],
+                                            value:
+                                                asisList[index].strengthsCheck,
                                           ),
                                         ),
                                         Expanded(
@@ -291,10 +304,14 @@ class _ChackReportFormState extends State<ChackReportForm> {
                                                 asisList[index].weaknesses),
                                             onChanged: (value) {
                                               setState(() {
-                                                asisChack[1] = !asisChack[1];
+                                                asisList[index]
+                                                        .weaknessesCheck =
+                                                    !asisList[index]
+                                                        .weaknessesCheck!;
                                               });
                                             },
-                                            value: asisChack[1],
+                                            value:
+                                                asisList[index].weaknessesCheck,
                                           ),
                                         ),
                                         Expanded(
@@ -304,10 +321,14 @@ class _ChackReportFormState extends State<ChackReportForm> {
                                                 asisList[index].opportunities),
                                             onChanged: (value) {
                                               setState(() {
-                                                asisChack[2] = !asisChack[2];
+                                                asisList[index]
+                                                        .opportunitiesCheck =
+                                                    !asisList[index]
+                                                        .opportunitiesCheck!;
                                               });
                                             },
-                                            value: asisChack[2],
+                                            value: asisList[index]
+                                                .opportunitiesCheck,
                                           ),
                                         ),
                                         Expanded(
@@ -317,10 +338,13 @@ class _ChackReportFormState extends State<ChackReportForm> {
                                                 Text(asisList[index].threatsl),
                                             onChanged: (value) {
                                               setState(() {
-                                                asisChack[3] = !asisChack[3];
+                                                asisList[index].threatslCheck =
+                                                    !asisList[index]
+                                                        .threatslCheck!;
                                               });
                                             },
-                                            value: asisChack[3],
+                                            value:
+                                                asisList[index].threatslCheck,
                                           ),
                                         ),
                                       ],
@@ -403,38 +427,38 @@ class _ChackReportFormState extends State<ChackReportForm> {
                                 child: TextTableWidget(text: 'ลำดับ'),
                               ),
                               Expanded(
-                                flex: 5,
+                                flex: 7,
                                 child: TextTableWidget(
                                     text: 'เป้าหมาย/ประเด็นการจัดการความรู้'),
                               ),
                               Expanded(
-                                flex: 5,
+                                flex: 7,
                                 child: TextTableWidget(
                                     text:
                                         'ความสอดคล้องกับยุทธศาสตร์ หรือภาระหน้าที่ตาม KUQS/พันธกิจ'),
                               ),
                               Expanded(
-                                flex: 5,
+                                flex: 7,
                                 child: TextTableWidget(text: 'วัตถุประสงค์'),
                               ),
                               Expanded(
-                                flex: 5,
+                                flex: 7,
                                 child: TextTableWidget(
                                     text:
                                         'ผลผลิต/ผลลัพธ์ที่คาดว่าจะได้รับ(Output/Outcome)'),
                               ),
                               Expanded(
-                                flex: 5,
+                                flex: 7,
                                 child: TextTableWidget(
                                     text: 'ตัวชี้วัดความสำเร็จ'),
                               ),
                               Expanded(
-                                flex: 5,
+                                flex: 7,
                                 child: TextTableWidget(
                                     text: 'กิจกรรมการจัดการความรู้'),
                               ),
                               Expanded(
-                                flex: 5,
+                                flex: 7,
                                 child: TextTableWidget(
                                     text: 'ระยะเวลาที่ดำเนินการ'),
                               ),
@@ -443,7 +467,7 @@ class _ChackReportFormState extends State<ChackReportForm> {
                                 child: TextTableWidget(text: 'งบประมาณ(ถ้ามี)'),
                               ),
                               Expanded(
-                                flex: 5,
+                                flex: 4,
                                 child:
                                     TextTableWidget(text: 'ผู้รับผิดชอบหลัก'),
                               ),
@@ -459,9 +483,11 @@ class _ChackReportFormState extends State<ChackReportForm> {
                                 child: Column(
                                   children: [
                                     Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         Expanded(
-                                          flex: 3,
+                                          flex: 1,
                                           child: Text((index + 1).toString()),
                                         ),
                                         Expanded(
@@ -471,11 +497,14 @@ class _ChackReportFormState extends State<ChackReportForm> {
                                                 Text(apkuqaList[index].target),
                                             onChanged: (value) {
                                               setState(() {
-                                                apkuqaChack[0] =
-                                                    !apkuqaChack[0];
+                                                // ignore: lines_longer_than_80_chars
+                                                apkuqaList[index].targetCheck =
+                                                    !apkuqaList[index]
+                                                        .targetCheck!;
                                               });
                                             },
-                                            value: apkuqaChack[0],
+                                            value:
+                                                apkuqaList[index].targetCheck,
                                           ),
                                         ),
                                         Expanded(
@@ -502,7 +531,8 @@ class _ChackReportFormState extends State<ChackReportForm> {
                                                             newValue!;
                                                       });
                                                     },
-                                                    value: dropdownValue,
+                                                    value: apkuqaList[index]
+                                                        .obligationsCheck!,
                                                     items: items.map<
                                                         DropdownMenuItem<
                                                             String>>(
@@ -527,11 +557,14 @@ class _ChackReportFormState extends State<ChackReportForm> {
                                                 apkuqaList[index].objective),
                                             onChanged: (value) {
                                               setState(() {
-                                                apkuqaChack[2] =
-                                                    !apkuqaChack[2];
+                                                apkuqaList[index]
+                                                        .objectiveCheck =
+                                                    !apkuqaList[index]
+                                                        .objectiveCheck!;
                                               });
                                             },
-                                            value: apkuqaChack[2],
+                                            value: apkuqaList[index]
+                                                .objectiveCheck,
                                           ),
                                         ),
                                         Expanded(
@@ -541,25 +574,30 @@ class _ChackReportFormState extends State<ChackReportForm> {
                                                 Text(apkuqaList[index].output),
                                             onChanged: (value) {
                                               setState(() {
-                                                apkuqaChack[3] =
-                                                    !apkuqaChack[3];
+                                                apkuqaList[index].outputCheck =
+                                                    !apkuqaList[index]
+                                                        .outputCheck!;
                                               });
                                             },
-                                            value: apkuqaChack[3],
+                                            value:
+                                                apkuqaList[index].outputCheck,
                                           ),
                                         ),
                                         Expanded(
                                           flex: 5,
                                           child: CheckboxListTile(
                                             title: Text(apkuqaList[index]
-                                                .successMetrics),
+                                                .success_metrics),
                                             onChanged: (value) {
                                               setState(() {
-                                                apkuqaChack[4] =
-                                                    !apkuqaChack[4];
+                                                apkuqaList[index]
+                                                        .successMetricsCheck =
+                                                    !apkuqaList[index]
+                                                        .successMetricsCheck!;
                                               });
                                             },
-                                            value: apkuqaChack[4],
+                                            value: apkuqaList[index]
+                                                .successMetricsCheck,
                                           ),
                                         ),
                                         Expanded(
@@ -569,11 +607,14 @@ class _ChackReportFormState extends State<ChackReportForm> {
                                                 .knowledgeManagementActivities),
                                             onChanged: (value) {
                                               setState(() {
-                                                apkuqaChack[5] =
-                                                    !apkuqaChack[5];
+                                                apkuqaList[index]
+                                                        .knowledgeManagementActivitiesCheck =
+                                                    !apkuqaList[index]
+                                                        .knowledgeManagementActivitiesCheck!;
                                               });
                                             },
-                                            value: apkuqaChack[5],
+                                            value: apkuqaList[index]
+                                                .knowledgeManagementActivitiesCheck,
                                           ),
                                         ),
                                         Expanded(
@@ -641,6 +682,7 @@ class _ChackReportFormState extends State<ChackReportForm> {
                       child: Column(
                         children: <Widget>[
                           Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Expanded(
                                 flex: 1,
@@ -900,10 +942,10 @@ class _ChackReportFormState extends State<ChackReportForm> {
                 ),
                 onChanged: (value) {
                   setState(() {
-                    tobeChack = !tobeChack;
+                    tobeCheck = !tobeCheck;
                   });
                 },
-                value: tobeChack,
+                value: tobeCheck,
               ),
             ),
             const Text(

@@ -6,7 +6,7 @@ const RESOURCES = {
   "assets/AssetManifest.json": "8d12b40b2a80067cbb36d7351e5f465b",
 "assets/assets/bloc_logo_small.png": "19a0b1820b5403373865112b3e9a84c1",
 "assets/assets/ku_logo.png": "e99847cae23b85b85e91c11566b4b9ea",
-"assets/assets/ku_logo.svg": "dfc812ce4046462ecdafec8c6fc61c1c",
+"assets/assets/ku_logo.svg": "5475111f6f1c70c81940e139782c0371",
 "assets/FontManifest.json": "5a32d4310a6f5d9a6b651e75ba0d7372",
 "assets/fonts/MaterialIcons-Regular.otf": "95db9098c58fd6db106f1116bae85a0b",
 "assets/NOTICES": "12b945c8616cd46d9405559acf41ae05",
@@ -14,20 +14,21 @@ const RESOURCES = {
 "assets/packages/font_awesome_flutter/lib/fonts/fa-brands-400.ttf": "b37ae0f14cbc958316fac4635383b6e8",
 "assets/packages/font_awesome_flutter/lib/fonts/fa-regular-400.ttf": "5178af1d278432bec8fc830d50996d6f",
 "assets/packages/font_awesome_flutter/lib/fonts/fa-solid-900.ttf": "aa1ec80f1b30a51d64c72f669c1326a7",
-"canvaskit/canvaskit.js": "c2b4e5f3d7a3d82aed024e7249a78487",
+"canvaskit/canvaskit.js": "3725a0811e16affbef87d783520e61d4",
 "canvaskit/canvaskit.wasm": "4b83d89d9fecbea8ca46f2f760c5a9ba",
-"canvaskit/profiling/canvaskit.js": "ae2949af4efc61d28a4a80fffa1db900",
+"canvaskit/profiling/canvaskit.js": "491df729e7b715d86fc167feabea031a",
 "canvaskit/profiling/canvaskit.wasm": "95e736ab31147d1b2c7b25f11d4c32cd",
+"favicon.ico": "d9cafff6b7ae086a845686543f423aa1",
 "favicon.png": "bc1dc4fb75387b9197f9de2571ded15e",
-"flutter.js": "0816e65a103ba8ba51b174eeeeb2cb67",
+"flutter.js": "57bec8d5c24a3a80888b8466d37be1d0",
 "icons/Icon-192.png": "b7bce3c656c086f4c124d38ca42801f8",
 "icons/Icon-512.png": "3d203ff5aee74eaa7a34c33106b9cb0f",
-"index.html": "300a1344c9863787cc203ac7acf450bb",
-"/": "300a1344c9863787cc203ac7acf450bb",
-"main.dart.js": "518029db86a84d67bc78000671de1c14",
-"manifest.json": "72111b8818f27028c790b1fa8a4875c7",
+"index.html": "52829e6655064f6d179bc87ababdbb6e",
+"/": "52829e6655064f6d179bc87ababdbb6e",
+"main.dart.js": "4958a9a657d2e0faf33053a41bd75956",
+"manifest.json": "2e8a3f085d8471270565f567579596a8",
 "version.json": "63f8819be3e50d04c1d2e9c1a321daf7",
-"__/firebase/init.js": "58216591f8f8ddd7b573ba3ec8c7297b"
+"__/firebase/init.js": "f3caaf5d9d85aaa5ab7bd49905b865fb"
 };
 
 // The application shell files that are downloaded before a service worker can

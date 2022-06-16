@@ -123,41 +123,37 @@ class BackgroundLogIn extends StatelessWidget {
   Widget build(BuildContext context) {
     return Align(
       alignment: Alignment.centerLeft,
-      child: SizedBox(
-        height: double.infinity,
+      child: Container(
         width: MediaQuery.of(context).size.width * 0.6,
-        child: Padding(
-          padding: const EdgeInsets.all(32),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: const [
-              Text(
-                'ระบบรายงานการจัดการความรู้ภายในส่วนงาน',
-                style: TextStyle(
-                  color: Color.fromRGBO(0, 102, 102, 1),
-                  fontSize: 32,
-                  fontWeight: FontWeight.bold,
-                ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: const <Widget>[
+            Text(
+              'ระบบรายงานการจัดการความรู้ภายในส่วนงาน ',
+              style: TextStyle(
+                color: Color.fromRGBO(0, 102, 102, 1),
+                fontSize: 32,
+                fontWeight: FontWeight.bold,
               ),
-              Text(
-                'ส่วนงานการจัดการความรู้ภายใน',
-                style: TextStyle(
-                  color: Color.fromRGBO(0, 102, 102, 1),
-                  fontSize: 32,
-                  fontWeight: FontWeight.bold,
-                ),
+            ),
+            Text(
+              'ส่วนงานการจัดการความรู้ภายใน ',
+              style: TextStyle(
+                color: Color.fromRGBO(0, 102, 102, 1),
+                fontSize: 32,
+                fontWeight: FontWeight.bold,
               ),
-              Text(
-                'มหาวิทยาลัยเกษตรศาสตร',
-                style: TextStyle(
-                  color: Color.fromRGBO(0, 102, 102, 1),
-                  fontSize: 32,
-                  fontWeight: FontWeight.bold,
-                ),
+            ),
+            Text(
+              'มหาวิทยาลัยเกษตรศาสตร์ ',
+              style: TextStyle(
+                color: Color.fromRGBO(0, 102, 102, 1),
+                fontSize: 32,
+                fontWeight: FontWeight.bold,
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

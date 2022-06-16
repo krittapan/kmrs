@@ -33,13 +33,13 @@ class _UserDashboardState extends State<UserDashboard> {
         .get();
     snapshot.docs.forEach(
       (DocumentSnapshot doc) {
-        print(doc['status']);
-        print(doc.id);
-        print(doc.exists);
         setState(() {
           isReport = doc['status'].toString();
           reportId = doc.id;
         });
+        print(doc['status']);
+        print(doc.id);
+        print(doc.exists);
       },
     );
   }

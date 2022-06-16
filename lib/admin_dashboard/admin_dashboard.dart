@@ -164,7 +164,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
                                   child: Row(
                                     children: [
                                       const Expanded(
-                                        flex: 8,
+                                        flex: 6,
                                         child: Text(
                                           'ขื่อส่วนงาน',
                                           style: TextStyle(color: Colors.white),
@@ -209,14 +209,18 @@ class _AdminDashboardState extends State<AdminDashboard> {
                                           height: 30,
                                           child: Row(
                                             children: [
+                                              const Expanded(
+                                                child: SizedBox(
+                                                  width: 10,
+                                                ),
+                                              ),
                                               Expanded(
-                                                flex: 8,
+                                                flex: 5,
                                                 child: Text(
                                                   data['segmentNameTH']
                                                       .toString(),
                                                   style: const TextStyle(
                                                       color: Colors.black),
-                                                  textAlign: TextAlign.center,
                                                 ),
                                               ),
                                               Expanded(

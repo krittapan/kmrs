@@ -797,8 +797,8 @@ class _ReportFormState extends State<ReportForm> {
                                         ),
                                         Expanded(
                                           flex: 5,
-                                          child: Text(
-                                              apkuqaList[index].successMetrics),
+                                          child: Text(apkuqaList[index]
+                                              .success_metrics),
                                         ),
                                         Expanded(
                                           flex: 5,
@@ -1020,7 +1020,7 @@ class _ReportFormState extends State<ReportForm> {
                                                                 initialValue:
                                                                     apkuqaList[
                                                                             index]
-                                                                        .successMetrics,
+                                                                        .success_metrics,
                                                                 keyboardType:
                                                                     TextInputType
                                                                         .multiline,
@@ -1206,7 +1206,7 @@ class _ReportFormState extends State<ReportForm> {
                                                                                 obligations: buff[1],
                                                                                 objective: buff[2],
                                                                                 output: buff[3],
-                                                                                successMetrics: buff[4],
+                                                                                success_metrics: buff[4],
                                                                                 knowledgeManagementActivities: buff[5],
                                                                                 periodOperated: buff[6],
                                                                                 budget: buff[7],
@@ -1546,7 +1546,7 @@ class _ReportFormState extends State<ReportForm> {
                                                                         output:
                                                                             buff[
                                                                                 3],
-                                                                        successMetrics:
+                                                                        success_metrics:
                                                                             buff[
                                                                                 4],
                                                                         knowledgeManagementActivities:
