@@ -1,29 +1,22 @@
-2022/06/20-18:41:40.008 45e8 Reusing MANIFEST C:\Users\KRITTA~1\AppData\Local\Temp\flutter_tools.9d603a79\flutter_tools_chrome_device.530c8a6e\Default\Session Storage/MANIFEST-000001
-2022/06/20-18:41:40.017 45e8 Recovering log #4
-2022/06/20-18:41:40.021 45e8 Reusing old log C:\Users\KRITTA~1\AppData\Local\Temp\flutter_tools.9d603a79\flutter_tools_chrome_device.530c8a6e\Default\Session Storage/000004.log 
-2022/06/20-18:41:40.022 45e8 Delete type=0 #3
-2022/06/20-18:41:40.022 45e8 Delete type=2 #7
-2022/06/20-18:41:40.023 45e8 Delete type=2 #8
-2022/06/20-18:41:40.023 45e8 Delete type=2 #10
-2022/06/20-18:41:40.023 45e8 Delete type=2 #13
-2022/06/20-18:41:40.023 45e8 Delete type=2 #14
-2022/06/20-18:41:40.023 45e8 Delete type=2 #17
-2022/06/20-18:41:40.023 45e8 Delete type=2 #19
-2022/06/20-18:41:40.023 45e8 Delete type=2 #22
-2022/06/20-18:41:40.023 45e8 Delete type=2 #25
-2022/06/20-18:41:40.023 45e8 Delete type=2 #28
-2022/06/20-18:41:40.023 45e8 Delete type=2 #32
-2022/06/20-18:41:40.023 45e8 Delete type=2 #35
-2022/06/20-18:41:40.023 45e8 Delete type=2 #38
-2022/06/20-18:41:40.023 45e8 Delete type=2 #40
-2022/06/20-18:41:40.023 45e8 Delete type=2 #44
-2022/06/20-18:41:40.023 45e8 Delete type=2 #47
-2022/06/20-18:41:40.023 45e8 Delete type=2 #50
-2022/06/20-18:41:40.023 45e8 Delete type=2 #53
-2022/06/20-18:41:40.023 45e8 Delete type=2 #57
-2022/06/20-20:30:12.482 5648 Level-0 table #8: started
-2022/06/20-20:30:12.486 5648 Level-0 table #8: 15413 bytes OK
-2022/06/20-20:30:12.490 5648 Delete type=0 #4
-2022/06/20-21:04:01.477 3abc Level-0 table #10: started
-2022/06/20-21:04:01.484 3abc Level-0 table #10: 18698 bytes OK
-2022/06/20-21:04:01.491 3abc Delete type=0 #7
+2022/06/20-22:37:14.125 62c Reusing MANIFEST C:\Users\KRITTA~1\AppData\Local\Temp\flutter_tools.ed25fe0\flutter_tools_chrome_device.afab5f8e\Default\Session Storage/MANIFEST-000001
+2022/06/20-22:37:14.127 62c Recovering log #12
+2022/06/20-22:37:14.128 62c Reusing old log C:\Users\KRITTA~1\AppData\Local\Temp\flutter_tools.ed25fe0\flutter_tools_chrome_device.afab5f8e\Default\Session Storage/000012.log 
+2022/06/20-22:37:14.131 62c Delete type=0 #3
+2022/06/20-22:37:14.132 62c Delete type=0 #4
+2022/06/20-22:37:14.132 62c Delete type=2 #7
+2022/06/20-22:37:14.132 62c Delete type=0 #9
+2022/06/20-22:37:14.132 62c Delete type=2 #14
+2022/06/20-22:37:14.132 62c Delete type=2 #17
+2022/06/20-22:37:14.132 62c Delete type=2 #19
+2022/06/20-22:37:14.132 62c Delete type=2 #22
+2022/06/20-22:37:14.133 62c Delete type=2 #25
+2022/06/20-22:37:14.133 62c Delete type=2 #28
+2022/06/20-22:37:14.133 62c Delete type=2 #32
+2022/06/20-22:37:14.133 62c Delete type=2 #35
+2022/06/20-22:37:14.133 62c Delete type=2 #38
+2022/06/20-22:37:14.133 62c Delete type=2 #40
+2022/06/20-22:37:14.133 62c Delete type=2 #44
+2022/06/20-22:37:14.133 62c Delete type=2 #47
+2022/06/20-22:37:14.133 62c Delete type=2 #50
+2022/06/20-22:37:14.133 62c Delete type=2 #53
+2022/06/20-22:37:14.133 62c Delete type=2 #57

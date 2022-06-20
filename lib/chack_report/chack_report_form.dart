@@ -79,6 +79,7 @@ class _ChackReportFormState extends State<ChackReportForm> {
     'ยุทธศาสตร์ที่ 5',
   ];
   List<String> items1 = [
+    'ไม่ระบุบ',
     'เว็บส่วนงาน',
     'คลังความรู้ส่วนงาน',
     'Software/APP',
@@ -90,7 +91,8 @@ class _ChackReportFormState extends State<ChackReportForm> {
   List<String> keywordAwsList = [];
 
   String dropdownValue1 = 'ไม่ตรงตามยุทธศาสตร์';
-  String dropdownValue2 = 'อื่น ๆ ระบุ';
+  String dropdownValue2 = 'ไม่ระบุบ';
+
   void chackKeywordFunction(String str) {
     keywordAwsList.clear();
     for (int i = 0; i < keywordList.length; i++) {
@@ -134,7 +136,10 @@ class _ChackReportFormState extends State<ChackReportForm> {
       } else {
         print('Document does not exist on the database');
       }
-    }).whenComplete(() => islodeing = true);
+    }).whenComplete(() {
+      //await updateDoc();
+      islodeing = true;
+    });
   }
 
   Future updateDoc() async {
@@ -146,6 +151,7 @@ class _ChackReportFormState extends State<ChackReportForm> {
       'swotChack': swotChack,
       'asIs': asisList.map((e) => e.toJson()).toList(),
       'apkuqa': apkuqaList.map((e) => e.toJson()).toList(),
+      'ap': apList.map((e) => e.toJson()).toList(),
     });
   }
 
@@ -750,11 +756,13 @@ class _ChackReportFormState extends State<ChackReportForm> {
                                                     onChanged:
                                                         (String? newValue) {
                                                       setState(() {
-                                                        dropdownValue1 =
+                                                        apList[index]
+                                                                .list_of_experiencesCheck =
                                                             newValue!;
                                                       });
                                                     },
-                                                    value: dropdownValue1,
+                                                    value: apList[index]
+                                                        .list_of_experiencesCheck,
                                                     items: items.map<
                                                         DropdownMenuItem<
                                                             String>>(
@@ -792,11 +800,13 @@ class _ChackReportFormState extends State<ChackReportForm> {
                                                     onChanged:
                                                         (String? newValue) {
                                                       setState(() {
-                                                        dropdownValue2 =
+                                                        apList[index]
+                                                                .storageCheck =
                                                             newValue!;
                                                       });
                                                     },
-                                                    value: dropdownValue2,
+                                                    value: apList[index]
+                                                        .storageCheck,
                                                     items: items1.map<
                                                         DropdownMenuItem<
                                                             String>>(
