@@ -38,7 +38,7 @@ class _EditReportFormState extends State<EditReportForm> {
   Future getDoc() async {
     await FirebaseFirestore.instance
         .collection('reports')
-        .doc('R7OGAs0MtfY8zZEcZ2Ps')
+        .doc(widget.reportId)
         .get()
         .then((document) {
       if (document.exists) {

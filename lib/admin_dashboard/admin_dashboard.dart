@@ -213,65 +213,94 @@ class _AdminDashboardState extends State<AdminDashboard> {
                                     return ListView(
                                       shrinkWrap: true,
                                       children: snapshot.data!.docs
-                                          .map((DocumentSnapshot document) {
-                                        Map<String, dynamic> data = document
-                                            .data()! as Map<String, dynamic>;
-                                        return SizedBox(
-                                          height: 30,
-                                          child: Row(
-                                            children: [
-                                              const Expanded(
-                                                child: SizedBox(
-                                                  width: 10,
-                                                ),
-                                              ),
-                                              Expanded(
-                                                flex: 5,
-                                                child: Text(
-                                                  data['segmentNameTH']
-                                                      .toString(),
-                                                  style: const TextStyle(
-                                                      color: Colors.black),
-                                                ),
-                                              ),
-                                              Expanded(
-                                                flex: 2,
-                                                child: Text(
-                                                  data['status'].toString(),
-                                                  style: const TextStyle(
-                                                      color: Colors.black),
-                                                  textAlign: TextAlign.center,
-                                                ),
-                                              ),
-                                              Expanded(
-                                                flex: 2,
-                                                child: TextButton(
-                                                  style: ButtonStyle(
-                                                    foregroundColor:
-                                                        MaterialStateProperty
-                                                            .all<Color>(
-                                                                Colors.blue),
-                                                  ),
-                                                  onPressed: () =>
-                                                      Navigator.push<AppBloc>(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                      builder: (BuildContext
-                                                              context) =>
-                                                          ChackReportForm(
-                                                        userData:
-                                                            widget.userData,
-                                                        reportId: document.id,
-                                                      ),
+                                          .asMap()
+                                          .map(
+                                            (index, DocumentSnapshot document) {
+                                              Map<String, dynamic> data =
+                                                  document.data()!
+                                                      as Map<String, dynamic>;
+                                              return MapEntry(
+                                                  index,
+                                                  SizedBox(
+                                                    height: 30,
+                                                    child: Row(
+                                                      children: [
+                                                        const Expanded(
+                                                          child: SizedBox(
+                                                            width: 10,
+                                                          ),
+                                                        ),
+                                                        Expanded(
+                                                          child: Text(
+                                                            (index + 1)
+                                                                .toString(),
+                                                            style:
+                                                                const TextStyle(
+                                                                    color: Colors
+                                                                        .black),
+                                                          ),
+                                                        ),
+                                                        Expanded(
+                                                          flex: 5,
+                                                          child: Text(
+                                                            data['segmentNameTH']
+                                                                .toString(),
+                                                            style:
+                                                                const TextStyle(
+                                                                    color: Colors
+                                                                        .black),
+                                                          ),
+                                                        ),
+                                                        Expanded(
+                                                          flex: 2,
+                                                          child: Text(
+                                                            data['status']
+                                                                .toString(),
+                                                            style:
+                                                                const TextStyle(
+                                                                    color: Colors
+                                                                        .black),
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                          ),
+                                                        ),
+                                                        Expanded(
+                                                          flex: 2,
+                                                          child: TextButton(
+                                                            style: ButtonStyle(
+                                                              foregroundColor:
+                                                                  MaterialStateProperty.all<
+                                                                          Color>(
+                                                                      Colors
+                                                                          .blue),
+                                                            ),
+                                                            onPressed: () =>
+                                                                Navigator.push<
+                                                                    AppBloc>(
+                                                              context,
+                                                              MaterialPageRoute(
+                                                                builder: (BuildContext
+                                                                        context) =>
+                                                                    ChackReportForm(
+                                                                  userData: widget
+                                                                      .userData,
+                                                                  reportId:
+                                                                      document
+                                                                          .id,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            child: const Text(
+                                                                'ตรวจสอบ'),
+                                                          ),
+                                                        ),
+                                                      ],
                                                     ),
-                                                  ),
-                                                  child: const Text('ตรวจสอบ'),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        );
-                                      }).toList(),
+                                                  ));
+                                            },
+                                          )
+                                          .values
+                                          .toList(),
                                     );
                                   },
                                 ),

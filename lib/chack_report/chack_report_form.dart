@@ -86,8 +86,9 @@ class _ChackReportFormState extends State<ChackReportForm> {
     'คลังดิจิทัล มก.',
     'อื่น ๆ ระบุ',
   ];
+
   List<String> keywordAwsList = [];
-  String dropdownValue = 'ไม่ตรงตามยุทธศาสตร์';
+
   String dropdownValue1 = 'ไม่ตรงตามยุทธศาสตร์';
   String dropdownValue2 = 'อื่น ๆ ระบุ';
   void chackKeywordFunction(String str) {
@@ -143,6 +144,8 @@ class _ChackReportFormState extends State<ChackReportForm> {
       'status': 'ตรวจสอบรายงานแผนแล้ว',
       'tobeCheck': tobeCheck,
       'swotChack': swotChack,
+      'asIs': asisList.map((e) => e.toJson()).toList(),
+      'apkuqa': apkuqaList.map((e) => e.toJson()).toList(),
     });
   }
 
@@ -521,7 +524,7 @@ class _ChackReportFormState extends State<ChackReportForm> {
                                                 width: 200,
                                                 child:
                                                     DropdownButtonHideUnderline(
-                                                  child: DropdownButton<String>(
+                                                  child: DropdownButton(
                                                     alignment:
                                                         Alignment.bottomRight,
                                                     isExpanded: true,
@@ -538,11 +541,13 @@ class _ChackReportFormState extends State<ChackReportForm> {
                                                     onChanged:
                                                         (String? newValue) {
                                                       setState(() {
-                                                        dropdownValue =
-                                                            newValue!;
+                                                        apkuqaList[index]
+                                                                .obligationsCheck =
+                                                            newValue;
                                                       });
                                                     },
-                                                    value: dropdownValue,
+                                                    value: apkuqaList[index]
+                                                        .obligationsCheck,
                                                   ),
                                                 ),
                                               ),
