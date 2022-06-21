@@ -32,10 +32,10 @@ class Ap {
     data['list_of_experiences'] = this.list_of_experiences;
     data['storage'] = this.storage;
     data['guidelines'] = this.guidelines;
-    // data['list_of_experiencesCheck'] = this.list_of_experiencesCheck;
-    // data['storageCheck'] = this.storageCheck;
-    data['list_of_experiencesCheck'] = 'ไม่ตรงตามยุทธศาสตร์';
-    data['storageCheck'] = 'ไม่ระบุบ';
+    data['list_of_experiencesCheck'] = this.list_of_experiencesCheck;
+    data['storageCheck'] = this.storageCheck;
+    //data['list_of_experiencesCheck'] = 'ไม่ตรงตามยุทธศาสตร์';
+    //data['storageCheck'] = 'ไม่ระบุบ';
     data['guidelinesCheck'] = this.guidelinesCheck;
     return data;
   }

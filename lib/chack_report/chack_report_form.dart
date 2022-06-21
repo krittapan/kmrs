@@ -831,10 +831,12 @@ class _ChackReportFormState extends State<ChackReportForm> {
                                                 Text(apList[index].guidelines),
                                             onChanged: (value) {
                                               setState(() {
-                                                apChack[0] = !apChack[0];
+                                                apList[index].guidelinesCheck =
+                                                    value;
                                               });
                                             },
-                                            value: apChack[0],
+                                            value:
+                                                apList[index].guidelinesCheck,
                                           ),
                                         ),
                                       ],
