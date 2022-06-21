@@ -559,7 +559,7 @@ class _EditReportFormState extends State<EditReportForm> {
                                       flex: 5,
                                       child: TextTableWidget(
                                           text:
-                                              'เป้าหมาย/ประเด็นการจัดการความรู้'),
+                                              'เป้าหมาย/ประเด็นการจัดการความรู้ '),
                                     ),
                                     Expanded(
                                       flex: 5,
@@ -586,7 +586,7 @@ class _EditReportFormState extends State<EditReportForm> {
                                     Expanded(
                                       flex: 5,
                                       child: TextTableWidget(
-                                          text: 'กิจกรรมการจัดการความรู้'),
+                                          text: 'กิจกรรมการจัดการความรู้ '),
                                     ),
                                     Expanded(
                                       flex: 5,
@@ -716,7 +716,7 @@ class _EditReportFormState extends State<EditReportForm> {
                                                                       decoration:
                                                                           const InputDecoration(
                                                                         label: Text(
-                                                                            'เป้าหมาย/ประเด็นการจัดการความรู้'),
+                                                                            'เป้าหมาย/ประเด็นการจัดการความรู้ '),
                                                                         border:
                                                                             OutlineInputBorder(),
                                                                       ),
@@ -724,7 +724,7 @@ class _EditReportFormState extends State<EditReportForm> {
                                                                           (input) {
                                                                         if (input!
                                                                             .isEmpty) {
-                                                                          return 'กรุณาระบุบ เป้าหมาย/ประเด็นการจัดการความรู้';
+                                                                          return 'กรุณาระบุบ เป้าหมาย/ประเด็นการจัดการความรู้ ';
                                                                         }
                                                                         buff.insert(
                                                                             0,
@@ -1155,7 +1155,7 @@ class _EditReportFormState extends State<EditReportForm> {
                                       flex: 5,
                                       child: TextTableWidget(
                                           text:
-                                              'แหล่งจัดเก็บและเผยแพร่สินทรัพย์ความรู้'),
+                                              'แหล่งจัดเก็บและเผยแพร่สินทรัพย์ความรู้ '),
                                     ),
                                     Expanded(
                                       flex: 5,
@@ -1282,7 +1282,7 @@ class _EditReportFormState extends State<EditReportForm> {
                                                                       decoration:
                                                                           const InputDecoration(
                                                                         label: Text(
-                                                                            'แหล่งจัดเก็บและเผยแพร่สินทรัพย์ความรู้'),
+                                                                            'แหล่งจัดเก็บและเผยแพร่สินทรัพย์ความรู้ '),
                                                                         border:
                                                                             OutlineInputBorder(),
                                                                       ),
@@ -1290,7 +1290,7 @@ class _EditReportFormState extends State<EditReportForm> {
                                                                           (input) {
                                                                         if (input!
                                                                             .isEmpty) {
-                                                                          return 'กรุณาระบุบ แหล่งจัดเก็บและเผยแพร่สินทรัพย์ความรู้';
+                                                                          return 'กรุณาระบุบ แหล่งจัดเก็บและเผยแพร่สินทรัพย์ความรู้ ';
                                                                         }
                                                                         buff.insert(
                                                                             1,

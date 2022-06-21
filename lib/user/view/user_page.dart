@@ -15,6 +15,7 @@ import 'package:kmrs/user/user.dart';
 
 class UserDashboard extends StatefulWidget {
   UserData userData;
+
   UserDashboard({Key? key, required this.userData}) : super(key: key);
 
   @override
@@ -29,7 +30,8 @@ class _UserDashboardState extends State<UserDashboard> {
     final QuerySnapshot snapshot = await FirebaseFirestore.instance
         .collection('reports')
         .where('owner', isEqualTo: widget.userData.uid)
-        .where('year', isEqualTo: '1/2565')
+        .where('year', isEqualTo: '2565')
+        .where('cycle', isEqualTo: '1')
         .get();
     snapshot.docs.forEach(
       (DocumentSnapshot doc) {

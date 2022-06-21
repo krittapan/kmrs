@@ -11,7 +11,12 @@ import 'package:kmrs/search/search_tast.dart';
 class SegmentList extends StatefulWidget {
   UserData userData;
   String year;
-  SegmentList({Key? key, required this.userData, required this.year})
+  String cycle;
+  SegmentList(
+      {Key? key,
+      required this.userData,
+      required this.year,
+      required this.cycle})
       : super(key: key);
 
   @override
@@ -24,6 +29,7 @@ class _SegmentListState extends State<SegmentList> {
     final Stream<QuerySnapshot> _reportStream = FirebaseFirestore.instance
         .collection('reports')
         .where('year', isEqualTo: widget.year)
+        .where('cycle', isEqualTo: widget.cycle)
         .snapshots();
     return StreamBuilder<QuerySnapshot>(
       stream: _reportStream,
@@ -53,56 +59,62 @@ class _SegmentListState extends State<SegmentList> {
                       index,
                       SizedBox(
                         height: 30,
-                        child: Row(
-                          children: [
-                            const Expanded(
-                              child: SizedBox(
-                                width: 10,
-                              ),
-                            ),
-                            Expanded(
-                              child: Text(
-                                (index + 1).toString(),
-                                style: const TextStyle(color: Colors.black),
-                              ),
-                            ),
-                            Expanded(
-                              flex: 5,
-                              child: Text(
-                                data['segmentNameTH'].toString(),
-                                style: const TextStyle(color: Colors.black),
-                              ),
-                            ),
-                            Expanded(
-                              flex: 2,
-                              child: Text(
-                                data['status'].toString(),
-                                style: const TextStyle(color: Colors.black),
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
-                            Expanded(
-                              flex: 2,
-                              child: TextButton(
-                                style: ButtonStyle(
-                                  foregroundColor:
-                                      MaterialStateProperty.all<Color>(
-                                          Colors.blue),
+                        child: InkWell(
+                          // splashColor: Colors.blue, // or the color you want
+                          onLongPress: () {
+                            //show your on long press event
+                          },
+                          child: Row(
+                            children: [
+                              const Expanded(
+                                child: SizedBox(
+                                  width: 10,
                                 ),
-                                onPressed: () => Navigator.push<AppBloc>(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (BuildContext context) =>
-                                        ChackReportForm(
-                                      userData: widget.userData,
-                                      reportId: document.id,
+                              ),
+                              Expanded(
+                                child: Text(
+                                  (index + 1).toString(),
+                                  style: const TextStyle(color: Colors.black),
+                                ),
+                              ),
+                              Expanded(
+                                flex: 5,
+                                child: Text(
+                                  data['segmentNameTH'].toString(),
+                                  style: const TextStyle(color: Colors.black),
+                                ),
+                              ),
+                              Expanded(
+                                flex: 2,
+                                child: Text(
+                                  data['status'].toString(),
+                                  style: const TextStyle(color: Colors.black),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                              Expanded(
+                                flex: 2,
+                                child: TextButton(
+                                  style: ButtonStyle(
+                                    foregroundColor:
+                                        MaterialStateProperty.all<Color>(
+                                            Colors.blue),
+                                  ),
+                                  onPressed: () => Navigator.push<AppBloc>(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (BuildContext context) =>
+                                          ChackReportForm(
+                                        userData: widget.userData,
+                                        reportId: document.id,
+                                      ),
                                     ),
                                   ),
+                                  child: const Text('ตรวจสอบ'),
                                 ),
-                                child: const Text('ตรวจสอบ'),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                     );
