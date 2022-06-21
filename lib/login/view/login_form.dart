@@ -73,7 +73,20 @@ class _EmailInput extends StatelessWidget {
   }
 }
 
-class _PasswordInput extends StatelessWidget {
+class _PasswordInput extends StatefulWidget {
+  @override
+  State<_PasswordInput> createState() => _PasswordInputState();
+}
+
+class _PasswordInputState extends State<_PasswordInput> {
+  bool _isObscure = true;
+
+  void _toggle() {
+    setState(() {
+      _isObscure = !_isObscure;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<LoginCubit, LoginState>(
@@ -83,13 +96,17 @@ class _PasswordInput extends StatelessWidget {
           key: const Key('loginForm_passwordInput_textField'),
           onChanged: (password) =>
               context.read<LoginCubit>().passwordChanged(password),
-          obscureText: true,
+          obscureText: _isObscure,
           decoration: InputDecoration(
-            prefixIcon: const Icon(Icons.lock_outline),
-            labelText: 'รหัสผ่าน',
-            helperText: '',
-            errorText: state.password.invalid ? 'กรุณากรอกรหัสผ่าน' : null,
-          ),
+              prefixIcon: const Icon(Icons.lock_outline),
+              labelText: 'รหัสผ่าน',
+              helperText: '',
+              errorText: state.password.invalid ? 'กรุณากรอกรหัสผ่าน' : null,
+              suffixIcon: IconButton(
+                icon:
+                    Icon(_isObscure ? Icons.visibility : Icons.visibility_off),
+                onPressed: _toggle,
+              )),
         );
       },
     );
