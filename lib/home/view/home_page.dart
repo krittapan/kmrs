@@ -1,10 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:kmrs/admin_dashboard/admin_dashboard.dart';
+import 'package:kmrs/admin/admin.dart';
 import 'package:kmrs/app/app.dart';
 import 'package:kmrs/model/userData.dart';
-import 'package:kmrs/user_dashboard/user_dashboard.dart';
+import 'package:kmrs/user/user.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);

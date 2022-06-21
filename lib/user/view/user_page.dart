@@ -7,10 +7,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kmrs/app/app.dart';
-import 'package:kmrs/edit_report/edit_report_form.dart';
+import 'package:kmrs/edit_report/edit_report.dart';
 import 'package:kmrs/footer/footer.dart';
 import 'package:kmrs/model/userData.dart';
 import 'package:kmrs/report/report_form.dart';
+import 'package:kmrs/user/user.dart';
 
 class UserDashboard extends StatefulWidget {
   UserData userData;
@@ -21,8 +22,6 @@ class UserDashboard extends StatefulWidget {
 }
 
 class _UserDashboardState extends State<UserDashboard> {
-  late Widget _iframeWidget;
-  final IFrameElement _iframeElement = IFrameElement();
   late String isReport = '';
   String reportId = '';
 
@@ -48,23 +47,6 @@ class _UserDashboardState extends State<UserDashboard> {
   @override
   void initState() {
     super.initState();
-    _iframeElement.height = '600';
-    _iframeElement.width = '800';
-
-    _iframeElement.src =
-        'https://datastudio.google.com/embed/reporting/873b3f9a-cbf7-4334-aec5-4ac2684ccee7/page/TghnC';
-    _iframeElement.style.border = 'none';
-
-    // ignore: undefined_prefixed_name
-    ui.platformViewRegistry.registerViewFactory(
-      'iframeElement',
-      (int viewId) => _iframeElement,
-    );
-
-    _iframeWidget = HtmlElementView(
-      key: UniqueKey(),
-      viewType: 'iframeElement',
-    );
     getDocstatus();
   }
 
@@ -125,22 +107,7 @@ class _UserDashboardState extends State<UserDashboard> {
           alignment: const Alignment(0, -1 / 3),
           child: Column(
             children: <Widget>[
-              Card(
-                margin: const EdgeInsets.all(20),
-                elevation: 4,
-                shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(20),
-                  ),
-                ),
-                child: Center(
-                  child: SizedBox(
-                    height: 600,
-                    width: 800,
-                    child: _iframeWidget,
-                  ),
-                ),
-              ),
+              const DataDashboard(),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
