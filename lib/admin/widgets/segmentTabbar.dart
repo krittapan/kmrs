@@ -14,6 +14,13 @@ class SementTabbar extends StatefulWidget {
 }
 
 class _SementTabbarState extends State<SementTabbar> {
+  String currentCycle = '1';
+  String currentYear = '2565';
+  List<String> items = [
+    '2565',
+    '2566',
+    '2567',
+  ];
   @override
   void initState() {
     super.initState();
@@ -25,7 +32,7 @@ class _SementTabbarState extends State<SementTabbar> {
     //               .collection('reports')
     //               .doc(element.id);
 
-    //           docRef.update({'year': '2565'});
+    //           docRef.update({'cycle': '1'});
     //         },
     //       ),
     //     );
@@ -47,8 +54,39 @@ class _SementTabbarState extends State<SementTabbar> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               const SizedBox(height: 20),
-              const Text('รายงานประจำปี 2565',
-                  textAlign: TextAlign.center, style: TextStyle(fontSize: 22)),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text('รายงานประจำปี',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 22)),
+                  Container(
+                    padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+                    width: 100,
+                    child: DropdownButtonHideUnderline(
+                      child: DropdownButton(
+                        alignment: Alignment.bottomRight,
+                        isExpanded: true,
+                        items:
+                            items.map<DropdownMenuItem<String>>((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value,
+                                textAlign: TextAlign.center,
+                                style: const TextStyle(fontSize: 20)),
+                          );
+                        }).toList(),
+                        onChanged: (String? newValue) {
+                          setState(() {
+                            currentYear = newValue!;
+                          });
+                        },
+                        value: currentYear,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
               DefaultTabController(
                 length: 3, // length of tabs
                 initialIndex: 0,
@@ -80,6 +118,14 @@ class _SementTabbarState extends State<SementTabbar> {
                             ),
                           ),
                           const Expanded(
+                            flex: 1,
+                            child: Text(
+                              'เวลาส่ง',
+                              style: TextStyle(color: Colors.white),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                          const Expanded(
                             flex: 2,
                             child: Text(
                               'สถานะ',
@@ -104,27 +150,28 @@ class _SementTabbarState extends State<SementTabbar> {
                           Container(
                             child: SegmentList(
                               userData: widget.userData,
-                              year: '2565',
+                              year: currentYear,
                               cycle: '1',
                             ),
                           ),
                           Container(
                             child: SegmentList(
                               userData: widget.userData,
-                              year: '2565',
+                              year: currentYear,
                               cycle: '2',
                             ),
                           ),
                           Container(
                             child: SegmentList(
                               userData: widget.userData,
-                              year: '2565',
+                              year: currentYear,
                               cycle: '3',
                             ),
                           ),
                         ],
                       ),
                     ),
+                    const SizedBox(height: 30),
                   ],
                 ),
               ),

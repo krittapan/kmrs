@@ -1,28 +1,43 @@
-2022/06/21-20:28:10.865 7378 Reusing MANIFEST C:\Users\KRITTA~1\AppData\Local\Temp\flutter_tools.d97a014b\flutter_tools_chrome_device.96f4d518\Default\Session Storage/MANIFEST-000001
-2022/06/21-20:28:10.868 7378 Recovering log #18
-2022/06/21-20:28:10.869 7378 Reusing old log C:\Users\KRITTA~1\AppData\Local\Temp\flutter_tools.d97a014b\flutter_tools_chrome_device.96f4d518\Default\Session Storage/000018.log 
-2022/06/21-20:28:10.871 7378 Delete type=0 #3
-2022/06/21-20:28:10.871 7378 Delete type=0 #4
-2022/06/21-20:28:10.871 7378 Delete type=2 #7
-2022/06/21-20:28:10.871 7378 Delete type=2 #8
-2022/06/21-20:28:10.871 7378 Delete type=0 #9
-2022/06/21-20:28:10.871 7378 Delete type=2 #10
-2022/06/21-20:28:10.871 7378 Delete type=0 #12
-2022/06/21-20:28:10.871 7378 Delete type=2 #13
-2022/06/21-20:28:10.871 7378 Delete type=2 #14
-2022/06/21-20:28:10.871 7378 Delete type=0 #15
-2022/06/21-20:28:10.871 7378 Delete type=2 #16
-2022/06/21-20:28:10.871 7378 Delete type=2 #17
-2022/06/21-20:28:10.871 7378 Delete type=2 #19
-2022/06/21-20:28:10.871 7378 Delete type=2 #22
-2022/06/21-20:28:10.871 7378 Delete type=2 #25
-2022/06/21-20:28:10.871 7378 Delete type=2 #28
-2022/06/21-20:28:10.871 7378 Delete type=2 #32
-2022/06/21-20:28:10.871 7378 Delete type=2 #35
-2022/06/21-20:28:10.871 7378 Delete type=2 #38
-2022/06/21-20:28:10.871 7378 Delete type=2 #40
-2022/06/21-20:28:10.871 7378 Delete type=2 #44
-2022/06/21-20:28:10.871 7378 Delete type=2 #47
-2022/06/21-20:28:10.871 7378 Delete type=2 #50
-2022/06/21-20:28:10.871 7378 Delete type=2 #53
-2022/06/21-20:28:10.872 7378 Delete type=2 #57
+2022/06/30-20:27:53.728 714c Reusing MANIFEST C:\Users\KRITTA~1\AppData\Local\Temp\flutter_tools.4836a78a\flutter_tools_chrome_device.ce1c4492\Default\Session Storage/MANIFEST-000001
+2022/06/30-20:27:53.730 714c Recovering log #35
+2022/06/30-20:27:53.732 714c Reusing old log C:\Users\KRITTA~1\AppData\Local\Temp\flutter_tools.4836a78a\flutter_tools_chrome_device.ce1c4492\Default\Session Storage/000035.log 
+2022/06/30-20:27:53.737 714c Delete type=0 #3
+2022/06/30-20:27:53.737 714c Delete type=0 #4
+2022/06/30-20:27:53.737 714c Delete type=2 #7
+2022/06/30-20:27:53.737 714c Delete type=2 #8
+2022/06/30-20:27:53.737 714c Delete type=0 #9
+2022/06/30-20:27:53.737 714c Delete type=2 #10
+2022/06/30-20:27:53.737 714c Delete type=0 #12
+2022/06/30-20:27:53.737 714c Delete type=2 #13
+2022/06/30-20:27:53.739 714c Delete type=2 #14
+2022/06/30-20:27:53.740 714c Delete type=0 #15
+2022/06/30-20:27:53.740 714c Delete type=2 #16
+2022/06/30-20:27:53.740 714c Delete type=2 #17
+2022/06/30-20:27:53.740 714c Delete type=0 #18
+2022/06/30-20:27:53.740 714c Delete type=2 #19
+2022/06/30-20:27:53.740 714c Delete type=2 #20
+2022/06/30-20:27:53.740 714c Delete type=2 #22
+2022/06/30-20:27:53.740 714c Delete type=0 #22
+2022/06/30-20:27:53.740 714c Delete type=2 #23
+2022/06/30-20:27:53.740 714c Delete type=2 #25
+2022/06/30-20:27:53.740 714c Delete type=0 #25
+2022/06/30-20:27:53.740 714c Delete type=2 #26
+2022/06/30-20:27:53.740 714c Delete type=2 #28
+2022/06/30-20:27:53.740 714c Delete type=0 #28
+2022/06/30-20:27:53.740 714c Delete type=2 #29
+2022/06/30-20:27:53.740 714c Delete type=0 #31
+2022/06/30-20:27:53.740 714c Delete type=2 #32
+2022/06/30-20:27:53.740 714c Delete type=2 #35
+2022/06/30-20:27:53.740 714c Delete type=2 #38
+2022/06/30-20:27:53.740 714c Delete type=2 #40
+2022/06/30-20:27:53.740 714c Delete type=2 #44
+2022/06/30-20:27:53.740 714c Delete type=2 #47
+2022/06/30-20:27:53.740 714c Delete type=2 #50
+2022/06/30-20:27:53.740 714c Delete type=2 #53
+2022/06/30-20:27:53.740 714c Delete type=2 #57
+2022/06/30-20:51:20.229 456c Level-0 table #39: started
+2022/06/30-20:51:20.234 456c Level-0 table #39: 17190 bytes OK
+2022/06/30-20:51:20.236 456c Delete type=0 #35
+2022/06/30-22:13:06.244 6e04 Level-0 table #41: started
+2022/06/30-22:13:06.249 6e04 Level-0 table #41: 18566 bytes OK
+2022/06/30-22:13:06.252 6e04 Delete type=0 #38

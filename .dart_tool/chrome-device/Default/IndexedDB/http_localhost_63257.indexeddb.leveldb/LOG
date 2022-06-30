@@ -1,2 +1,3 @@
-2022/06/16-14:33:55.841 50e4 Creating DB C:\Users\KRITTA~1\AppData\Local\Temp\flutter_tools.aaa6afef\flutter_tools_chrome_device.6c043205\Default\IndexedDB\http_localhost_63257.indexeddb.leveldb since it was missing.
-2022/06/16-14:33:55.850 50e4 Reusing MANIFEST C:\Users\KRITTA~1\AppData\Local\Temp\flutter_tools.aaa6afef\flutter_tools_chrome_device.6c043205\Default\IndexedDB\http_localhost_63257.indexeddb.leveldb/MANIFEST-000001
+2022/06/21-23:02:39.875 6290 Reusing MANIFEST C:\Users\KRITTA~1\AppData\Local\Temp\flutter_tools.4bae5d97\flutter_tools_chrome_device.f906a20f\Default\IndexedDB\http_localhost_63257.indexeddb.leveldb/MANIFEST-000001
+2022/06/21-23:02:39.876 6290 Recovering log #4
+2022/06/21-23:02:39.876 6290 Reusing old log C:\Users\KRITTA~1\AppData\Local\Temp\flutter_tools.4bae5d97\flutter_tools_chrome_device.f906a20f\Default\IndexedDB\http_localhost_63257.indexeddb.leveldb/000004.log 

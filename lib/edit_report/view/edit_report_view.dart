@@ -31,6 +31,10 @@ class _EditReportFormState extends State<EditReportForm> {
   List<String> buff = [];
   List<String> buff1 = [];
   late String tobe;
+  late String tobeComment;
+  late String asisComment;
+  late String apkuqaComment;
+  late String apComment;
   late String swotAsIs;
   late List<Asis> asisList = [];
   late List<ApKuqs> apkuqaList = [];
@@ -47,6 +51,10 @@ class _EditReportFormState extends State<EditReportForm> {
         if (document.exists) {
           setState(() {
             tobe = document['tobe'].toString();
+            tobeComment = document['tobeComment'].toString();
+            asisComment = document['asisComment'].toString();
+            apkuqaComment = document['apkuqaComment'].toString();
+            apComment = document['apComment'].toString();
             swotAsIs = document['swotAsIs'].toString();
             List<dynamic> ass;
             ass = document['asIs'] as List<dynamic>;
@@ -518,6 +526,18 @@ class _EditReportFormState extends State<EditReportForm> {
                                   ),
                                 ),
                               ],
+                            ),
+                          ),
+                          const Text('หมายเหตุ จากเจ้าหน้าที'),
+                          const SizedBox(height: 10),
+                          Container(
+                            margin: const EdgeInsets.all(10),
+                            child: Text(
+                              asisComment,
+                              maxLines: null,
+                              style: const TextStyle(
+                                fontSize: 16,
+                              ),
                             ),
                           ),
                         ],
@@ -1110,6 +1130,18 @@ class _EditReportFormState extends State<EditReportForm> {
                               ],
                             ),
                           ),
+                          const Text('หมายเหตุ จากเจ้าหน้าที'),
+                          const SizedBox(height: 10),
+                          Container(
+                            margin: const EdgeInsets.all(10),
+                            child: Text(
+                              asisComment,
+                              maxLines: null,
+                              style: const TextStyle(
+                                fontSize: 16,
+                              ),
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -1387,6 +1419,18 @@ class _EditReportFormState extends State<EditReportForm> {
                               ],
                             ),
                           ),
+                          const Text('หมายเหตุ จากเจ้าหน้าที'),
+                          const SizedBox(height: 10),
+                          Container(
+                            margin: const EdgeInsets.all(10),
+                            child: Text(
+                              asisComment,
+                              maxLines: null,
+                              style: const TextStyle(
+                                fontSize: 16,
+                              ),
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -1502,6 +1546,18 @@ class _EditReportFormState extends State<EditReportForm> {
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                 ),
+                style: const TextStyle(
+                  fontSize: 16,
+                ),
+              ),
+            ),
+            const Text('หมายเหตุ จากเจ้าหน้าที'),
+            const SizedBox(height: 10),
+            Container(
+              margin: const EdgeInsets.all(10),
+              child: Text(
+                tobeComment,
+                maxLines: null,
                 style: const TextStyle(
                   fontSize: 16,
                 ),

@@ -34,7 +34,7 @@ class Ap {
     data['guidelines'] = this.guidelines;
     data['list_of_experiencesCheck'] = this.list_of_experiencesCheck;
     data['storageCheck'] = this.storageCheck;
-    //data['list_of_experiencesCheck'] = 'ไม่ตรงตามยุทธศาสตร์';
+    //data['list_of_experiencesCheck'] = 'ไม่ตรงตามยุทธศาสตร์ ';
     //data['storageCheck'] = 'ไม่ระบุบ';
     data['guidelinesCheck'] = this.guidelinesCheck;
     return data;

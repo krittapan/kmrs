@@ -23,25 +23,39 @@ class UserDashboard extends StatefulWidget {
 }
 
 class _UserDashboardState extends State<UserDashboard> {
-  late String isReport = '';
+  int isReport = 0;
+  int isReport1 = 0;
+  int isReport2 = 0;
+  String currentCycle = '1';
+  String currentYear = '2565';
   String reportId = '';
 
   Future getDocstatus() async {
     final QuerySnapshot snapshot = await FirebaseFirestore.instance
         .collection('reports')
         .where('owner', isEqualTo: widget.userData.uid)
-        .where('year', isEqualTo: '2565')
-        .where('cycle', isEqualTo: '1')
+        .where('year', isEqualTo: currentYear)
+        //.where('cycle', isEqualTo: '1')
         .get();
     snapshot.docs.forEach(
       (DocumentSnapshot doc) {
         setState(() {
-          isReport = doc['status'].toString();
-          reportId = doc.id;
+          if (doc['cycle'].toString() == currentCycle) {
+            reportId = doc.id;
+            switch (doc['cycle'].toString()) {
+              case '1':
+                isReport = doc['status'] as int;
+                break;
+              case '2':
+                isReport1 = doc['status'] as int;
+                break;
+              case '3':
+                isReport2 = doc['status'] as int;
+                break;
+              default:
+            }
+          }
         });
-        print(doc['status']);
-        print(doc.id);
-        print(doc.exists);
       },
     );
   }
@@ -59,6 +73,23 @@ class _UserDashboardState extends State<UserDashboard> {
       primaryColor:
           Theme.of(context).primaryColor.value, // This line is required
     ));
+  }
+
+  String statusToString(int status) {
+    switch (status) {
+      case 1:
+        return 'ไม่ส่งรายงาน';
+      case 2:
+        return 'ส่งรายงาน';
+      case 3:
+        return 'ดำเนินการตรวจสอบรายงาน';
+      case 4:
+        return 'ตรวจสอบรายงาน มีหมายเหตุปรับปรุง';
+      case 5:
+        return 'ตรวจสอบรายงาน เสร็จสมบรูณ์';
+      default:
+        return 'ไม่ทราบสถานะ';
+    }
   }
 
   @override
@@ -118,7 +149,7 @@ class _UserDashboardState extends State<UserDashboard> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        TextLabel(label: 'รายงานล่าสุด'),
+                        TextLabel(label: 'สถานะรายงานประจำปี $currentYear '),
                         Card(
                           margin: const EdgeInsets.all(20),
                           elevation: 4,
@@ -130,29 +161,83 @@ class _UserDashboardState extends State<UserDashboard> {
                           child: Container(
                             margin: const EdgeInsets.all(20),
                             child: Center(
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
+                              child: Column(
                                 children: [
-                                  const Text(
-                                    'ปี 2565',
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold),
-                                  ),
-                                  Card(
-                                    margin: const EdgeInsets.all(5),
-                                    elevation: 4,
-                                    shape: const RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(5),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      const Text(
+                                        'รายงานแผน',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold),
                                       ),
-                                    ),
-                                    child: Container(
-                                      margin: const EdgeInsets.all(5),
-                                      child: isReport == ''
-                                          ? const Text('ยังไม่ส่งรายงานแผน')
-                                          : Text(isReport),
-                                    ),
-                                  )
+                                      Card(
+                                        margin: const EdgeInsets.all(5),
+                                        elevation: 4,
+                                        shape: const RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.all(
+                                            Radius.circular(5),
+                                          ),
+                                        ),
+                                        child: Container(
+                                          margin: const EdgeInsets.all(5),
+                                          child: isReport == 0
+                                              ? const Text('ยังไม่ส่งรายงาน')
+                                              : Text(statusToString(isReport)),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      const Text(
+                                        'รายงานผล 6 เดือน',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      Card(
+                                        margin: const EdgeInsets.all(5),
+                                        elevation: 4,
+                                        shape: const RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.all(
+                                            Radius.circular(5),
+                                          ),
+                                        ),
+                                        child: Container(
+                                          margin: const EdgeInsets.all(5),
+                                          child: isReport1 == 0
+                                              ? const Text('ยังไม่ส่งรายงาน')
+                                              : Text(statusToString(isReport1)),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      const Text(
+                                        'รายงานผล 12 เดือน',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      Card(
+                                        margin: const EdgeInsets.all(5),
+                                        elevation: 4,
+                                        shape: const RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.all(
+                                            Radius.circular(5),
+                                          ),
+                                        ),
+                                        child: Container(
+                                          margin: const EdgeInsets.all(5),
+                                          child: isReport2 == 0
+                                              ? const Text('ยังไม่ส่งรายงาน')
+                                              : Text(statusToString(isReport2)),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ],
                               ),
                             ),
@@ -237,22 +322,31 @@ class _UserDashboardState extends State<UserDashboard> {
                             padding: const EdgeInsets.all(10),
                             child: Column(
                               children: [
-                                ButtonPlanReport(
+                                ButtonReportCycle1(
                                   widget: widget,
                                   isReport: isReport,
                                 ),
-                                ButtonReport(
-                                  widget: widget,
-                                  isReport: isReport,
-                                ),
-                                ButtonEditPlanReport(
+                                ButtonEditReportCycle1(
                                   widget: widget,
                                   isReport: isReport,
                                   reportId: reportId,
                                 ),
-                                ButtonEditReport(
+                                ButtonReportCycle2(
                                   widget: widget,
                                   isReport: isReport,
+                                  currentCycle: currentCycle,
+                                ),
+                                ButtonEditReportCycle2(
+                                  widget: widget,
+                                  isReport1: isReport1,
+                                ),
+                                ButtonReportCycle3(
+                                  widget: widget,
+                                  isReport: isReport2,
+                                ),
+                                ButtonEditReportCycle3(
+                                  widget: widget,
+                                  isReport: isReport2,
                                 )
                               ],
                             ),
@@ -272,14 +366,14 @@ class _UserDashboardState extends State<UserDashboard> {
   }
 }
 
-class ButtonPlanReport extends StatelessWidget {
-  ButtonPlanReport({
+class ButtonReportCycle1 extends StatelessWidget {
+  ButtonReportCycle1({
     Key? key,
     required this.widget,
     required this.isReport,
   }) : super(key: key);
   final UserDashboard widget;
-  String isReport = '';
+  int isReport;
 
   @override
   Widget build(BuildContext context) {
@@ -287,7 +381,7 @@ class ButtonPlanReport extends StatelessWidget {
       widthFactor: 1,
       child: Container(
         padding: const EdgeInsets.all(10),
-        child: isReport == ''
+        child: isReport == 1
             ? ElevatedButton.icon(
                 style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all<Color>(
@@ -305,7 +399,7 @@ class ButtonPlanReport extends StatelessWidget {
                   color: Colors.black,
                 ),
                 label: const Text(
-                  'รายงานแผนประจำปี',
+                  'รายงานแผน',
                   style: TextStyle(color: Colors.black),
                 ),
               )
@@ -318,7 +412,7 @@ class ButtonPlanReport extends StatelessWidget {
                   Icons.description_outlined,
                 ),
                 label: const Text(
-                  'รายงานแผนประจำปี',
+                  'รายงานแผน',
                 ),
               ),
       ),
@@ -326,14 +420,16 @@ class ButtonPlanReport extends StatelessWidget {
   }
 }
 
-class ButtonReport extends StatelessWidget {
-  ButtonReport({
+class ButtonReportCycle2 extends StatelessWidget {
+  ButtonReportCycle2({
     Key? key,
     required this.widget,
     required this.isReport,
+    required this.currentCycle,
   }) : super(key: key);
   final UserDashboard widget;
-  String isReport = '';
+  String currentCycle;
+  int isReport;
 
   @override
   Widget build(BuildContext context) {
@@ -341,7 +437,7 @@ class ButtonReport extends StatelessWidget {
       widthFactor: 1,
       child: Container(
         padding: const EdgeInsets.all(10),
-        child: isReport == 'ตรวจสอบรายงานแผนแล้ว'
+        child: (isReport >= 2) && (currentCycle == '2')
             ? ElevatedButton.icon(
                 style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all<Color>(
@@ -359,7 +455,7 @@ class ButtonReport extends StatelessWidget {
                   color: Colors.black,
                 ),
                 label: const Text(
-                  'รายงานผลประจำปี',
+                  'รายงานผลรอบ 6 เดือน',
                   style: TextStyle(color: Colors.black),
                 ),
               )
@@ -372,7 +468,7 @@ class ButtonReport extends StatelessWidget {
                   Icons.description_outlined,
                 ),
                 label: const Text(
-                  'รายงานผลประจำปี',
+                  'รายงานผลรอบ 6 เดือน',
                 ),
               ),
       ),
@@ -380,24 +476,83 @@ class ButtonReport extends StatelessWidget {
   }
 }
 
-class ButtonEditPlanReport extends StatelessWidget {
-  ButtonEditPlanReport({
+class ButtonReportCycle3 extends StatelessWidget {
+  ButtonReportCycle3({
+    Key? key,
+    required this.widget,
+    required this.isReport,
+  }) : super(key: key);
+  final UserDashboard widget;
+  int isReport;
+
+  @override
+  Widget build(BuildContext context) {
+    return FractionallySizedBox(
+      widthFactor: 1,
+      child: Container(
+        padding: const EdgeInsets.all(10),
+        child: isReport == 3
+            ? ElevatedButton.icon(
+                style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all<Color>(
+                        const Color(0xffd9dedf))),
+                onPressed: () => Navigator.push<AppBloc>(
+                  context,
+                  MaterialPageRoute(
+                    builder: (BuildContext context) => ReportForm(
+                      userData: widget.userData,
+                    ),
+                  ),
+                ),
+                icon: const Icon(
+                  Icons.description_outlined,
+                  color: Colors.black,
+                ),
+                label: const Text(
+                  'รายงานผลรอบ 12 เดือน',
+                  style: TextStyle(color: Colors.black),
+                ),
+              )
+            : ElevatedButton.icon(
+                style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all<Color>(
+                        const Color(0xffd9dedf))),
+                onPressed: null,
+                icon: const Icon(
+                  Icons.description_outlined,
+                ),
+                label: const Text(
+                  'รายงานผลรอบ 12 เดือน',
+                ),
+              ),
+      ),
+    );
+  }
+}
+
+class ButtonEditReportCycle1 extends StatefulWidget {
+  ButtonEditReportCycle1({
     Key? key,
     required this.widget,
     required this.isReport,
     required this.reportId,
   }) : super(key: key);
   final UserDashboard widget;
-  String isReport = '';
-  String reportId = '';
+  int isReport;
+  String reportId;
 
+  @override
+  State<ButtonEditReportCycle1> createState() => _ButtonEditReportCycle1State();
+}
+
+class _ButtonEditReportCycle1State extends State<ButtonEditReportCycle1> {
   @override
   Widget build(BuildContext context) {
     return FractionallySizedBox(
       widthFactor: 1,
       child: Container(
         padding: const EdgeInsets.all(10),
-        child: isReport != ''
+        child: widget.isReport != ''
             ? ElevatedButton.icon(
                 style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all<Color>(
@@ -406,7 +561,8 @@ class ButtonEditPlanReport extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder: (BuildContext context) => EditReportForm(
-                        userData: widget.userData, reportId: reportId),
+                        userData: widget.widget.userData,
+                        reportId: widget.reportId),
                   ),
                 ),
                 icon: const Icon(
@@ -414,7 +570,7 @@ class ButtonEditPlanReport extends StatelessWidget {
                   color: Colors.black,
                 ),
                 label: const Text(
-                  'แก้ไขรายงานแผนประจำปี',
+                  'แก้ไขรายงานแผน',
                   style: TextStyle(color: Colors.black),
                 ),
               )
@@ -427,7 +583,7 @@ class ButtonEditPlanReport extends StatelessWidget {
                   Icons.edit_outlined,
                 ),
                 label: const Text(
-                  'แก้ไขรายงานแผนประจำปี',
+                  'แก้ไขรายงานแผน',
                 ),
               ),
       ),
@@ -435,14 +591,68 @@ class ButtonEditPlanReport extends StatelessWidget {
   }
 }
 
-class ButtonEditReport extends StatelessWidget {
-  ButtonEditReport({
+class ButtonEditReportCycle2 extends StatelessWidget {
+  ButtonEditReportCycle2({
+    Key? key,
+    required this.widget,
+    required this.isReport1,
+  }) : super(key: key);
+  final UserDashboard widget;
+  int isReport1;
+
+  @override
+  Widget build(BuildContext context) {
+    return FractionallySizedBox(
+      widthFactor: 1,
+      child: Container(
+        padding: const EdgeInsets.all(10),
+        child: isReport1 >= 2
+            ? ElevatedButton.icon(
+                style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all<Color>(
+                        const Color(0xffd9dedf))),
+                onPressed: () => Navigator.push<AppBloc>(
+                  context,
+                  MaterialPageRoute(
+                    builder: (BuildContext context) => ReportForm(
+                      userData: widget.userData,
+                    ),
+                  ),
+                ),
+                icon: const Icon(
+                  Icons.edit_outlined,
+                  color: Colors.black,
+                ),
+                label: const Text(
+                  'แก้ไขรายงานผล 6 เดือน',
+                  style: TextStyle(color: Colors.black),
+                ),
+              )
+            : ElevatedButton.icon(
+                style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all<Color>(
+                        const Color(0xffd9dedf))),
+                onPressed: null,
+                icon: const Icon(
+                  Icons.edit_outlined,
+                ),
+                label: const Text(
+                  'แก้ไขรายงานผล 6 เดือน',
+                ),
+              ),
+      ),
+    );
+  }
+}
+
+class ButtonEditReportCycle3 extends StatelessWidget {
+  ButtonEditReportCycle3({
     Key? key,
     required this.widget,
     required this.isReport,
   }) : super(key: key);
   final UserDashboard widget;
-  String isReport = '';
+  int isReport;
 
   @override
   Widget build(BuildContext context) {
@@ -468,7 +678,7 @@ class ButtonEditReport extends StatelessWidget {
                   color: Colors.black,
                 ),
                 label: const Text(
-                  'แก้ไขรายงานผลประจำปี',
+                  'แก้ไขรายงานผล 12 เดือน',
                   style: TextStyle(color: Colors.black),
                 ),
               )
@@ -481,7 +691,7 @@ class ButtonEditReport extends StatelessWidget {
                   Icons.edit_outlined,
                 ),
                 label: const Text(
-                  'แก้ไขรายงานผลประจำปี',
+                  'แก้ไขรายงานผล 12 เดือน',
                 ),
               ),
       ),

@@ -32,11 +32,13 @@ class _ReportFormState extends State<ReportForm> {
   List<Asis> asisList = [];
   List<ApKuqs> apkuqaList = [];
   List<Ap> apList = [];
+  String currentCycle = '1';
+  String currentYear = '2565';
 
   Future addDoc(String uid) async {
     // Call the user's CollectionReference to add a new user
     return reports.add({
-      'status': 'ส่งรายงานแผนแล้ว',
+      'status': 1,
       'tobe': tobe,
       'swotAsIs': swotAsIs,
       'createTime': DateTime.now(), // John Doe
@@ -44,7 +46,8 @@ class _ReportFormState extends State<ReportForm> {
       'segmentNameTH': widget.userData.segmentNameTH,
       'segmentName': widget.userData.segmentName,
       'owner': widget.userData.uid,
-      'year': '1/2565',
+      'cycle': currentCycle,
+      'year': currentYear,
       'asIs': asisList.map((e) => e.toJson()).toList(),
       'apkuqa': apkuqaList.map((e) => e.toJson()).toList(),
       'ap': apList.map((e) => e.toJson()).toList(),
@@ -714,7 +717,7 @@ class _ReportFormState extends State<ReportForm> {
                               Expanded(
                                 flex: 5,
                                 child: TextTableWidget(
-                                    text: 'เป้าหมาย/ประเด็นการจัดการความรู้'),
+                                    text: 'เป้าหมาย/ประเด็นการจัดการความรู้ '),
                               ),
                               Expanded(
                                 flex: 5,
@@ -740,7 +743,7 @@ class _ReportFormState extends State<ReportForm> {
                               Expanded(
                                 flex: 5,
                                 child: TextTableWidget(
-                                    text: 'กิจกรรมการจัดการความรู้'),
+                                    text: 'กิจกรรมการจัดการความรู้ '),
                               ),
                               Expanded(
                                 flex: 5,
@@ -893,7 +896,7 @@ class _ReportFormState extends State<ReportForm> {
                                                                 decoration:
                                                                     const InputDecoration(
                                                                   label: Text(
-                                                                      'เป้าหมาย/ประเด็นการจัดการความรู้'),
+                                                                      'เป้าหมาย/ประเด็นการจัดการความรู้ '),
                                                                   border:
                                                                       OutlineInputBorder(),
                                                                 ),
@@ -901,7 +904,7 @@ class _ReportFormState extends State<ReportForm> {
                                                                     (input) {
                                                                   if (input!
                                                                       .isEmpty) {
-                                                                    return 'กรุณาระบุบ เป้าหมาย/ประเด็นการจัดการความรู้';
+                                                                    return 'กรุณาระบุบ เป้าหมาย/ประเด็นการจัดการความรู้ ';
                                                                   }
                                                                   buff.insert(
                                                                       0, input);
@@ -1063,7 +1066,7 @@ class _ReportFormState extends State<ReportForm> {
                                                                 decoration:
                                                                     const InputDecoration(
                                                                   label: Text(
-                                                                      'กิจกรรมการจัดการความรู้'),
+                                                                      'กิจกรรมการจัดการความรู้ '),
                                                                   border:
                                                                       OutlineInputBorder(),
                                                                 ),
@@ -1071,7 +1074,7 @@ class _ReportFormState extends State<ReportForm> {
                                                                     (input) {
                                                                   if (input!
                                                                       .isEmpty) {
-                                                                    return 'กรุณาระบุบ กิจกรรมการจัดการความรู้';
+                                                                    return 'กรุณาระบุบ กิจกรรมการจัดการความรู้ ';
                                                                   }
                                                                   buff.insert(
                                                                       5, input);

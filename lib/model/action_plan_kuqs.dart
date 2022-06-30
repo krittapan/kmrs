@@ -13,7 +13,7 @@ class ApKuqs {
   late final String budget;
   late final String responsiblePerson;
   bool? targetCheck = false;
-  String? obligationsCheck = 'ไม่ตรงตามยุทธศาสตร์';
+  late String? obligationsCheck;
   bool? objectiveCheck = false;
   bool? outputCheck = false;
   bool? successMetricsCheck = false;
@@ -79,7 +79,7 @@ class ApKuqs {
     data['responsible_person'] = this.responsiblePerson;
     data['targetCheck'] = this.targetCheck;
     data['obligationsCheck'] = this.obligationsCheck;
-    //data['obligationsCheck'] = "ไม่ตรงตามยุทธศาสตร์";
+    //data['obligationsCheck'] = "ไม่ตรงตามยุทธศาสตร์ ";
     data['objectiveCheck'] = this.objectiveCheck;
     data['outputCheck'] = this.outputCheck;
     data['successMetricsCheck'] = this.successMetricsCheck;

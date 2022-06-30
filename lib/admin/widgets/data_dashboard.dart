@@ -20,8 +20,8 @@ class _DataDashboardState extends State<DataDashboard> {
   void initState() {
     super.initState();
 
-    _iframeElement.height = '600';
-    _iframeElement.width = '800';
+    //_iframeElement.height = '600';
+    //_iframeElement.width = '800';
 
     _iframeElement.src =
         'https://datastudio.google.com/embed/reporting/873b3f9a-cbf7-4334-aec5-4ac2684ccee7/page/TghnC';

@@ -154,31 +154,36 @@ class BackgroundLogIn extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.end,
-          children: const <Widget>[
-            Text(
-              'ระบบรายงานการจัดการความรู้ภายในส่วนงาน ',
-              style: TextStyle(
-                color: Color.fromRGBO(0, 102, 102, 1),
-                fontSize: 32,
-                fontWeight: FontWeight.bold,
-              ),
+          children: <Widget>[
+            Container(
+              margin: const EdgeInsets.all(30),
+              child: Image.network(
+                  'https://firebasestorage.googleapis.com/v0/b/kukmrs.appspot.com/o/logo%2Fkukmrs-logo.png?alt=media&token=9874c6c8-4acd-4237-a1cb-08625511854d'),
             ),
-            Text(
-              'ส่วนงานการจัดการความรู้ภายใน ',
-              style: TextStyle(
-                color: Color.fromRGBO(0, 102, 102, 1),
-                fontSize: 32,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            Text(
-              'มหาวิทยาลัยเกษตรศาสตร์ ',
-              style: TextStyle(
-                color: Color.fromRGBO(0, 102, 102, 1),
-                fontSize: 32,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+            // const Text(
+            //   'ระบบรายงานการจัดการความรู้ภายในส่วนงาน ',
+            //   style: TextStyle(
+            //     color: Color.fromRGBO(0, 102, 102, 1),
+            //     fontSize: 22,
+            //     fontWeight: FontWeight.bold,
+            //   ),
+            // ),
+            // const Text(
+            //   'ส่วนงานการจัดการความรู้ภายใน ',
+            //   style: TextStyle(
+            //     color: Color.fromRGBO(0, 102, 102, 1),
+            //     fontSize: 22,
+            //     fontWeight: FontWeight.bold,
+            //   ),
+            // ),
+            // const Text(
+            //   'มหาวิทยาลัยเกษตรศาสตร์ ',
+            //   style: TextStyle(
+            //     color: Color.fromRGBO(0, 102, 102, 1),
+            //     fontSize: 22,
+            //     fontWeight: FontWeight.bold,
+            //   ),
+            // ),
           ],
         ),
       ),

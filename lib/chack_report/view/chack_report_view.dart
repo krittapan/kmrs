@@ -37,6 +37,10 @@ class _ChackReportFormState extends State<ChackReportForm> {
   List<String> buff = [];
   List<String> buff1 = [];
   late String tobe = '';
+  late String tobeComment = '';
+  late String asisComment = '';
+  late String apkuqaComment = '';
+  late String apComment = '';
   late String swotAsIs = '';
   late String segmentNameTH = '';
   late List<Asis> asisList = [];
@@ -71,7 +75,7 @@ class _ChackReportFormState extends State<ChackReportForm> {
     'มั่นคง',
   ];
   List<String> items = [
-    'ไม่ตรงตามยุทธศาสตร์',
+    'ไม่ตรงตามยุทธศาสตร์ ',
     'ยุทธศาสตร์ที่ 1',
     'ยุทธศาสตร์ที่ 2',
     'ยุทธศาสตร์ที่ 3',
@@ -143,12 +147,33 @@ class _ChackReportFormState extends State<ChackReportForm> {
     // Call the user's CollectionReference to add a new user
     return reports.doc(widget.reportId).update({
       //'status': 'ส่งรายงานแผนแล้ว',
-      'status': 'ตรวจสอบรายงานแผนแล้ว',
+      'status': 3,
       'tobeCheck': tobeCheck,
       'swotChack': swotChack,
+      'tobeComment': tobeComment,
+      'asisComment': asisComment,
+      'apkuqaComment': apkuqaComment,
+      'apComment': apComment,
       'asIs': asisList.map((e) => e.toJson()).toList(),
       'apkuqa': apkuqaList.map((e) => e.toJson()).toList(),
       'ap': apList.map((e) => e.toJson()).toList(),
+    });
+  }
+
+  Future addFieldToDoc() async {
+    // Call the user's CollectionReference to add a new user
+    return reports.doc(widget.reportId).update({
+      'tobeComment': 'ไม่มีหมายเหตุ',
+      'asisComment': 'ไม่มีหมายเหตุ',
+      'apkuqaComment': 'ไม่มีหมายเหตุ',
+      'apComment': 'ไม่มีหมายเหตุ',
+      //'status': 'ส่งรายงานแผนแล้ว',
+      // 'status': 3,
+      // 'tobeCheck': tobeCheck,
+      // 'swotChack': swotChack,
+      // 'asIs': asisList.map((e) => e.toJson()).toList(),
+      // 'apkuqa': apkuqaList.map((e) => e.toJson()).toList(),
+      // 'ap': apList.map((e) => e.toJson()).toList(),
     });
   }
 
@@ -289,8 +314,6 @@ class _ChackReportFormState extends State<ChackReportForm> {
                                     return Container(
                                       margin: const EdgeInsets.all(5),
                                       child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
                                         children: [
                                           Row(
                                             crossAxisAlignment:
@@ -364,6 +387,188 @@ class _ChackReportFormState extends State<ChackReportForm> {
                                                       .threatslCheck,
                                                 ),
                                               ),
+                                              IconButton(
+                                                icon: const Icon(
+                                                    Icons.visibility),
+                                                onPressed: () async {
+                                                  await showDialog<Widget>(
+                                                    context: context,
+                                                    builder:
+                                                        (BuildContext context) {
+                                                      return StatefulBuilder(
+                                                          builder: (context,
+                                                              setState) {
+                                                        return AlertDialog(
+                                                          title: const Text(
+                                                              'การวิเคราะห์ตนเองของส่วนงาน (As is)'),
+                                                          content:
+                                                              SingleChildScrollView(
+                                                            child: Container(
+                                                              margin:
+                                                                  const EdgeInsets
+                                                                      .all(10),
+                                                              child: Column(
+                                                                mainAxisSize:
+                                                                    MainAxisSize
+                                                                        .min,
+                                                                children: [
+                                                                  const Text(
+                                                                    'จุดแข็ง (Strengths)',
+                                                                    style:
+                                                                        TextStyle(
+                                                                      color: Colors
+                                                                          .black,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold,
+                                                                    ),
+                                                                  ),
+                                                                  Padding(
+                                                                    padding:
+                                                                        const EdgeInsets
+                                                                            .all(8),
+                                                                    child:
+                                                                        CheckboxListTile(
+                                                                      title: Text(
+                                                                          asisList[index]
+                                                                              .strengths),
+                                                                      onChanged:
+                                                                          (value) {
+                                                                        setState(
+                                                                            () {
+                                                                          asisList[index].strengthsCheck =
+                                                                              !asisList[index].strengthsCheck!;
+                                                                        });
+                                                                      },
+                                                                      value: asisList[
+                                                                              index]
+                                                                          .strengthsCheck,
+                                                                    ),
+                                                                  ),
+                                                                  const Text(
+                                                                    'จุดอ่อน (Weaknesses)',
+                                                                    style:
+                                                                        TextStyle(
+                                                                      color: Colors
+                                                                          .black,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold,
+                                                                    ),
+                                                                  ),
+                                                                  Padding(
+                                                                    padding:
+                                                                        const EdgeInsets
+                                                                            .all(8),
+                                                                    child:
+                                                                        CheckboxListTile(
+                                                                      title: Text(
+                                                                          asisList[index]
+                                                                              .weaknesses),
+                                                                      onChanged:
+                                                                          (value) {
+                                                                        setState(
+                                                                            () {
+                                                                          asisList[index].weaknessesCheck =
+                                                                              !asisList[index].weaknessesCheck!;
+                                                                        });
+                                                                      },
+                                                                      value: asisList[
+                                                                              index]
+                                                                          .weaknessesCheck,
+                                                                    ),
+                                                                  ),
+                                                                  const Text(
+                                                                    'โอกาส (Opportunities)',
+                                                                    style:
+                                                                        TextStyle(
+                                                                      color: Colors
+                                                                          .black,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold,
+                                                                    ),
+                                                                  ),
+                                                                  Padding(
+                                                                    padding:
+                                                                        const EdgeInsets
+                                                                            .all(8),
+                                                                    child:
+                                                                        CheckboxListTile(
+                                                                      title: Text(
+                                                                          asisList[index]
+                                                                              .opportunities),
+                                                                      onChanged:
+                                                                          (value) {
+                                                                        setState(
+                                                                            () {
+                                                                          asisList[index].opportunitiesCheck =
+                                                                              !asisList[index].opportunitiesCheck!;
+                                                                        });
+                                                                      },
+                                                                      value: asisList[
+                                                                              index]
+                                                                          .opportunitiesCheck,
+                                                                    ),
+                                                                  ),
+                                                                  const Text(
+                                                                    'อุปสรรค (Threats)',
+                                                                    style:
+                                                                        TextStyle(
+                                                                      color: Colors
+                                                                          .black,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold,
+                                                                    ),
+                                                                  ),
+                                                                  Padding(
+                                                                    padding:
+                                                                        const EdgeInsets
+                                                                            .all(8),
+                                                                    child:
+                                                                        CheckboxListTile(
+                                                                      title: Text(
+                                                                          asisList[index]
+                                                                              .threatsl),
+                                                                      onChanged:
+                                                                          (value) {
+                                                                        setState(
+                                                                            () {
+                                                                          asisList[index].threatslCheck =
+                                                                              !asisList[index].threatslCheck!;
+                                                                        });
+                                                                      },
+                                                                      value: asisList[
+                                                                              index]
+                                                                          .threatslCheck,
+                                                                    ),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                          ),
+                                                          actions: [
+                                                            TextButton(
+                                                              onPressed: () {
+                                                                Navigator.pop(
+                                                                    context);
+                                                              },
+                                                              child: const Text(
+                                                                'ปิด',
+                                                                style: TextStyle(
+                                                                    color: Colors
+                                                                        .blue),
+                                                              ),
+                                                            )
+                                                          ],
+                                                        );
+                                                      });
+                                                    },
+                                                  );
+                                                  setState(() {});
+                                                },
+                                              ),
                                             ],
                                           ),
                                         ],
@@ -406,6 +611,29 @@ class _ChackReportFormState extends State<ChackReportForm> {
                                   ),
                                 ),
                               ],
+                            ),
+                          ),
+                          const Text(
+                            'หมายเหตุ',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                            ),
+                          ),
+                          Container(
+                            margin: const EdgeInsets.all(10),
+                            child: TextFormField(
+                              onChanged: (value) => asisComment = value,
+                              keyboardType: TextInputType.multiline,
+                              maxLines: null,
+                              minLines: 1,
+                              decoration: const InputDecoration(
+                                border: OutlineInputBorder(),
+                              ),
+                              style: const TextStyle(
+                                fontSize: 16,
+                              ),
                             ),
                           ),
                         ],
@@ -669,6 +897,352 @@ class _ChackReportFormState extends State<ChackReportForm> {
                                                 child: Text(apkuqaList[index]
                                                     .responsiblePerson),
                                               ),
+                                              IconButton(
+                                                icon: const Icon(
+                                                    Icons.visibility),
+                                                onPressed: () async {
+                                                  await showDialog<Widget>(
+                                                    context: context,
+                                                    builder:
+                                                        (BuildContext context) {
+                                                      return StatefulBuilder(
+                                                          builder: (context,
+                                                              setState) {
+                                                        return AlertDialog(
+                                                          title: const Text(
+                                                            'แนวทางการจัดการความรู้ที่สนับสนุนยุทธศาสตร์ หรือภาระหน้าที่ตาม KUQS ของส่วนงาน สู่ความสำเร็จ (KM Action plans)',
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                              fontSize: 20,
+                                                            ),
+                                                          ),
+                                                          content:
+                                                              SingleChildScrollView(
+                                                            child: Container(
+                                                              margin:
+                                                                  const EdgeInsets
+                                                                      .all(10),
+                                                              child: Column(
+                                                                mainAxisSize:
+                                                                    MainAxisSize
+                                                                        .min,
+                                                                children: [
+                                                                  const Text(
+                                                                    'เป้าหมาย/ประเด็นการจัดการความรู้ ',
+                                                                    style:
+                                                                        TextStyle(
+                                                                      color: Colors
+                                                                          .black,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold,
+                                                                    ),
+                                                                  ),
+                                                                  Padding(
+                                                                    padding:
+                                                                        const EdgeInsets
+                                                                            .all(8),
+                                                                    child:
+                                                                        CheckboxListTile(
+                                                                      title: Text(
+                                                                          apkuqaList[index]
+                                                                              .target),
+                                                                      onChanged:
+                                                                          (value) {
+                                                                        setState(
+                                                                            () {
+                                                                          apkuqaList[index].targetCheck =
+                                                                              !apkuqaList[index].targetCheck!;
+                                                                        });
+                                                                      },
+                                                                      value: apkuqaList[
+                                                                              index]
+                                                                          .targetCheck,
+                                                                    ),
+                                                                  ),
+                                                                  const Text(
+                                                                    'ความสอดคล้องกับยุทธศาสตร์ หรือภาระหน้าที่ตาม KUQS/พันธกิจ',
+                                                                    style:
+                                                                        TextStyle(
+                                                                      color: Colors
+                                                                          .black,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold,
+                                                                    ),
+                                                                  ),
+                                                                  Padding(
+                                                                    padding:
+                                                                        const EdgeInsets
+                                                                            .all(8),
+                                                                    child: Row(
+                                                                      children: [
+                                                                        Text(apkuqaList[index]
+                                                                            .obligations),
+                                                                        Container(
+                                                                          padding: const EdgeInsets.fromLTRB(
+                                                                              5,
+                                                                              0,
+                                                                              5,
+                                                                              0),
+                                                                          width:
+                                                                              200,
+                                                                          child:
+                                                                              DropdownButtonHideUnderline(
+                                                                            child:
+                                                                                DropdownButton(
+                                                                              alignment: Alignment.bottomRight,
+                                                                              isExpanded: true,
+                                                                              items: items.map<DropdownMenuItem<String>>((String value) {
+                                                                                return DropdownMenuItem<String>(
+                                                                                  value: value,
+                                                                                  child: Text(value),
+                                                                                );
+                                                                              }).toList(),
+                                                                              onChanged: (String? newValue) {
+                                                                                setState(() {
+                                                                                  apkuqaList[index].obligationsCheck = newValue;
+                                                                                });
+                                                                              },
+                                                                              value: apkuqaList[index].obligationsCheck,
+                                                                            ),
+                                                                          ),
+                                                                        ),
+                                                                      ],
+                                                                    ),
+                                                                  ),
+                                                                  const Text(
+                                                                    'วัตถุประสงค์',
+                                                                    style:
+                                                                        TextStyle(
+                                                                      color: Colors
+                                                                          .black,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold,
+                                                                    ),
+                                                                  ),
+                                                                  Padding(
+                                                                    padding:
+                                                                        const EdgeInsets
+                                                                            .all(8),
+                                                                    child:
+                                                                        CheckboxListTile(
+                                                                      title: Text(
+                                                                          apkuqaList[index]
+                                                                              .objective),
+                                                                      onChanged:
+                                                                          (value) {
+                                                                        setState(
+                                                                            () {
+                                                                          apkuqaList[index].objectiveCheck =
+                                                                              !apkuqaList[index].objectiveCheck!;
+                                                                        });
+                                                                      },
+                                                                      value: apkuqaList[
+                                                                              index]
+                                                                          .objectiveCheck,
+                                                                    ),
+                                                                  ),
+                                                                  const Text(
+                                                                    'ผลผลิต/ผลลัพธ์ที่คาดว่าจะได้รับ(Output/Outcome)',
+                                                                    style:
+                                                                        TextStyle(
+                                                                      color: Colors
+                                                                          .black,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold,
+                                                                    ),
+                                                                  ),
+                                                                  Padding(
+                                                                    padding:
+                                                                        const EdgeInsets
+                                                                            .all(8),
+                                                                    child:
+                                                                        CheckboxListTile(
+                                                                      title: Text(
+                                                                          apkuqaList[index]
+                                                                              .output),
+                                                                      onChanged:
+                                                                          (value) {
+                                                                        setState(
+                                                                            () {
+                                                                          apkuqaList[index].outputCheck =
+                                                                              !apkuqaList[index].outputCheck!;
+                                                                        });
+                                                                      },
+                                                                      value: apkuqaList[
+                                                                              index]
+                                                                          .outputCheck,
+                                                                    ),
+                                                                  ),
+                                                                  const Text(
+                                                                    'ตัวชี้วัดความสำเร็จ',
+                                                                    style:
+                                                                        TextStyle(
+                                                                      color: Colors
+                                                                          .black,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold,
+                                                                    ),
+                                                                  ),
+                                                                  Padding(
+                                                                    padding:
+                                                                        const EdgeInsets
+                                                                            .all(8),
+                                                                    child:
+                                                                        CheckboxListTile(
+                                                                      title: Text(
+                                                                          apkuqaList[index]
+                                                                              .success_metrics),
+                                                                      onChanged:
+                                                                          (value) {
+                                                                        setState(
+                                                                            () {
+                                                                          apkuqaList[index].successMetricsCheck =
+                                                                              !apkuqaList[index].successMetricsCheck!;
+                                                                        });
+                                                                      },
+                                                                      value: apkuqaList[
+                                                                              index]
+                                                                          .successMetricsCheck,
+                                                                    ),
+                                                                  ),
+                                                                  const Text(
+                                                                    'กิจกรรมการจัดการความรู้',
+                                                                    style:
+                                                                        TextStyle(
+                                                                      color: Colors
+                                                                          .black,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold,
+                                                                    ),
+                                                                  ),
+                                                                  Padding(
+                                                                    padding:
+                                                                        const EdgeInsets
+                                                                            .all(8),
+                                                                    child:
+                                                                        CheckboxListTile(
+                                                                      title: Text(
+                                                                          apkuqaList[index]
+                                                                              .knowledgeManagementActivities),
+                                                                      onChanged:
+                                                                          (value) {
+                                                                        setState(
+                                                                            () {
+                                                                          apkuqaList[index].knowledgeManagementActivitiesCheck =
+                                                                              !apkuqaList[index].knowledgeManagementActivitiesCheck!;
+                                                                        });
+                                                                      },
+                                                                      value: apkuqaList[
+                                                                              index]
+                                                                          .knowledgeManagementActivitiesCheck,
+                                                                    ),
+                                                                  ),
+                                                                  const Text(
+                                                                    'ระยะเวลาที่ดำเนินการ',
+                                                                    style:
+                                                                        TextStyle(
+                                                                      color: Colors
+                                                                          .black,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold,
+                                                                    ),
+                                                                  ),
+                                                                  Padding(
+                                                                    padding:
+                                                                        const EdgeInsets
+                                                                            .all(8),
+                                                                    child:
+                                                                        CheckboxListTile(
+                                                                      title: Text(
+                                                                          apkuqaList[index]
+                                                                              .periodOperated),
+                                                                      onChanged:
+                                                                          (value) {
+                                                                        setState(
+                                                                            () {
+                                                                          apkuqaList[index].periodOperatedCheck =
+                                                                              !apkuqaList[index].periodOperatedCheck!;
+                                                                        });
+                                                                      },
+                                                                      value: apkuqaList[
+                                                                              index]
+                                                                          .periodOperatedCheck,
+                                                                    ),
+                                                                  ),
+                                                                  const Text(
+                                                                    'งบประมาณ',
+                                                                    style:
+                                                                        TextStyle(
+                                                                      color: Colors
+                                                                          .black,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold,
+                                                                    ),
+                                                                  ),
+                                                                  Padding(
+                                                                    padding:
+                                                                        const EdgeInsets
+                                                                            .all(8),
+                                                                    child: Text(
+                                                                        apkuqaList[index]
+                                                                            .budget),
+                                                                  ),
+                                                                  const Text(
+                                                                    'ผู้รับผิดชอบหลัก',
+                                                                    style:
+                                                                        TextStyle(
+                                                                      color: Colors
+                                                                          .black,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold,
+                                                                    ),
+                                                                  ),
+                                                                  Padding(
+                                                                    padding:
+                                                                        const EdgeInsets
+                                                                            .all(8),
+                                                                    child: Text(
+                                                                        apkuqaList[index]
+                                                                            .responsiblePerson),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                          ),
+                                                          actions: [
+                                                            TextButton(
+                                                              onPressed: () {
+                                                                Navigator.pop(
+                                                                    context);
+                                                              },
+                                                              child: const Text(
+                                                                'ปิด',
+                                                                style: TextStyle(
+                                                                    color: Colors
+                                                                        .blue),
+                                                              ),
+                                                            )
+                                                          ],
+                                                        );
+                                                      });
+                                                    },
+                                                  );
+                                                  setState(() {});
+                                                },
+                                              )
                                             ],
                                           ),
                                         ],
@@ -679,6 +1253,29 @@ class _ChackReportFormState extends State<ChackReportForm> {
                                 const Divider(),
                                 const SizedBox(height: 20),
                               ],
+                            ),
+                          ),
+                          const Text(
+                            'หมายเหตุ',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                            ),
+                          ),
+                          Container(
+                            margin: const EdgeInsets.all(10),
+                            child: TextFormField(
+                              onChanged: (value) => apkuqaComment = value,
+                              keyboardType: TextInputType.multiline,
+                              maxLines: null,
+                              minLines: 1,
+                              decoration: const InputDecoration(
+                                border: OutlineInputBorder(),
+                              ),
+                              style: const TextStyle(
+                                fontSize: 16,
+                              ),
                             ),
                           ),
                         ],
@@ -860,6 +1457,182 @@ class _ChackReportFormState extends State<ChackReportForm> {
                                                       .guidelinesCheck,
                                                 ),
                                               ),
+                                              IconButton(
+                                                icon: const Icon(
+                                                    Icons.visibility),
+                                                onPressed: () async {
+                                                  await showDialog<Widget>(
+                                                    context: context,
+                                                    builder:
+                                                        (BuildContext context) {
+                                                      return StatefulBuilder(
+                                                          builder: (context,
+                                                              setState) {
+                                                        return AlertDialog(
+                                                          title: const Text(
+                                                            'การจัดการสินทรัพย์ความรู้ที่เกิดจากการดำเนินการตามแผน KM Action Plans เพื่อประโยชน์สูงสุดของส่วนงาน',
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                              fontSize: 20,
+                                                            ),
+                                                          ),
+                                                          content:
+                                                              SingleChildScrollView(
+                                                            child: Container(
+                                                              margin:
+                                                                  const EdgeInsets
+                                                                      .all(10),
+                                                              child: Column(
+                                                                mainAxisSize:
+                                                                    MainAxisSize
+                                                                        .min,
+                                                                children: [
+                                                                  const Text(
+                                                                    'รายการสินทรัพย์ความรู้ที่จะได้รับจากการดำเนินการตามแผน ฯ',
+                                                                    style:
+                                                                        TextStyle(
+                                                                      color: Colors
+                                                                          .black,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold,
+                                                                    ),
+                                                                  ),
+                                                                  Padding(
+                                                                    padding:
+                                                                        const EdgeInsets
+                                                                            .all(8),
+                                                                    child:
+                                                                        CheckboxListTile(
+                                                                      title: Text(
+                                                                          apkuqaList[index]
+                                                                              .target),
+                                                                      onChanged:
+                                                                          (value) {
+                                                                        setState(
+                                                                            () {
+                                                                          apkuqaList[index].targetCheck =
+                                                                              !apkuqaList[index].targetCheck!;
+                                                                        });
+                                                                      },
+                                                                      value: apkuqaList[
+                                                                              index]
+                                                                          .targetCheck,
+                                                                    ),
+                                                                  ),
+                                                                  const Text(
+                                                                    'แหล่งจัดเก็บและเผยแพร่สินทรัพย์ความรู้ ',
+                                                                    style:
+                                                                        TextStyle(
+                                                                      color: Colors
+                                                                          .black,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold,
+                                                                    ),
+                                                                  ),
+                                                                  Padding(
+                                                                    padding:
+                                                                        const EdgeInsets
+                                                                            .all(8),
+                                                                    child: Row(
+                                                                      children: [
+                                                                        Text(apkuqaList[index]
+                                                                            .obligations),
+                                                                        Container(
+                                                                          padding: const EdgeInsets.fromLTRB(
+                                                                              5,
+                                                                              0,
+                                                                              5,
+                                                                              0),
+                                                                          width:
+                                                                              200,
+                                                                          child:
+                                                                              DropdownButtonHideUnderline(
+                                                                            child:
+                                                                                DropdownButton(
+                                                                              alignment: Alignment.bottomRight,
+                                                                              isExpanded: true,
+                                                                              items: items.map<DropdownMenuItem<String>>((String value) {
+                                                                                return DropdownMenuItem<String>(
+                                                                                  value: value,
+                                                                                  child: Text(value),
+                                                                                );
+                                                                              }).toList(),
+                                                                              onChanged: (String? newValue) {
+                                                                                setState(() {
+                                                                                  apList[index].storageCheck = newValue;
+                                                                                });
+                                                                              },
+                                                                              value: apList[index].storageCheck,
+                                                                            ),
+                                                                          ),
+                                                                        ),
+                                                                      ],
+                                                                    ),
+                                                                  ),
+                                                                  const Text(
+                                                                    'แนวทางการนำสินทรัพย์ความรู้ไปใช้ให้เกิดประโยชน์สูงสุดต่อส่วนงาน',
+                                                                    style:
+                                                                        TextStyle(
+                                                                      color: Colors
+                                                                          .black,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold,
+                                                                    ),
+                                                                  ),
+                                                                  Padding(
+                                                                    padding:
+                                                                        const EdgeInsets
+                                                                            .all(8),
+                                                                    child:
+                                                                        CheckboxListTile(
+                                                                      title: Text(
+                                                                          apList[index]
+                                                                              .guidelines),
+                                                                      onChanged:
+                                                                          (value) {
+                                                                        setState(
+                                                                            () {
+                                                                          apList[index].guidelinesCheck =
+                                                                              !apList[index].guidelinesCheck!;
+                                                                        });
+                                                                      },
+                                                                      value: apList[
+                                                                              index]
+                                                                          .guidelinesCheck,
+                                                                    ),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                          ),
+                                                          actions: [
+                                                            TextButton(
+                                                              onPressed: () {
+                                                                Navigator.pop(
+                                                                    context);
+                                                              },
+                                                              child: const Text(
+                                                                'ปิด',
+                                                                style: TextStyle(
+                                                                    color: Colors
+                                                                        .blue),
+                                                              ),
+                                                            )
+                                                          ],
+                                                        );
+                                                      });
+                                                    },
+                                                  );
+                                                  setState(() {});
+                                                },
+                                              )
                                             ],
                                           ),
                                         ],
@@ -870,6 +1643,29 @@ class _ChackReportFormState extends State<ChackReportForm> {
                                 const Divider(),
                                 const SizedBox(height: 20),
                               ],
+                            ),
+                          ),
+                          const Text(
+                            'หมายเหตุ',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                            ),
+                          ),
+                          Container(
+                            margin: const EdgeInsets.all(10),
+                            child: TextFormField(
+                              onChanged: (value) => apComment = value,
+                              keyboardType: TextInputType.multiline,
+                              maxLines: null,
+                              minLines: 1,
+                              decoration: const InputDecoration(
+                                border: OutlineInputBorder(),
+                              ),
+                              style: const TextStyle(
+                                fontSize: 16,
+                              ),
                             ),
                           ),
                         ],
@@ -1110,6 +1906,29 @@ class _ChackReportFormState extends State<ChackReportForm> {
                   );
                 },
                 child: const Text('ตรวจสอบ'),
+              ),
+            ),
+            const Text(
+              'หมายเหตุ',
+              style: TextStyle(
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
+              ),
+            ),
+            Container(
+              margin: const EdgeInsets.all(10),
+              child: TextFormField(
+                onChanged: (value) => tobeComment = value,
+                keyboardType: TextInputType.multiline,
+                maxLines: null,
+                minLines: 1,
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                ),
+                style: const TextStyle(
+                  fontSize: 16,
+                ),
               ),
             ),
           ],

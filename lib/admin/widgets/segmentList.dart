@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:intl/intl.dart';
 import 'package:kmrs/app/app.dart';
 import 'package:kmrs/chack_report/chack_report.dart';
 import 'package:kmrs/keyword/keyword_setting.dart';
@@ -24,6 +25,23 @@ class SegmentList extends StatefulWidget {
 }
 
 class _SegmentListState extends State<SegmentList> {
+  String statusToString(int status) {
+    switch (status) {
+      case 1:
+        return 'ไม่ส่งรายงาน';
+      case 2:
+        return 'ส่งรายงาน';
+      case 3:
+        return 'เจ้าหน้าที่ตรวจสอบรายงาน';
+      case 4:
+        return 'เจ้าหน้าที่ตรวจสอบรายงาน มีหมายเหตุปรับปรุงแก้ไข';
+      case 5:
+        return 'ตรวจสอบรายงาน เสร็จสมบรูณ์';
+      default:
+        return 'ไม่ทราบสถานะ';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final Stream<QuerySnapshot> _reportStream = FirebaseFirestore.instance
@@ -87,7 +105,17 @@ class _SegmentListState extends State<SegmentList> {
                               Expanded(
                                 flex: 2,
                                 child: Text(
-                                  data['status'].toString(),
+                                  DateFormat('dd-MM-yyyy – kk:mm')
+                                      .format((data['createTime'] as Timestamp)
+                                          .toDate())
+                                      .toString(),
+                                  style: const TextStyle(color: Colors.black),
+                                ),
+                              ),
+                              Expanded(
+                                flex: 2,
+                                child: Text(
+                                  statusToString(data['status'] as int),
                                   style: const TextStyle(color: Colors.black),
                                   textAlign: TextAlign.center,
                                 ),
