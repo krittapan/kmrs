@@ -3,6 +3,8 @@ import 'dart:html';
 import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+// import 'package:draggable_scrollbar/draggable_scrollbar.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:kmrs/admin/admin.dart';
 import 'package:kmrs/app/app.dart';
@@ -91,9 +93,28 @@ class _ChackReportFormState extends State<ChackReportForm> {
     'คลังดิจิทัล มก.',
     'อื่น ๆ ระบุ',
   ];
-
   List<String> keywordAwsList = [];
-
+  List<String> subTitleNo3 = [
+    'จุดแข็ง (Strengths)',
+    'จุดอ่อน (Weaknesses)',
+    'โอกาส (Opportunities)',
+    'อุปสรรค (Threats)'
+  ];
+  List<String> titleTableNo4 = [
+    'ลำดับ',
+    'เป้าหมาย/ประเด็นการจัดการความรู้',
+    'ความสอดคล้องกับยุทธศาสตร์ หรือภาระหน้าที่ตาม KUQS/พันธกิจ',
+    'วัตถุประสงค์',
+    'ผลผลิต/ผลลัพธ์ที่คาดว่าจะได้รับ(Output/Outcome)',
+    'ตัวชี้วัดความสำเร็จ',
+    'กิจกรรมการจัดการความรู้',
+    'ระยะเวลาที่ดำเนินการ',
+    'งบประมาณ(ถ้ามี)',
+    'ผู้รับผิดชอบหลัก'
+  ];
+//ตัวแปล scroll
+  // final _verticalScrollController = ScrollController();
+  final _horizontalScrollController = ScrollController();
   void chackKeywordFunction(String str) {
     keywordAwsList.clear();
     for (int i = 0; i < keywordList.length; i++) {
@@ -282,30 +303,13 @@ class _ChackReportFormState extends State<ChackReportForm> {
                                 ),
                                 const Divider(),
                                 Row(
-                                  children: [
-                                    Expanded(
-                                      flex: 5,
-                                      child: TextTableWidget(
-                                          text: 'จุดแข็ง (Strengths)'),
-                                    ),
-                                    Expanded(
-                                      flex: 5,
-                                      child: TextTableWidget(
-                                          text: 'จุดอ่อน (Weaknesses)'),
-                                    ),
-                                    Expanded(
-                                      flex: 5,
-                                      child: TextTableWidget(
-                                          text: 'โอกาส (Opportunities)'),
-                                    ),
-                                    Expanded(
-                                      flex: 5,
-                                      child: TextTableWidget(
-                                          text: 'อุปสรรค (Threats)'),
-                                    ),
-                                  ],
+                                  children: List.generate(
+                                      subTitleNo3.length,
+                                      (index) => Expanded(
+                                          flex: 5,
+                                          child: TextTableWidget(
+                                              text: subTitleNo3[index]))),
                                 ),
-                                const Divider(),
                                 ListView.builder(
                                   shrinkWrap: true,
                                   itemCount: asisList.length,
@@ -315,6 +319,7 @@ class _ChackReportFormState extends State<ChackReportForm> {
                                       margin: const EdgeInsets.all(5),
                                       child: Column(
                                         children: [
+                                          const Divider(),
                                           Row(
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
@@ -661,598 +666,594 @@ class _ChackReportFormState extends State<ChackReportForm> {
                               fontSize: 20,
                             ),
                           ),
-                          Container(
-                            margin: const EdgeInsets.all(10),
-                            child: Column(
-                              children: <Widget>[
-                                Row(
-                                  children: [
-                                    Expanded(
-                                      flex: 2,
-                                      child: TextTableWidget(text: 'ลำดับ'),
-                                    ),
-                                    Expanded(
-                                      flex: 7,
-                                      child: TextTableWidget(
-                                          text:
-                                              'เป้าหมาย/ประเด็นการจัดการความรู้'),
-                                    ),
-                                    Expanded(
-                                      flex: 7,
-                                      child: TextTableWidget(
-                                          text:
-                                              'ความสอดคล้องกับยุทธศาสตร์ หรือภาระหน้าที่ตาม KUQS/พันธกิจ'),
-                                    ),
-                                    Expanded(
-                                      flex: 7,
-                                      child:
-                                          TextTableWidget(text: 'วัตถุประสงค์'),
-                                    ),
-                                    Expanded(
-                                      flex: 7,
-                                      child: TextTableWidget(
-                                          text:
-                                              'ผลผลิต/ผลลัพธ์ที่คาดว่าจะได้รับ(Output/Outcome)'),
-                                    ),
-                                    Expanded(
-                                      flex: 7,
-                                      child: TextTableWidget(
-                                          text: 'ตัวชี้วัดความสำเร็จ'),
-                                    ),
-                                    Expanded(
-                                      flex: 7,
-                                      child: TextTableWidget(
-                                          text: 'กิจกรรมการจัดการความรู้'),
-                                    ),
-                                    Expanded(
-                                      flex: 7,
-                                      child: TextTableWidget(
-                                          text: 'ระยะเวลาที่ดำเนินการ'),
-                                    ),
-                                    Expanded(
-                                      flex: 5,
-                                      child: TextTableWidget(
-                                          text: 'งบประมาณ(ถ้ามี)'),
-                                    ),
-                                    Expanded(
-                                      flex: 4,
-                                      child: TextTableWidget(
-                                          text: 'ผู้รับผิดชอบหลัก'),
-                                    ),
-                                  ],
-                                ),
-                                const Divider(),
-                                ListView.builder(
-                                  shrinkWrap: true,
-                                  itemCount: apkuqaList.length,
-                                  itemBuilder:
-                                      (BuildContext context, int index) {
-                                    return Container(
-                                      margin: const EdgeInsets.all(5),
-                                      child: Column(
-                                        children: [
-                                          Row(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
+                          ScrollConfiguration(
+                            behavior: ScrollConfiguration.of(context).copyWith(
+                              dragDevices: {
+                                PointerDeviceKind.touch,
+                                PointerDeviceKind.mouse,
+                              },
+                            ),
+                            child: Scrollbar(
+                              // isAlwaysShown: true,
+                              controller: _horizontalScrollController,
+                              interactive: true,
+                              child: SingleChildScrollView(
+                                scrollDirection: Axis.horizontal,
+                                controller: _horizontalScrollController,
+                                child: DataTable(
+                                    dataRowHeight: 86,
+                                    // dataTextStyle: TextStyle(),
+                                    // columnSpacing: 10,
+                                    columns: List.generate(titleTableNo4.length,
+                                        (index) {
+                                      // ignore: lines_longer_than_80_chars
+                                      return DataColumn(
+                                          label: Expanded(
+                                        // flex: 7,
+                                        child: TextTableWidget(
+                                            text: titleTableNo4[index]),
+                                      ));
+                                    }),
+                                    rows: List.generate(apkuqaList.length,
+                                        (index) {
+                                      return DataRow(cells: [
+                                        DataCell(Text((index + 1).toString())),
+                                        DataCell(
+                                          SizedBox(
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                0.3,
+                                            child: CheckboxListTile(
+                                              title: textCell(
+                                                  apkuqaList[index].target,
+                                                  150),
+                                              onChanged: (value) {
+                                                setState(() {
+                                                  // ignore: lines_longer_than_80_chars
+                                                  apkuqaList[index]
+                                                          .targetCheck =
+                                                      !apkuqaList[index]
+                                                          .targetCheck!;
+                                                });
+                                              },
+                                              value:
+                                                  apkuqaList[index].targetCheck,
+                                            ),
+                                          ),
+                                        ),
+                                        DataCell(
+                                          Column(
                                             children: [
-                                              Expanded(
-                                                flex: 1,
-                                                child: Text(
-                                                    (index + 1).toString()),
-                                              ),
-                                              Expanded(
-                                                flex: 5,
-                                                child: CheckboxListTile(
-                                                  title: Text(
-                                                      apkuqaList[index].target),
-                                                  onChanged: (value) {
-                                                    setState(() {
-                                                      // ignore: lines_longer_than_80_chars
-                                                      apkuqaList[index]
-                                                              .targetCheck =
-                                                          !apkuqaList[index]
-                                                              .targetCheck!;
-                                                    });
-                                                  },
-                                                  value: apkuqaList[index]
-                                                      .targetCheck,
-                                                ),
-                                              ),
-                                              Expanded(
-                                                flex: 5,
-                                                child: Column(
-                                                  children: [
-                                                    Text(apkuqaList[index]
-                                                        .obligations),
-                                                    Container(
-                                                      padding: const EdgeInsets
-                                                          .fromLTRB(5, 0, 5, 0),
-                                                      width: 200,
-                                                      child:
-                                                          DropdownButtonHideUnderline(
-                                                        child: DropdownButton(
-                                                          alignment: Alignment
-                                                              .bottomRight,
-                                                          isExpanded: true,
-                                                          items: items.map<
-                                                              DropdownMenuItem<
-                                                                  String>>((String
-                                                              value) {
-                                                            return DropdownMenuItem<
-                                                                String>(
-                                                              value: value,
-                                                              child:
-                                                                  Text(value),
-                                                            );
-                                                          }).toList(),
-                                                          onChanged: (String?
-                                                              newValue) {
-                                                            setState(() {
-                                                              apkuqaList[index]
-                                                                      .obligationsCheck =
-                                                                  newValue;
-                                                            });
-                                                          },
-                                                          value: apkuqaList[
-                                                                  index]
-                                                              .obligationsCheck,
-                                                        ),
+                                              textCell(
+                                                  apkuqaList[index].obligations,
+                                                  50),
+                                              Container(
+                                                padding:
+                                                    const EdgeInsets.fromLTRB(
+                                                        5, 0, 5, 0),
+                                                child:
+                                                    // ignore: lines_longer_than_80_chars
+                                                    DropdownButtonHideUnderline(
+                                                  child: Column(
+                                                    children: [
+                                                      DropdownButton(
+                                                        alignment: Alignment
+                                                            .bottomRight,
+                                                        isExpanded: true,
+                                                        items: items.map<
+                                                            DropdownMenuItem<
+                                                                String>>((String
+                                                            value) {
+                                                          return DropdownMenuItem<
+                                                              String>(
+                                                            value: value,
+                                                            child: Text(value),
+                                                          );
+                                                        }).toList(),
+                                                        onChanged:
+                                                            (String? newValue) {
+                                                          setState(() {
+                                                            apkuqaList[index]
+                                                                    .obligationsCheck =
+                                                                newValue;
+                                                          });
+                                                        },
+                                                        value: apkuqaList[index]
+                                                            .obligationsCheck,
                                                       ),
-                                                    ),
-                                                  ],
+                                                    ],
+                                                  ),
                                                 ),
                                               ),
-                                              Expanded(
-                                                flex: 5,
-                                                child: CheckboxListTile(
-                                                  title: Text(apkuqaList[index]
-                                                      .objective),
-                                                  onChanged: (value) {
-                                                    setState(() {
-                                                      apkuqaList[index]
-                                                              .objectiveCheck =
-                                                          !apkuqaList[index]
-                                                              .objectiveCheck!;
-                                                    });
-                                                  },
-                                                  value: apkuqaList[index]
-                                                      .objectiveCheck,
-                                                ),
-                                              ),
-                                              Expanded(
-                                                flex: 5,
-                                                child: CheckboxListTile(
-                                                  title: Text(
-                                                      apkuqaList[index].output),
-                                                  onChanged: (value) {
-                                                    setState(() {
-                                                      apkuqaList[index]
-                                                              .outputCheck =
-                                                          !apkuqaList[index]
-                                                              .outputCheck!;
-                                                    });
-                                                  },
-                                                  value: apkuqaList[index]
-                                                      .outputCheck,
-                                                ),
-                                              ),
-                                              Expanded(
-                                                flex: 5,
-                                                child: CheckboxListTile(
-                                                  title: Text(apkuqaList[index]
-                                                      .success_metrics),
-                                                  onChanged: (value) {
-                                                    setState(() {
-                                                      apkuqaList[index]
-                                                              .successMetricsCheck =
-                                                          !apkuqaList[index]
-                                                              .successMetricsCheck!;
-                                                    });
-                                                  },
-                                                  value: apkuqaList[index]
-                                                      .successMetricsCheck,
-                                                ),
-                                              ),
-                                              Expanded(
-                                                flex: 5,
-                                                child: CheckboxListTile(
-                                                  title: Text(apkuqaList[index]
-                                                      .knowledgeManagementActivities),
-                                                  onChanged: (value) {
-                                                    setState(() {
-                                                      apkuqaList[index]
-                                                              .knowledgeManagementActivitiesCheck =
-                                                          !apkuqaList[index]
-                                                              .knowledgeManagementActivitiesCheck!;
-                                                    });
-                                                  },
-                                                  value: apkuqaList[index]
-                                                      .knowledgeManagementActivitiesCheck,
-                                                ),
-                                              ),
-                                              Expanded(
-                                                flex: 3,
-                                                child: CheckboxListTile(
-                                                  title: Text(apkuqaList[index]
-                                                      .periodOperated),
-                                                  onChanged: (value) {
-                                                    setState(() {
-                                                      apkuqaList[index]
-                                                              .periodOperatedCheck =
-                                                          !apkuqaList[index]
-                                                              .periodOperatedCheck!;
-                                                    });
-                                                  },
-                                                  value: apkuqaList[index]
-                                                      .periodOperatedCheck,
-                                                ),
-                                              ),
-                                              Expanded(
-                                                flex: 3,
-                                                child: Text(
-                                                    apkuqaList[index].budget),
-                                              ),
-                                              Expanded(
-                                                flex: 5,
-                                                child: Text(apkuqaList[index]
-                                                    .responsiblePerson),
-                                              ),
-                                              IconButton(
-                                                icon: const Icon(
-                                                    Icons.visibility),
-                                                onPressed: () async {
-                                                  await showDialog<Widget>(
-                                                    context: context,
-                                                    builder:
-                                                        (BuildContext context) {
-                                                      return StatefulBuilder(
-                                                          builder: (context,
-                                                              setState) {
-                                                        return AlertDialog(
-                                                          title: const Text(
-                                                            'แนวทางการจัดการความรู้ที่สนับสนุนยุทธศาสตร์ หรือภาระหน้าที่ตาม KUQS ของส่วนงาน สู่ความสำเร็จ (KM Action plans)',
-                                                            style: TextStyle(
-                                                              color:
-                                                                  Colors.black,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              fontSize: 20,
-                                                            ),
-                                                          ),
-                                                          content:
-                                                              SingleChildScrollView(
-                                                            child: Container(
-                                                              margin:
-                                                                  const EdgeInsets
-                                                                      .all(10),
-                                                              child: Column(
-                                                                mainAxisSize:
-                                                                    MainAxisSize
-                                                                        .min,
-                                                                children: [
-                                                                  const Text(
-                                                                    'เป้าหมาย/ประเด็นการจัดการความรู้ ',
-                                                                    style:
-                                                                        TextStyle(
-                                                                      color: Colors
-                                                                          .black,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .bold,
-                                                                    ),
-                                                                  ),
-                                                                  Padding(
-                                                                    padding:
-                                                                        const EdgeInsets
-                                                                            .all(8),
-                                                                    child:
-                                                                        CheckboxListTile(
-                                                                      title: Text(
-                                                                          apkuqaList[index]
-                                                                              .target),
-                                                                      onChanged:
-                                                                          (value) {
-                                                                        setState(
-                                                                            () {
-                                                                          apkuqaList[index].targetCheck =
-                                                                              !apkuqaList[index].targetCheck!;
-                                                                        });
-                                                                      },
-                                                                      value: apkuqaList[
-                                                                              index]
-                                                                          .targetCheck,
-                                                                    ),
-                                                                  ),
-                                                                  const Text(
-                                                                    'ความสอดคล้องกับยุทธศาสตร์ หรือภาระหน้าที่ตาม KUQS/พันธกิจ',
-                                                                    style:
-                                                                        TextStyle(
-                                                                      color: Colors
-                                                                          .black,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .bold,
-                                                                    ),
-                                                                  ),
-                                                                  Padding(
-                                                                    padding:
-                                                                        const EdgeInsets
-                                                                            .all(8),
-                                                                    child: Row(
-                                                                      children: [
-                                                                        Text(apkuqaList[index]
-                                                                            .obligations),
-                                                                        Container(
-                                                                          padding: const EdgeInsets.fromLTRB(
-                                                                              5,
-                                                                              0,
-                                                                              5,
-                                                                              0),
-                                                                          width:
-                                                                              200,
-                                                                          child:
-                                                                              DropdownButtonHideUnderline(
-                                                                            child:
-                                                                                DropdownButton(
-                                                                              alignment: Alignment.bottomRight,
-                                                                              isExpanded: true,
-                                                                              items: items.map<DropdownMenuItem<String>>((String value) {
-                                                                                return DropdownMenuItem<String>(
-                                                                                  value: value,
-                                                                                  child: Text(value),
-                                                                                );
-                                                                              }).toList(),
-                                                                              onChanged: (String? newValue) {
-                                                                                setState(() {
-                                                                                  apkuqaList[index].obligationsCheck = newValue;
-                                                                                });
-                                                                              },
-                                                                              value: apkuqaList[index].obligationsCheck,
-                                                                            ),
-                                                                          ),
-                                                                        ),
-                                                                      ],
-                                                                    ),
-                                                                  ),
-                                                                  const Text(
-                                                                    'วัตถุประสงค์',
-                                                                    style:
-                                                                        TextStyle(
-                                                                      color: Colors
-                                                                          .black,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .bold,
-                                                                    ),
-                                                                  ),
-                                                                  Padding(
-                                                                    padding:
-                                                                        const EdgeInsets
-                                                                            .all(8),
-                                                                    child:
-                                                                        CheckboxListTile(
-                                                                      title: Text(
-                                                                          apkuqaList[index]
-                                                                              .objective),
-                                                                      onChanged:
-                                                                          (value) {
-                                                                        setState(
-                                                                            () {
-                                                                          apkuqaList[index].objectiveCheck =
-                                                                              !apkuqaList[index].objectiveCheck!;
-                                                                        });
-                                                                      },
-                                                                      value: apkuqaList[
-                                                                              index]
-                                                                          .objectiveCheck,
-                                                                    ),
-                                                                  ),
-                                                                  const Text(
-                                                                    'ผลผลิต/ผลลัพธ์ที่คาดว่าจะได้รับ(Output/Outcome)',
-                                                                    style:
-                                                                        TextStyle(
-                                                                      color: Colors
-                                                                          .black,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .bold,
-                                                                    ),
-                                                                  ),
-                                                                  Padding(
-                                                                    padding:
-                                                                        const EdgeInsets
-                                                                            .all(8),
-                                                                    child:
-                                                                        CheckboxListTile(
-                                                                      title: Text(
-                                                                          apkuqaList[index]
-                                                                              .output),
-                                                                      onChanged:
-                                                                          (value) {
-                                                                        setState(
-                                                                            () {
-                                                                          apkuqaList[index].outputCheck =
-                                                                              !apkuqaList[index].outputCheck!;
-                                                                        });
-                                                                      },
-                                                                      value: apkuqaList[
-                                                                              index]
-                                                                          .outputCheck,
-                                                                    ),
-                                                                  ),
-                                                                  const Text(
-                                                                    'ตัวชี้วัดความสำเร็จ',
-                                                                    style:
-                                                                        TextStyle(
-                                                                      color: Colors
-                                                                          .black,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .bold,
-                                                                    ),
-                                                                  ),
-                                                                  Padding(
-                                                                    padding:
-                                                                        const EdgeInsets
-                                                                            .all(8),
-                                                                    child:
-                                                                        CheckboxListTile(
-                                                                      title: Text(
-                                                                          apkuqaList[index]
-                                                                              .success_metrics),
-                                                                      onChanged:
-                                                                          (value) {
-                                                                        setState(
-                                                                            () {
-                                                                          apkuqaList[index].successMetricsCheck =
-                                                                              !apkuqaList[index].successMetricsCheck!;
-                                                                        });
-                                                                      },
-                                                                      value: apkuqaList[
-                                                                              index]
-                                                                          .successMetricsCheck,
-                                                                    ),
-                                                                  ),
-                                                                  const Text(
-                                                                    'กิจกรรมการจัดการความรู้',
-                                                                    style:
-                                                                        TextStyle(
-                                                                      color: Colors
-                                                                          .black,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .bold,
-                                                                    ),
-                                                                  ),
-                                                                  Padding(
-                                                                    padding:
-                                                                        const EdgeInsets
-                                                                            .all(8),
-                                                                    child:
-                                                                        CheckboxListTile(
-                                                                      title: Text(
-                                                                          apkuqaList[index]
-                                                                              .knowledgeManagementActivities),
-                                                                      onChanged:
-                                                                          (value) {
-                                                                        setState(
-                                                                            () {
-                                                                          apkuqaList[index].knowledgeManagementActivitiesCheck =
-                                                                              !apkuqaList[index].knowledgeManagementActivitiesCheck!;
-                                                                        });
-                                                                      },
-                                                                      value: apkuqaList[
-                                                                              index]
-                                                                          .knowledgeManagementActivitiesCheck,
-                                                                    ),
-                                                                  ),
-                                                                  const Text(
-                                                                    'ระยะเวลาที่ดำเนินการ',
-                                                                    style:
-                                                                        TextStyle(
-                                                                      color: Colors
-                                                                          .black,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .bold,
-                                                                    ),
-                                                                  ),
-                                                                  Padding(
-                                                                    padding:
-                                                                        const EdgeInsets
-                                                                            .all(8),
-                                                                    child:
-                                                                        CheckboxListTile(
-                                                                      title: Text(
-                                                                          apkuqaList[index]
-                                                                              .periodOperated),
-                                                                      onChanged:
-                                                                          (value) {
-                                                                        setState(
-                                                                            () {
-                                                                          apkuqaList[index].periodOperatedCheck =
-                                                                              !apkuqaList[index].periodOperatedCheck!;
-                                                                        });
-                                                                      },
-                                                                      value: apkuqaList[
-                                                                              index]
-                                                                          .periodOperatedCheck,
-                                                                    ),
-                                                                  ),
-                                                                  const Text(
-                                                                    'งบประมาณ',
-                                                                    style:
-                                                                        TextStyle(
-                                                                      color: Colors
-                                                                          .black,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .bold,
-                                                                    ),
-                                                                  ),
-                                                                  Padding(
-                                                                    padding:
-                                                                        const EdgeInsets
-                                                                            .all(8),
-                                                                    child: Text(
-                                                                        apkuqaList[index]
-                                                                            .budget),
-                                                                  ),
-                                                                  const Text(
-                                                                    'ผู้รับผิดชอบหลัก',
-                                                                    style:
-                                                                        TextStyle(
-                                                                      color: Colors
-                                                                          .black,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .bold,
-                                                                    ),
-                                                                  ),
-                                                                  Padding(
-                                                                    padding:
-                                                                        const EdgeInsets
-                                                                            .all(8),
-                                                                    child: Text(
-                                                                        apkuqaList[index]
-                                                                            .responsiblePerson),
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                            ),
-                                                          ),
-                                                          actions: [
-                                                            TextButton(
-                                                              onPressed: () {
-                                                                Navigator.pop(
-                                                                    context);
-                                                              },
-                                                              child: const Text(
-                                                                'ปิด',
-                                                                style: TextStyle(
-                                                                    color: Colors
-                                                                        .blue),
-                                                              ),
-                                                            )
-                                                          ],
-                                                        );
-                                                      });
-                                                    },
-                                                  );
-                                                  setState(() {});
-                                                },
-                                              )
                                             ],
                                           ),
-                                        ],
-                                      ),
-                                    );
-                                  },
-                                ),
-                                const Divider(),
-                                const SizedBox(height: 20),
-                              ],
+                                        ),
+                                        DataCell(
+                                          CheckboxListTile(
+                                            title: SizedBox(
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.3,
+                                              child: textCell(
+                                                  apkuqaList[index].objective,
+                                                  150),
+                                            ),
+                                            onChanged: (value) {
+                                              setState(() {
+                                                apkuqaList[index]
+                                                        .objectiveCheck =
+                                                    !apkuqaList[index]
+                                                        .objectiveCheck!;
+                                              });
+                                            },
+                                            value: apkuqaList[index]
+                                                .objectiveCheck,
+                                          ),
+                                        ),
+                                        DataCell(
+                                          CheckboxListTile(
+                                            title: SizedBox(
+                                                width: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.3,
+                                                child: textCell(
+                                                    apkuqaList[index].output,
+                                                    150)),
+                                            onChanged: (value) {
+                                              setState(() {
+                                                apkuqaList[index].outputCheck =
+                                                    !apkuqaList[index]
+                                                        .outputCheck!;
+                                              });
+                                            },
+                                            value:
+                                                apkuqaList[index].outputCheck,
+                                          ),
+                                        ),
+                                        DataCell(
+                                          SizedBox(
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                0.3,
+                                            child: CheckboxListTile(
+                                              title: textCell(
+                                                  apkuqaList[index]
+                                                      .success_metrics,
+                                                  150),
+                                              onChanged: (value) {
+                                                setState(() {
+                                                  apkuqaList[index]
+                                                          .successMetricsCheck =
+                                                      !apkuqaList[index]
+                                                          .successMetricsCheck!;
+                                                });
+                                              },
+                                              value: apkuqaList[index]
+                                                  .successMetricsCheck,
+                                            ),
+                                          ),
+                                        ),
+                                        DataCell(
+                                          SizedBox(
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                0.3,
+                                            child: CheckboxListTile(
+                                              title: textCell(
+                                                  apkuqaList[index]
+                                                      .knowledgeManagementActivities,
+                                                  150),
+                                              onChanged: (value) {
+                                                setState(() {
+                                                  apkuqaList[index]
+                                                          .knowledgeManagementActivitiesCheck =
+                                                      !apkuqaList[index]
+                                                          .knowledgeManagementActivitiesCheck!;
+                                                });
+                                              },
+                                              value: apkuqaList[index]
+                                                  .knowledgeManagementActivitiesCheck,
+                                            ),
+                                          ),
+                                        ),
+                                        DataCell(
+                                          CheckboxListTile(
+                                            title: Text(apkuqaList[index]
+                                                .periodOperated),
+                                            onChanged: (value) {
+                                              setState(() {
+                                                apkuqaList[index]
+                                                        .periodOperatedCheck =
+                                                    !apkuqaList[index]
+                                                        .periodOperatedCheck!;
+                                              });
+                                            },
+                                            value: apkuqaList[index]
+                                                .periodOperatedCheck,
+                                          ),
+                                        ),
+                                        DataCell(
+                                            Text(apkuqaList[index].budget)),
+                                        DataCell(Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(apkuqaList[index]
+                                                .responsiblePerson),
+                                            IconButton(
+                                              icon:
+                                                  const Icon(Icons.visibility),
+                                              onPressed: () async {
+                                                await showDialog<Widget>(
+                                                  context: context,
+                                                  builder:
+                                                      (BuildContext context) {
+                                                    return StatefulBuilder(
+                                                        builder: (context,
+                                                            setState) {
+                                                      return AlertDialog(
+                                                        title: const Text(
+                                                          'แนวทางการจัดการความรู้ที่สนับสนุนยุทธศาสตร์ หรือภาระหน้าที่ตาม KUQS ของส่วนงาน สู่ความสำเร็จ (KM Action plans)',
+                                                          style: TextStyle(
+                                                            color: Colors.black,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            fontSize: 20,
+                                                          ),
+                                                        ),
+                                                        content:
+                                                            SingleChildScrollView(
+                                                          child: Container(
+                                                            margin:
+                                                                const EdgeInsets
+                                                                    .all(10),
+                                                            child: Column(
+                                                              mainAxisSize:
+                                                                  MainAxisSize
+                                                                      .min,
+                                                              children: [
+                                                                const Text(
+                                                                  'เป้าหมาย/ประเด็นการจัดการความรู้ ',
+                                                                  style:
+                                                                      TextStyle(
+                                                                    color: Colors
+                                                                        .black,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                  ),
+                                                                ),
+                                                                Padding(
+                                                                  padding:
+                                                                      const EdgeInsets
+                                                                          .all(8),
+                                                                  child:
+                                                                      CheckboxListTile(
+                                                                    title: Text(
+                                                                        apkuqaList[index]
+                                                                            .target),
+                                                                    onChanged:
+                                                                        (value) {
+                                                                      setState(
+                                                                          () {
+                                                                        apkuqaList[index]
+                                                                            .targetCheck = !apkuqaList[
+                                                                                index]
+                                                                            .targetCheck!;
+                                                                      });
+                                                                    },
+                                                                    value: apkuqaList[
+                                                                            index]
+                                                                        .targetCheck,
+                                                                  ),
+                                                                ),
+                                                                const Text(
+                                                                  'ความสอดคล้องกับยุทธศาสตร์ หรือภาระหน้าที่ตาม KUQS/พันธกิจ',
+                                                                  style:
+                                                                      TextStyle(
+                                                                    color: Colors
+                                                                        .black,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                  ),
+                                                                ),
+                                                                Padding(
+                                                                  padding:
+                                                                      const EdgeInsets
+                                                                          .all(8),
+                                                                  child: Row(
+                                                                    children: [
+                                                                      Text(apkuqaList[
+                                                                              index]
+                                                                          .obligations),
+                                                                      Container(
+                                                                        padding: const EdgeInsets.fromLTRB(
+                                                                            5,
+                                                                            0,
+                                                                            5,
+                                                                            0),
+                                                                        width:
+                                                                            200,
+                                                                        child:
+                                                                            DropdownButtonHideUnderline(
+                                                                          child:
+                                                                              DropdownButton(
+                                                                            alignment:
+                                                                                Alignment.bottomRight,
+                                                                            isExpanded:
+                                                                                true,
+                                                                            items:
+                                                                                items.map<DropdownMenuItem<String>>((String value) {
+                                                                              return DropdownMenuItem<String>(
+                                                                                value: value,
+                                                                                child: Text(value),
+                                                                              );
+                                                                            }).toList(),
+                                                                            onChanged:
+                                                                                (String? newValue) {
+                                                                              setState(() {
+                                                                                apkuqaList[index].obligationsCheck = newValue;
+                                                                              });
+                                                                            },
+                                                                            value:
+                                                                                apkuqaList[index].obligationsCheck,
+                                                                          ),
+                                                                        ),
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                                const Text(
+                                                                  'วัตถุประสงค์',
+                                                                  style:
+                                                                      TextStyle(
+                                                                    color: Colors
+                                                                        .black,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                  ),
+                                                                ),
+                                                                Padding(
+                                                                  padding:
+                                                                      const EdgeInsets
+                                                                          .all(8),
+                                                                  child:
+                                                                      CheckboxListTile(
+                                                                    title: Text(
+                                                                        apkuqaList[index]
+                                                                            .objective),
+                                                                    onChanged:
+                                                                        (value) {
+                                                                      setState(
+                                                                          () {
+                                                                        apkuqaList[index]
+                                                                            .objectiveCheck = !apkuqaList[
+                                                                                index]
+                                                                            .objectiveCheck!;
+                                                                      });
+                                                                    },
+                                                                    value: apkuqaList[
+                                                                            index]
+                                                                        .objectiveCheck,
+                                                                  ),
+                                                                ),
+                                                                const Text(
+                                                                  'ผลผลิต/ผลลัพธ์ที่คาดว่าจะได้รับ(Output/Outcome)',
+                                                                  style:
+                                                                      TextStyle(
+                                                                    color: Colors
+                                                                        .black,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                  ),
+                                                                ),
+                                                                Padding(
+                                                                  padding:
+                                                                      const EdgeInsets
+                                                                          .all(8),
+                                                                  child:
+                                                                      CheckboxListTile(
+                                                                    title: Text(
+                                                                        apkuqaList[index]
+                                                                            .output),
+                                                                    onChanged:
+                                                                        (value) {
+                                                                      setState(
+                                                                          () {
+                                                                        apkuqaList[index]
+                                                                            .outputCheck = !apkuqaList[
+                                                                                index]
+                                                                            .outputCheck!;
+                                                                      });
+                                                                    },
+                                                                    value: apkuqaList[
+                                                                            index]
+                                                                        .outputCheck,
+                                                                  ),
+                                                                ),
+                                                                const Text(
+                                                                  'ตัวชี้วัดความสำเร็จ',
+                                                                  style:
+                                                                      TextStyle(
+                                                                    // ignore: lines_longer_than_80_chars
+                                                                    color: Colors
+                                                                        .black,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                  ),
+                                                                ),
+                                                                Padding(
+                                                                  padding:
+                                                                      const EdgeInsets
+                                                                          .all(8),
+                                                                  child:
+                                                                      CheckboxListTile(
+                                                                    title: Text(
+                                                                        apkuqaList[index]
+                                                                            .success_metrics),
+                                                                    onChanged:
+                                                                        (value) {
+                                                                      setState(
+                                                                          () {
+                                                                        apkuqaList[index]
+                                                                            .successMetricsCheck = !apkuqaList[
+                                                                                index]
+                                                                            .successMetricsCheck!;
+                                                                      });
+                                                                    },
+                                                                    value: apkuqaList[
+                                                                            index]
+                                                                        .successMetricsCheck,
+                                                                  ),
+                                                                ),
+                                                                const Text(
+                                                                  'กิจกรรมการจัดการความรู้',
+                                                                  style:
+                                                                      TextStyle(
+                                                                    color: Colors
+                                                                        .black,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                  ),
+                                                                ),
+                                                                Padding(
+                                                                  padding:
+                                                                      const EdgeInsets
+                                                                          .all(8),
+                                                                  child:
+                                                                      CheckboxListTile(
+                                                                    title: Text(
+                                                                        apkuqaList[index]
+                                                                            .knowledgeManagementActivities),
+                                                                    onChanged:
+                                                                        (value) {
+                                                                      setState(
+                                                                          () {
+                                                                        apkuqaList[index]
+                                                                            .knowledgeManagementActivitiesCheck = !apkuqaList[
+                                                                                index]
+                                                                            .knowledgeManagementActivitiesCheck!;
+                                                                      });
+                                                                    },
+                                                                    value: apkuqaList[
+                                                                            index]
+                                                                        .knowledgeManagementActivitiesCheck,
+                                                                  ),
+                                                                ),
+                                                                const Text(
+                                                                  'ระยะเวลาที่ดำเนินการ',
+                                                                  style:
+                                                                      TextStyle(
+                                                                    color: Colors
+                                                                        .black,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                  ),
+                                                                ),
+                                                                Padding(
+                                                                  padding:
+                                                                      const EdgeInsets
+                                                                          .all(8),
+                                                                  child:
+                                                                      CheckboxListTile(
+                                                                    title: Text(
+                                                                        apkuqaList[index]
+                                                                            .periodOperated),
+                                                                    onChanged:
+                                                                        (value) {
+                                                                      setState(
+                                                                          () {
+                                                                        apkuqaList[index]
+                                                                            .periodOperatedCheck = !apkuqaList[
+                                                                                index]
+                                                                            .periodOperatedCheck!;
+                                                                      });
+                                                                    },
+                                                                    value: apkuqaList[
+                                                                            index]
+                                                                        .periodOperatedCheck,
+                                                                  ),
+                                                                ),
+                                                                const Text(
+                                                                  'งบประมาณ',
+                                                                  style:
+                                                                      TextStyle(
+                                                                    color: Colors
+                                                                        .black,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                  ),
+                                                                ),
+                                                                Padding(
+                                                                  padding:
+                                                                      const EdgeInsets
+                                                                          .all(8),
+                                                                  child: Text(
+                                                                      apkuqaList[
+                                                                              index]
+                                                                          .budget),
+                                                                ),
+                                                                const Text(
+                                                                  'ผู้รับผิดชอบหลัก',
+                                                                  style:
+                                                                      TextStyle(
+                                                                    color: Colors
+                                                                        .black,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                  ),
+                                                                ),
+                                                                Padding(
+                                                                  padding:
+                                                                      const EdgeInsets
+                                                                          .all(8),
+                                                                  child: Text(apkuqaList[
+                                                                          index]
+                                                                      .responsiblePerson),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        actions: [
+                                                          TextButton(
+                                                            onPressed: () {
+                                                              Navigator.pop(
+                                                                  context);
+                                                            },
+                                                            child: const Text(
+                                                              'ปิด',
+                                                              style: TextStyle(
+                                                                  color: Colors
+                                                                      .blue),
+                                                            ),
+                                                          )
+                                                        ],
+                                                      );
+                                                    });
+                                                  },
+                                                );
+                                                setState(() {});
+                                              },
+                                            )
+                                          ],
+                                        )),
+                                      ]);
+                                    })),
+                              ),
                             ),
                           ),
                           const Text(
@@ -1744,6 +1745,13 @@ class _ChackReportFormState extends State<ChackReportForm> {
     );
   }
 
+  Text textCell(String t, int subEnd) {
+    var text = '';
+    final textLength = t.length;
+    textLength < subEnd ? text = t : text = '${t.substring(0, subEnd)}...';
+    return Text(text, maxLines: 3);
+  }
+
   Card toBe() {
     return Card(
       margin: const EdgeInsets.all(20),
@@ -1994,6 +2002,7 @@ class TextTableWidget extends StatelessWidget {
         color: Colors.black,
         fontWeight: FontWeight.bold,
       ),
+      overflow: TextOverflow.fade,
     );
   }
 }
