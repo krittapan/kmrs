@@ -13,7 +13,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ReportForm extends StatefulWidget {
   UserData userData;
-  ReportForm({Key? key, required this.userData}) : super(key: key);
+  String currentCycle;
+  ReportForm({Key? key, required this.userData, required this.currentCycle})
+      : super(key: key);
 
   @override
   _ReportFormState createState() => _ReportFormState();
@@ -32,7 +34,7 @@ class _ReportFormState extends State<ReportForm> {
   List<Asis> asisList = [];
   List<ApKuqs> apkuqaList = [];
   List<Ap> apList = [];
-  String currentCycle = '1';
+
   String currentYear = '2565';
 
   Future addDoc(String uid) async {
@@ -46,11 +48,15 @@ class _ReportFormState extends State<ReportForm> {
       'segmentNameTH': widget.userData.segmentNameTH,
       'segmentName': widget.userData.segmentName,
       'owner': widget.userData.uid,
-      'cycle': currentCycle,
+      'cycle': widget.currentCycle,
       'year': currentYear,
       'asIs': asisList.map((e) => e.toJson()).toList(),
       'apkuqa': apkuqaList.map((e) => e.toJson()).toList(),
       'ap': apList.map((e) => e.toJson()).toList(),
+      'apComment': '',
+      'apkuqaComment': '',
+      'asisComment': '',
+      'tobeComment': ''
     });
   }
 

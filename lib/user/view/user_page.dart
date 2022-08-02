@@ -23,37 +23,43 @@ class UserDashboard extends StatefulWidget {
 }
 
 class _UserDashboardState extends State<UserDashboard> {
-  int isReport = 0;
   int isReport1 = 0;
   int isReport2 = 0;
+  int isReport3 = 0;
   String currentCycle = '1';
   String currentYear = '2565';
-  String reportId = '';
+  String reportId1 = '';
+  String reportId2 = '';
+  String reportId3 = '';
 
   Future getDocstatus() async {
     final QuerySnapshot snapshot = await FirebaseFirestore.instance
         .collection('reports')
         .where('owner', isEqualTo: widget.userData.uid)
         .where('year', isEqualTo: currentYear)
-        //.where('cycle', isEqualTo: '1')
+        // .where('cycle', isEqualTo: currentYear)
         .get();
+
     snapshot.docs.forEach(
       (DocumentSnapshot doc) {
         setState(() {
-          if (doc['cycle'].toString() == currentCycle) {
-            reportId = doc.id;
-            switch (doc['cycle'].toString()) {
-              case '1':
-                isReport = doc['status'] as int;
-                break;
-              case '2':
-                isReport1 = doc['status'] as int;
-                break;
-              case '3':
-                isReport2 = doc['status'] as int;
-                break;
-              default:
-            }
+          switch (doc['cycle'].toString()) {
+            case '1':
+              isReport1 = int.parse(doc['status'].toString());
+              reportId1 = doc.id;
+              print("Cycle 1 >> Status =======>   ${isReport1}");
+              break;
+            case '2':
+              isReport2 = int.parse(doc['status'].toString());
+              reportId2 = doc.id;
+              print("Cycle 2 >> Status =======>   ${isReport2}");
+              break;
+            case '3':
+              isReport3 = int.parse(doc['status'].toString());
+              reportId3 = doc.id;
+              print("Cycle 3 >> Status =======>   ${isReport3}");
+              break;
+            default:
           }
         });
       },
@@ -75,17 +81,17 @@ class _UserDashboardState extends State<UserDashboard> {
     ));
   }
 
-  String statusToString(int status) {
+  String statusToString(dynamic status) {
     switch (status) {
-      case 1:
+      case 0:
         return 'ไม่ส่งรายงาน';
-      case 2:
+      case 1:
         return 'ส่งรายงาน';
-      case 3:
+      case 2:
         return 'ดำเนินการตรวจสอบรายงาน';
-      case 4:
+      case 3:
         return 'ตรวจสอบรายงาน มีหมายเหตุปรับปรุง';
-      case 5:
+      case 4:
         return 'ตรวจสอบรายงาน เสร็จสมบรูณ์';
       default:
         return 'ไม่ทราบสถานะ';
@@ -181,9 +187,9 @@ class _UserDashboardState extends State<UserDashboard> {
                                         ),
                                         child: Container(
                                           margin: const EdgeInsets.all(5),
-                                          child: isReport == 0
+                                          child: isReport1 == 0
                                               ? const Text('ยังไม่ส่งรายงาน')
-                                              : Text(statusToString(isReport)),
+                                              : Text(statusToString(isReport1)),
                                         ),
                                       ),
                                     ],
@@ -206,9 +212,9 @@ class _UserDashboardState extends State<UserDashboard> {
                                         ),
                                         child: Container(
                                           margin: const EdgeInsets.all(5),
-                                          child: isReport1 == 0
+                                          child: isReport2 == 0
                                               ? const Text('ยังไม่ส่งรายงาน')
-                                              : Text(statusToString(isReport1)),
+                                              : Text(statusToString(isReport2)),
                                         ),
                                       ),
                                     ],
@@ -231,9 +237,9 @@ class _UserDashboardState extends State<UserDashboard> {
                                         ),
                                         child: Container(
                                           margin: const EdgeInsets.all(5),
-                                          child: isReport2 == 0
+                                          child: isReport3 == 0
                                               ? const Text('ยังไม่ส่งรายงาน')
-                                              : Text(statusToString(isReport2)),
+                                              : Text(statusToString(isReport3)),
                                         ),
                                       ),
                                     ],
@@ -324,30 +330,38 @@ class _UserDashboardState extends State<UserDashboard> {
                               children: [
                                 ButtonReportCycle1(
                                   widget: widget,
-                                  isReport: isReport,
+                                  isReport1: isReport1,
+                                  currentCycle: currentCycle,
                                 ),
                                 ButtonEditReportCycle1(
                                   widget: widget,
-                                  isReport: isReport,
-                                  reportId: reportId,
+                                  isReport1: isReport1,
+                                  reportId: reportId1,
+                                  currentCycle: currentCycle,
                                 ),
                                 ButtonReportCycle2(
                                   widget: widget,
-                                  isReport: isReport,
+                                  isReport1: isReport1,
+                                  isReport2: isReport2,
                                   currentCycle: currentCycle,
                                 ),
                                 ButtonEditReportCycle2(
                                   widget: widget,
-                                  isReport1: isReport1,
+                                  isReport2: isReport2,
+                                  isReport3: isReport3,
+                                  reportId2: reportId2,
+                                  currentCycle: currentCycle,
                                 ),
                                 ButtonReportCycle3(
                                   widget: widget,
-                                  isReport: isReport2,
+                                  isReport2: isReport2,
+                                  isReport3: isReport3,
+                                  currentCycle: currentCycle,
                                 ),
                                 ButtonEditReportCycle3(
-                                  widget: widget,
-                                  isReport: isReport2,
-                                )
+                                    widget: widget,
+                                    isReport3: isReport3,
+                                    reportId3: reportId3)
                               ],
                             ),
                           ),
@@ -367,13 +381,15 @@ class _UserDashboardState extends State<UserDashboard> {
 }
 
 class ButtonReportCycle1 extends StatelessWidget {
-  ButtonReportCycle1({
-    Key? key,
-    required this.widget,
-    required this.isReport,
-  }) : super(key: key);
+  ButtonReportCycle1(
+      {Key? key,
+      required this.widget,
+      required this.isReport1,
+      required this.currentCycle})
+      : super(key: key);
   final UserDashboard widget;
-  int isReport;
+  int isReport1;
+  String currentCycle;
 
   @override
   Widget build(BuildContext context) {
@@ -381,7 +397,7 @@ class ButtonReportCycle1 extends StatelessWidget {
       widthFactor: 1,
       child: Container(
         padding: const EdgeInsets.all(10),
-        child: isReport == 1
+        child: isReport1 == 0 && (currentCycle == '1')
             ? ElevatedButton.icon(
                 style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all<Color>(
@@ -390,6 +406,7 @@ class ButtonReportCycle1 extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder: (BuildContext context) => ReportForm(
+                      currentCycle: currentCycle,
                       userData: widget.userData,
                     ),
                   ),
@@ -424,12 +441,14 @@ class ButtonReportCycle2 extends StatelessWidget {
   ButtonReportCycle2({
     Key? key,
     required this.widget,
-    required this.isReport,
+    required this.isReport1,
+    required this.isReport2,
     required this.currentCycle,
   }) : super(key: key);
   final UserDashboard widget;
   String currentCycle;
-  int isReport;
+  int isReport1;
+  int isReport2;
 
   @override
   Widget build(BuildContext context) {
@@ -437,7 +456,7 @@ class ButtonReportCycle2 extends StatelessWidget {
       widthFactor: 1,
       child: Container(
         padding: const EdgeInsets.all(10),
-        child: (isReport >= 2) && (currentCycle == '2')
+        child: (isReport1 >= 2 && isReport2 == 0) && (currentCycle == '2')
             ? ElevatedButton.icon(
                 style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all<Color>(
@@ -446,6 +465,7 @@ class ButtonReportCycle2 extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder: (BuildContext context) => ReportForm(
+                      currentCycle: currentCycle,
                       userData: widget.userData,
                     ),
                   ),
@@ -477,13 +497,17 @@ class ButtonReportCycle2 extends StatelessWidget {
 }
 
 class ButtonReportCycle3 extends StatelessWidget {
-  ButtonReportCycle3({
-    Key? key,
-    required this.widget,
-    required this.isReport,
-  }) : super(key: key);
+  ButtonReportCycle3(
+      {Key? key,
+      required this.widget,
+      required this.isReport2,
+      required this.isReport3,
+      required this.currentCycle})
+      : super(key: key);
   final UserDashboard widget;
-  int isReport;
+  int isReport2;
+  int isReport3;
+  String currentCycle;
 
   @override
   Widget build(BuildContext context) {
@@ -491,7 +515,7 @@ class ButtonReportCycle3 extends StatelessWidget {
       widthFactor: 1,
       child: Container(
         padding: const EdgeInsets.all(10),
-        child: isReport == 3
+        child: (isReport2 != 0) && (isReport3 == 0) && (currentCycle == '3')
             ? ElevatedButton.icon(
                 style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all<Color>(
@@ -500,6 +524,7 @@ class ButtonReportCycle3 extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder: (BuildContext context) => ReportForm(
+                      currentCycle: currentCycle,
                       userData: widget.userData,
                     ),
                   ),
@@ -534,12 +559,14 @@ class ButtonEditReportCycle1 extends StatefulWidget {
   ButtonEditReportCycle1({
     Key? key,
     required this.widget,
-    required this.isReport,
+    required this.isReport1,
     required this.reportId,
+    required this.currentCycle,
   }) : super(key: key);
   final UserDashboard widget;
-  int isReport;
+  int isReport1;
   String reportId;
+  String currentCycle;
 
   @override
   State<ButtonEditReportCycle1> createState() => _ButtonEditReportCycle1State();
@@ -552,7 +579,7 @@ class _ButtonEditReportCycle1State extends State<ButtonEditReportCycle1> {
       widthFactor: 1,
       child: Container(
         padding: const EdgeInsets.all(10),
-        child: widget.isReport != ''
+        child: (widget.isReport1 >= 1) && (int.parse(widget.currentCycle) <= 2)
             ? ElevatedButton.icon(
                 style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all<Color>(
@@ -595,10 +622,16 @@ class ButtonEditReportCycle2 extends StatelessWidget {
   ButtonEditReportCycle2({
     Key? key,
     required this.widget,
-    required this.isReport1,
+    required this.isReport2,
+    required this.isReport3,
+    required this.reportId2,
+    required this.currentCycle,
   }) : super(key: key);
   final UserDashboard widget;
-  int isReport1;
+  int isReport2;
+  int isReport3;
+  String reportId2;
+  String currentCycle;
 
   @override
   Widget build(BuildContext context) {
@@ -606,7 +639,9 @@ class ButtonEditReportCycle2 extends StatelessWidget {
       widthFactor: 1,
       child: Container(
         padding: const EdgeInsets.all(10),
-        child: isReport1 >= 2
+        child: (isReport2 > 0) &&
+                (isReport3 == 0) &&
+                (int.parse(currentCycle) <= 3)
             ? ElevatedButton.icon(
                 style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all<Color>(
@@ -614,9 +649,8 @@ class ButtonEditReportCycle2 extends StatelessWidget {
                 onPressed: () => Navigator.push<AppBloc>(
                   context,
                   MaterialPageRoute(
-                    builder: (BuildContext context) => ReportForm(
-                      userData: widget.userData,
-                    ),
+                    builder: (BuildContext context) => EditReportForm(
+                        reportId: reportId2, userData: widget.userData),
                   ),
                 ),
                 icon: const Icon(
@@ -646,13 +680,15 @@ class ButtonEditReportCycle2 extends StatelessWidget {
 }
 
 class ButtonEditReportCycle3 extends StatelessWidget {
-  ButtonEditReportCycle3({
-    Key? key,
-    required this.widget,
-    required this.isReport,
-  }) : super(key: key);
+  ButtonEditReportCycle3(
+      {Key? key,
+      required this.widget,
+      required this.isReport3,
+      required this.reportId3})
+      : super(key: key);
   final UserDashboard widget;
-  int isReport;
+  int isReport3;
+  String reportId3;
 
   @override
   Widget build(BuildContext context) {
@@ -660,7 +696,7 @@ class ButtonEditReportCycle3 extends StatelessWidget {
       widthFactor: 1,
       child: Container(
         padding: const EdgeInsets.all(10),
-        child: isReport == 'ส่งรายงานผลแล้ว'
+        child: isReport3 >= 1
             ? ElevatedButton.icon(
                 style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all<Color>(
@@ -668,9 +704,8 @@ class ButtonEditReportCycle3 extends StatelessWidget {
                 onPressed: () => Navigator.push<AppBloc>(
                   context,
                   MaterialPageRoute(
-                    builder: (BuildContext context) => ReportForm(
-                      userData: widget.userData,
-                    ),
+                    builder: (BuildContext context) => EditReportForm(
+                        reportId: reportId3, userData: widget.userData),
                   ),
                 ),
                 icon: const Icon(

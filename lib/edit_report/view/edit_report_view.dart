@@ -1,8 +1,10 @@
 import 'dart:math';
-
+// ignore_for_file: lines_longer_than_80_chars
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:kmrs/app/app.dart';
+import 'package:kmrs/edit_report/data/data.dart';
 import 'package:kmrs/edit_report/widgets/widgets.dart';
 import 'package:kmrs/footer/footer.dart';
 import 'package:kmrs/model/action_plan_kuqs.dart';
@@ -40,6 +42,8 @@ class _EditReportFormState extends State<EditReportForm> {
   late List<ApKuqs> apkuqaList = [];
   late List<Ap> apList = [];
   bool isLodeing = true;
+
+  final _horizontalScrollController = ScrollController();
 
   Future getDoc() async {
     await FirebaseFirestore.instance
@@ -83,7 +87,7 @@ class _EditReportFormState extends State<EditReportForm> {
     // Call the user's CollectionReference to add a new user
     return reports.doc(widget.reportId).update(
       {
-        'status': 'ส่งรายงานแผนแล้ว',
+        'status': 2,
         'tobe': tobe,
         'swotAsIs': swotAsIs,
         'editTime': DateTime.now(),
@@ -109,6 +113,7 @@ class _EditReportFormState extends State<EditReportForm> {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size.width * 0.3;
     final user = context.select((AppBloc bloc) => bloc.state.user);
     return Scaffold(
       backgroundColor: const Color(0xffeff5f5),
@@ -158,16 +163,15 @@ class _EditReportFormState extends State<EditReportForm> {
                               children: <Widget>[
                                 Row(
                                   children: [
-                                    // ignore: lines_longer_than_80_chars
                                     Expanded(
                                       flex: 5,
-                                      child: TextTableWidget(
+                                      child: TextColumnWidget(
                                           text:
                                               'ปัจจัยภายในที่สนับสนุนและอุปสรรคที่มีผลต่อการจัดการความรู้ให้สำเร็จตามเป้าหมาย'),
                                     ),
                                     Expanded(
                                       flex: 5,
-                                      child: TextTableWidget(
+                                      child: TextColumnWidget(
                                           text:
                                               'ปัจจัยภายนอกที่สนับสนุนและอุปสรรคที่มีผลต่อการจัดการความรู้ให้สำเร็จตามเป้าหมาย'),
                                     ),
@@ -182,22 +186,22 @@ class _EditReportFormState extends State<EditReportForm> {
                                   children: [
                                     Expanded(
                                       flex: 5,
-                                      child: TextTableWidget(
+                                      child: TextColumnWidget(
                                           text: 'จุดแข็ง (Strengths)'),
                                     ),
                                     Expanded(
                                       flex: 5,
-                                      child: TextTableWidget(
+                                      child: TextColumnWidget(
                                           text: 'จุดอ่อน (Weaknesses)'),
                                     ),
                                     Expanded(
                                       flex: 5,
-                                      child: TextTableWidget(
+                                      child: TextColumnWidget(
                                           text: 'โอกาส (Opportunities)'),
                                     ),
                                     Expanded(
                                       flex: 5,
-                                      child: TextTableWidget(
+                                      child: TextColumnWidget(
                                           text: 'อุปสรรค (Threats)'),
                                     ),
                                     Expanded(
@@ -565,569 +569,511 @@ class _EditReportFormState extends State<EditReportForm> {
                               fontSize: 20,
                             ),
                           ),
-                          Container(
-                            margin: const EdgeInsets.all(10),
-                            child: Column(
-                              children: <Widget>[
-                                Row(
-                                  children: [
-                                    Expanded(
-                                      flex: 2,
-                                      child: TextTableWidget(text: 'ลำดับ'),
-                                    ),
-                                    Expanded(
-                                      flex: 5,
-                                      child: TextTableWidget(
-                                          text:
-                                              'เป้าหมาย/ประเด็นการจัดการความรู้ '),
-                                    ),
-                                    Expanded(
-                                      flex: 5,
-                                      child: TextTableWidget(
-                                          text:
-                                              'ความสอดคล้องกับยุทธศาสตร์ หรือภาระหน้าที่ตาม KUQS/พันธกิจ'),
-                                    ),
-                                    Expanded(
-                                      flex: 5,
-                                      child:
-                                          TextTableWidget(text: 'วัตถุประสงค์'),
-                                    ),
-                                    Expanded(
-                                      flex: 5,
-                                      child: TextTableWidget(
-                                          text:
-                                              'ผลผลิต/ผลลัพธ์ที่คาดว่าจะได้รับ(Output/Outcome)'),
-                                    ),
-                                    Expanded(
-                                      flex: 5,
-                                      child: TextTableWidget(
-                                          text: 'ตัวชี้วัดความสำเร็จ'),
-                                    ),
-                                    Expanded(
-                                      flex: 5,
-                                      child: TextTableWidget(
-                                          text: 'กิจกรรมการจัดการความรู้ '),
-                                    ),
-                                    Expanded(
-                                      flex: 5,
-                                      child: TextTableWidget(
-                                          text: 'ระยะเวลาที่ดำเนินการ'),
-                                    ),
-                                    Expanded(
-                                      flex: 5,
-                                      child: TextTableWidget(
-                                          text: 'งบประมาณ(ถ้ามี)'),
-                                    ),
-                                    Expanded(
-                                      flex: 5,
-                                      child: TextTableWidget(
-                                          text: 'ผู้รับผิดชอบหลัก'),
-                                    ),
-                                    Expanded(
-                                      flex: 5,
-                                      child: Container(),
-                                    ),
-                                  ],
-                                ),
-                                const Divider(),
-                                ListView.builder(
-                                  shrinkWrap: true,
-                                  itemCount: apkuqaList.length,
-                                  itemBuilder:
-                                      (BuildContext context, int index) {
-                                    return Container(
-                                      margin: const EdgeInsets.all(5),
-                                      child: Column(
-                                        children: [
-                                          Row(
-                                            children: [
-                                              Expanded(
-                                                flex: 3,
-                                                child: Text(
-                                                    (index + 1).toString()),
+                          ScrollConfiguration(
+                            behavior: ScrollConfiguration.of(context).copyWith(
+                              dragDevices: {
+                                PointerDeviceKind.touch,
+                                PointerDeviceKind.mouse,
+                              },
+                            ),
+                            child: Scrollbar(
+                              controller: _horizontalScrollController,
+                              interactive: true,
+                              child: SingleChildScrollView(
+                                  scrollDirection: Axis.horizontal,
+                                  controller: _horizontalScrollController,
+                                  child: DataTable(
+                                    dataRowHeight: 86,
+                                    columns: List.generate(
+                                        colName_table4.length,
+                                        (index) => DataColumn(
+                                                label: Expanded(
+                                              child: TextColumnWidget(
+                                                  text: colName_table4[index]),
+                                            ))),
+                                    rows: List.generate(apkuqaList.length,
+                                        (index) {
+                                      return DataRow(cells: [
+                                        DataCell(Text(
+                                          (index + 1).toString(),
+                                        )),
+                                        DataCell(SizedBox(
+                                            width: size,
+                                            child: TextRowWidget(
+                                              text: apkuqaList[index].target,
+                                            ))),
+                                        DataCell(SizedBox(
+                                            width: size,
+                                            child: TextRowWidget(
+                                              text:
+                                                  apkuqaList[index].obligations,
+                                            ))),
+                                        DataCell(SizedBox(
+                                            width: size,
+                                            child: TextRowWidget(
+                                              text: apkuqaList[index].objective,
+                                            ))),
+                                        DataCell(SizedBox(
+                                            width: size,
+                                            child: TextRowWidget(
+                                              text: apkuqaList[index].output,
+                                            ))),
+                                        DataCell(SizedBox(
+                                            width: size,
+                                            child: TextRowWidget(
+                                                text: apkuqaList[index]
+                                                    .success_metrics))),
+                                        DataCell(SizedBox(
+                                            width: size,
+                                            child: TextRowWidget(
+                                              text: apkuqaList[index]
+                                                  .knowledgeManagementActivities,
+                                            ))),
+                                        DataCell(SizedBox(
+                                          width: size,
+                                          child: TextRowWidget(
+                                            text: apkuqaList[index]
+                                                .periodOperated,
+                                          ),
+                                        )),
+                                        DataCell(SizedBox(
+                                          width: size,
+                                          child: TextRowWidget(
+                                            text: apkuqaList[index].budget,
+                                          ),
+                                        )),
+                                        DataCell(SizedBox(
+                                          width: size,
+                                          child: TextRowWidget(
+                                            text: apkuqaList[index]
+                                                .responsiblePerson,
+                                          ),
+                                        )),
+                                        DataCell(Row(
+                                          children: [
+                                            IconButton(
+                                              icon: const Icon(
+                                                Icons.edit,
+                                                color: Colors.black,
                                               ),
-                                              Expanded(
-                                                flex: 5,
-                                                child: Text(
-                                                    apkuqaList[index].target),
-                                              ),
-                                              Expanded(
-                                                flex: 5,
-                                                child: Text(apkuqaList[index]
-                                                    .obligations),
-                                              ),
-                                              Expanded(
-                                                flex: 5,
-                                                child: Text(apkuqaList[index]
-                                                    .objective),
-                                              ),
-                                              Expanded(
-                                                flex: 5,
-                                                child: Text(
-                                                    apkuqaList[index].output),
-                                              ),
-                                              Expanded(
-                                                flex: 5,
-                                                child: Text(apkuqaList[index]
-                                                    .success_metrics),
-                                              ),
-                                              Expanded(
-                                                flex: 5,
-                                                child: Text(apkuqaList[index]
-                                                    .knowledgeManagementActivities),
-                                              ),
-                                              Expanded(
-                                                flex: 3,
-                                                child: Text(apkuqaList[index]
-                                                    .periodOperated),
-                                              ),
-                                              Expanded(
-                                                flex: 3,
-                                                child: Text(
-                                                    apkuqaList[index].budget),
-                                              ),
-                                              Expanded(
-                                                flex: 5,
-                                                child: Text(apkuqaList[index]
-                                                    .responsiblePerson),
-                                              ),
-                                              IconButton(
-                                                icon: const Icon(
-                                                  Icons.edit,
-                                                  color: Colors.black,
-                                                ),
-                                                onPressed: () async {
-                                                  await showDialog<Widget>(
-                                                    context: context,
-                                                    builder:
-                                                        (BuildContext context) {
-                                                      return AlertDialog(
-                                                        title: const Text(
-                                                            'แนวทางการจัดการความรู้ที่สนับสนุนยุทธศาสตร์ หรือภาระหน้าที่ตาม KUQS ของส่วนงาน สู่ความสำเร็จ (KM Action plans)'),
-                                                        content:
-                                                            SingleChildScrollView(
-                                                          child: Form(
-                                                            key: _formKey2,
-                                                            child: Container(
-                                                              margin:
-                                                                  const EdgeInsets
-                                                                      .all(10),
-                                                              child: Column(
-                                                                mainAxisSize:
-                                                                    MainAxisSize
-                                                                        .min,
-                                                                children: [
-                                                                  Padding(
-                                                                    padding:
-                                                                        const EdgeInsets
-                                                                            .all(8),
-                                                                    child:
-                                                                        TextFormField(
-                                                                      initialValue:
-                                                                          apkuqaList[index]
-                                                                              .target,
-                                                                      keyboardType:
-                                                                          TextInputType
-                                                                              .multiline,
-                                                                      maxLines:
-                                                                          null,
-                                                                      minLines:
-                                                                          1,
-                                                                      decoration:
-                                                                          const InputDecoration(
-                                                                        label: Text(
-                                                                            'เป้าหมาย/ประเด็นการจัดการความรู้ '),
-                                                                        border:
-                                                                            OutlineInputBorder(),
-                                                                      ),
-                                                                      validator:
-                                                                          (input) {
-                                                                        if (input!
-                                                                            .isEmpty) {
-                                                                          return 'กรุณาระบุบ เป้าหมาย/ประเด็นการจัดการความรู้ ';
-                                                                        }
-                                                                        buff.insert(
-                                                                            0,
-                                                                            input);
-                                                                        return null;
-                                                                      },
-                                                                    ),
-                                                                  ),
-                                                                  Padding(
-                                                                    padding:
-                                                                        const EdgeInsets
-                                                                            .all(8),
-                                                                    child:
-                                                                        TextFormField(
-                                                                      initialValue:
-                                                                          apkuqaList[index]
-                                                                              .obligations,
-                                                                      keyboardType:
-                                                                          TextInputType
-                                                                              .multiline,
-                                                                      maxLines:
-                                                                          null,
-                                                                      minLines:
-                                                                          1,
-                                                                      decoration:
-                                                                          const InputDecoration(
-                                                                        label: Text(
-                                                                            'ความสอดคล้องกับยุทธศาสตร์ หรือภาระหน้าที่ตาม KUQS/พันธกิจ'),
-                                                                        border:
-                                                                            OutlineInputBorder(),
-                                                                      ),
-                                                                      validator:
-                                                                          (input) {
-                                                                        if (input!
-                                                                            .isEmpty) {
-                                                                          return 'กรุณาระบุบ ความสอดคล้องกับยุทธศาสตร์ หรือภาระหน้าที่ตาม KUQS/พันธกิจ';
-                                                                        }
-                                                                        buff.insert(
-                                                                            1,
-                                                                            input);
-                                                                        return null;
-                                                                      },
-                                                                    ),
-                                                                  ),
-                                                                  Padding(
-                                                                    padding:
-                                                                        const EdgeInsets
-                                                                            .all(8),
-                                                                    child:
-                                                                        TextFormField(
-                                                                      initialValue:
-                                                                          apkuqaList[index]
-                                                                              .objective,
-                                                                      keyboardType:
-                                                                          TextInputType
-                                                                              .multiline,
-                                                                      maxLines:
-                                                                          null,
-                                                                      minLines:
-                                                                          1,
-                                                                      decoration:
-                                                                          const InputDecoration(
-                                                                        label: Text(
-                                                                            'วัตถุประสงค์'),
-                                                                        border:
-                                                                            OutlineInputBorder(),
-                                                                      ),
-                                                                      validator:
-                                                                          (input) {
-                                                                        if (input!
-                                                                            .isEmpty) {
-                                                                          return 'กรุณาระบุบ วัตถุประสงค์';
-                                                                        }
-                                                                        buff.insert(
-                                                                            2,
-                                                                            input);
-                                                                        return null;
-                                                                      },
-                                                                    ),
-                                                                  ),
-                                                                  Padding(
-                                                                    padding:
-                                                                        const EdgeInsets
-                                                                            .all(8),
-                                                                    child:
-                                                                        TextFormField(
-                                                                      initialValue:
-                                                                          apkuqaList[index]
-                                                                              .output,
-                                                                      keyboardType:
-                                                                          TextInputType
-                                                                              .multiline,
-                                                                      maxLines:
-                                                                          null,
-                                                                      minLines:
-                                                                          1,
-                                                                      decoration:
-                                                                          const InputDecoration(
-                                                                        label: Text(
-                                                                            'ผลผลิต/ผลลัพธ์ที่คาดว่าจะได้รับ(Output/Outcome)'),
-                                                                        border:
-                                                                            OutlineInputBorder(),
-                                                                      ),
-                                                                      validator:
-                                                                          (input) {
-                                                                        if (input!
-                                                                            .isEmpty) {
-                                                                          return 'กรุณาระบุบ ผลผลิต/ผลลัพธ์ที่คาดว่าจะได้รับ(Output/Outcome)';
-                                                                        }
-                                                                        buff.insert(
-                                                                            3,
-                                                                            input);
-                                                                        return null;
-                                                                      },
-                                                                    ),
-                                                                  ),
-                                                                  Padding(
-                                                                    padding:
-                                                                        const EdgeInsets
-                                                                            .all(8),
-                                                                    child:
-                                                                        TextFormField(
-                                                                      initialValue:
-                                                                          apkuqaList[index]
-                                                                              .success_metrics,
-                                                                      keyboardType:
-                                                                          TextInputType
-                                                                              .multiline,
-                                                                      maxLines:
-                                                                          null,
-                                                                      minLines:
-                                                                          1,
-                                                                      decoration:
-                                                                          const InputDecoration(
-                                                                        label: Text(
-                                                                            'ตัวชี้วัดความสำเร็จ'),
-                                                                        border:
-                                                                            OutlineInputBorder(),
-                                                                      ),
-                                                                      validator:
-                                                                          (input) {
-                                                                        if (input!
-                                                                            .isEmpty) {
-                                                                          return 'กรุณาระบุบ ตัวชี้วัดความสำเร็จ';
-                                                                        }
-                                                                        buff.insert(
-                                                                            4,
-                                                                            input);
-                                                                        return null;
-                                                                      },
-                                                                    ),
-                                                                  ),
-                                                                  Padding(
-                                                                    padding:
-                                                                        const EdgeInsets
-                                                                            .all(8),
-                                                                    child:
-                                                                        TextFormField(
-                                                                      initialValue:
-                                                                          apkuqaList[index]
-                                                                              .knowledgeManagementActivities,
-                                                                      keyboardType:
-                                                                          TextInputType
-                                                                              .multiline,
-                                                                      maxLines:
-                                                                          null,
-                                                                      minLines:
-                                                                          1,
-                                                                      decoration:
-                                                                          const InputDecoration(
-                                                                        label: Text(
-                                                                            'กิจกรรมการจัดการความรู้'),
-                                                                        border:
-                                                                            OutlineInputBorder(),
-                                                                      ),
-                                                                      validator:
-                                                                          (input) {
-                                                                        if (input!
-                                                                            .isEmpty) {
-                                                                          return 'กรุณาระบุบ กิจกรรมการจัดการความรู้';
-                                                                        }
-                                                                        buff.insert(
-                                                                            5,
-                                                                            input);
-                                                                        return null;
-                                                                      },
-                                                                    ),
-                                                                  ),
-                                                                  Padding(
-                                                                    padding:
-                                                                        const EdgeInsets
-                                                                            .all(8),
-                                                                    child:
-                                                                        TextFormField(
-                                                                      initialValue:
-                                                                          apkuqaList[index]
-                                                                              .periodOperated,
-                                                                      keyboardType:
-                                                                          TextInputType
-                                                                              .multiline,
-                                                                      maxLines:
-                                                                          null,
-                                                                      minLines:
-                                                                          1,
-                                                                      decoration:
-                                                                          const InputDecoration(
-                                                                        label: Text(
-                                                                            'ระยะเวลาที่ดำเนินการ'),
-                                                                        border:
-                                                                            OutlineInputBorder(),
-                                                                      ),
-                                                                      validator:
-                                                                          (input) {
-                                                                        if (input!
-                                                                            .isEmpty) {
-                                                                          return 'กรุณาระบุบ ระยะเวลาที่ดำเนินการ';
-                                                                        }
-                                                                        buff.insert(
-                                                                            6,
-                                                                            input);
-                                                                        return null;
-                                                                      },
-                                                                    ),
-                                                                  ),
-                                                                  Padding(
-                                                                    padding:
-                                                                        const EdgeInsets
-                                                                            .all(8),
-                                                                    child:
-                                                                        TextFormField(
-                                                                      initialValue:
-                                                                          apkuqaList[index]
-                                                                              .budget,
-                                                                      keyboardType:
-                                                                          TextInputType
-                                                                              .multiline,
-                                                                      maxLines:
-                                                                          null,
-                                                                      minLines:
-                                                                          1,
-                                                                      decoration:
-                                                                          const InputDecoration(
-                                                                        label: Text(
-                                                                            'งบประมาณ(ถ้ามี)'),
-                                                                        border:
-                                                                            OutlineInputBorder(),
-                                                                      ),
-                                                                      validator:
-                                                                          (input) {
-                                                                        if (input!
-                                                                            .isEmpty) {
-                                                                          return 'กรุณาระบุบ งบประมาณ(ถ้ามี)';
-                                                                        }
-                                                                        buff.insert(
-                                                                            7,
-                                                                            input);
-                                                                        return null;
-                                                                      },
-                                                                    ),
-                                                                  ),
-                                                                  Padding(
-                                                                    padding:
-                                                                        const EdgeInsets
-                                                                            .all(8),
-                                                                    child:
-                                                                        TextFormField(
-                                                                      initialValue:
-                                                                          apkuqaList[index]
-                                                                              .responsiblePerson,
-                                                                      keyboardType:
-                                                                          TextInputType
-                                                                              .multiline,
-                                                                      maxLines:
-                                                                          null,
-                                                                      minLines:
-                                                                          1,
-                                                                      decoration:
-                                                                          const InputDecoration(
-                                                                        label: Text(
-                                                                            'ผู้รับผิดชอบหลัก'),
-                                                                        border:
-                                                                            OutlineInputBorder(),
-                                                                      ),
-                                                                      validator:
-                                                                          (input) {
-                                                                        if (input!
-                                                                            .isEmpty) {
-                                                                          return 'กรุณาระบุบ ผู้รับผิดชอบหลัก';
-                                                                        }
-                                                                        buff.insert(
-                                                                            8,
-                                                                            input);
-                                                                        return null;
-                                                                      },
-                                                                    ),
-                                                                  ),
-                                                                  Row(
-                                                                    children: [
-                                                                      Expanded(
-                                                                        child:
-                                                                            Container(
-                                                                          margin:
-                                                                              const EdgeInsets.all(10),
-                                                                          child:
-                                                                              OutlinedButton(
-                                                                            child:
-                                                                                const Text('บันทึก'),
-                                                                            onPressed:
-                                                                                () {
-                                                                              var pass = _formKey2.currentState!.validate();
-                                                                              if (pass) {
-                                                                                setState(() {
-                                                                                  apkuqaList[index] = ApKuqs(target: buff[0], obligations: buff[1], objective: buff[2], output: buff[3], success_metrics: buff[4], knowledgeManagementActivities: buff[5], periodOperated: buff[6], budget: buff[7], responsiblePerson: buff[8]);
-                                                                                });
-                                                                                buff.clear();
-                                                                                Navigator.pop(context);
-                                                                              }
-                                                                            },
-                                                                          ),
-                                                                        ),
-                                                                      ),
-                                                                    ],
-                                                                  )
-                                                                ],
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      );
-                                                    },
-                                                  );
-                                                },
-                                              ),
-                                              IconButton(
-                                                onPressed: () =>
-                                                    showDialog<Text>(
+                                              onPressed: () async {
+                                                await showDialog<Widget>(
                                                   context: context,
                                                   builder:
                                                       (BuildContext context) {
                                                     return AlertDialog(
                                                       title: const Text(
-                                                          'แจ้งเตือน'),
-                                                      content: const Text(
-                                                          'ยืนยันลบ'),
-                                                      actions: <Widget>[
-                                                        TextButton(
-                                                            onPressed: () {
-                                                              setState(() {
-                                                                apkuqaList
-                                                                    .removeAt(
-                                                                        index);
-                                                              });
-                                                              Navigator.pop(
-                                                                  context);
-                                                            },
-                                                            child: const Text(
-                                                                'ยืนยัน')),
-                                                        TextButton(
-                                                            onPressed: () {
-                                                              Navigator.pop(
-                                                                  context);
-                                                            },
-                                                            child: const Text(
-                                                                'ยกเลิก')),
-                                                      ],
+                                                          'แนวทางการจัดการความรู้ที่สนับสนุนยุทธศาสตร์ หรือภาระหน้าที่ตาม KUQS ของส่วนงาน สู่ความสำเร็จ (KM Action plans)'),
+                                                      content:
+                                                          SingleChildScrollView(
+                                                        child: Form(
+                                                          key: _formKey2,
+                                                          child: Container(
+                                                            margin:
+                                                                const EdgeInsets
+                                                                    .all(10),
+                                                            child: Column(
+                                                              mainAxisSize:
+                                                                  MainAxisSize
+                                                                      .min,
+                                                              children: [
+                                                                Padding(
+                                                                  padding:
+                                                                      const EdgeInsets
+                                                                          .all(8),
+                                                                  child:
+                                                                      TextFormField(
+                                                                    initialValue:
+                                                                        apkuqaList[index]
+                                                                            .target,
+                                                                    keyboardType:
+                                                                        TextInputType
+                                                                            .multiline,
+                                                                    maxLines:
+                                                                        null,
+                                                                    minLines: 1,
+                                                                    decoration:
+                                                                        const InputDecoration(
+                                                                      label: Text(
+                                                                          'เป้าหมาย/ประเด็นการจัดการความรู้ '),
+                                                                      border:
+                                                                          OutlineInputBorder(),
+                                                                    ),
+                                                                    validator:
+                                                                        (input) {
+                                                                      if (input!
+                                                                          .isEmpty) {
+                                                                        return 'กรุณาระบุบ เป้าหมาย/ประเด็นการจัดการความรู้ ';
+                                                                      }
+                                                                      buff.insert(
+                                                                          0,
+                                                                          input);
+                                                                      return null;
+                                                                    },
+                                                                  ),
+                                                                ),
+                                                                Padding(
+                                                                  padding:
+                                                                      const EdgeInsets
+                                                                          .all(8),
+                                                                  child:
+                                                                      TextFormField(
+                                                                    initialValue:
+                                                                        apkuqaList[index]
+                                                                            .obligations,
+                                                                    keyboardType:
+                                                                        TextInputType
+                                                                            .multiline,
+                                                                    maxLines:
+                                                                        null,
+                                                                    minLines: 1,
+                                                                    decoration:
+                                                                        const InputDecoration(
+                                                                      label: Text(
+                                                                          'ความสอดคล้องกับยุทธศาสตร์ หรือภาระหน้าที่ตาม KUQS/พันธกิจ'),
+                                                                      border:
+                                                                          OutlineInputBorder(),
+                                                                    ),
+                                                                    validator:
+                                                                        (input) {
+                                                                      if (input!
+                                                                          .isEmpty) {
+                                                                        return 'กรุณาระบุบ ความสอดคล้องกับยุทธศาสตร์ หรือภาระหน้าที่ตาม KUQS/พันธกิจ';
+                                                                      }
+                                                                      buff.insert(
+                                                                          1,
+                                                                          input);
+                                                                      return null;
+                                                                    },
+                                                                  ),
+                                                                ),
+                                                                Padding(
+                                                                  padding:
+                                                                      const EdgeInsets
+                                                                          .all(8),
+                                                                  child:
+                                                                      TextFormField(
+                                                                    initialValue:
+                                                                        apkuqaList[index]
+                                                                            .objective,
+                                                                    keyboardType:
+                                                                        TextInputType
+                                                                            .multiline,
+                                                                    maxLines:
+                                                                        null,
+                                                                    minLines: 1,
+                                                                    decoration:
+                                                                        const InputDecoration(
+                                                                      label: Text(
+                                                                          'วัตถุประสงค์'),
+                                                                      border:
+                                                                          OutlineInputBorder(),
+                                                                    ),
+                                                                    validator:
+                                                                        (input) {
+                                                                      if (input!
+                                                                          .isEmpty) {
+                                                                        return 'กรุณาระบุบ วัตถุประสงค์';
+                                                                      }
+                                                                      buff.insert(
+                                                                          2,
+                                                                          input);
+                                                                      return null;
+                                                                    },
+                                                                  ),
+                                                                ),
+                                                                Padding(
+                                                                  padding:
+                                                                      const EdgeInsets
+                                                                          .all(8),
+                                                                  child:
+                                                                      TextFormField(
+                                                                    initialValue:
+                                                                        apkuqaList[index]
+                                                                            .output,
+                                                                    keyboardType:
+                                                                        TextInputType
+                                                                            .multiline,
+                                                                    maxLines:
+                                                                        null,
+                                                                    minLines: 1,
+                                                                    decoration:
+                                                                        const InputDecoration(
+                                                                      label: Text(
+                                                                          'ผลผลิต/ผลลัพธ์ที่คาดว่าจะได้รับ(Output/Outcome)'),
+                                                                      border:
+                                                                          OutlineInputBorder(),
+                                                                    ),
+                                                                    validator:
+                                                                        (input) {
+                                                                      if (input!
+                                                                          .isEmpty) {
+                                                                        return 'กรุณาระบุบ ผลผลิต/ผลลัพธ์ที่คาดว่าจะได้รับ(Output/Outcome)';
+                                                                      }
+                                                                      buff.insert(
+                                                                          3,
+                                                                          input);
+                                                                      return null;
+                                                                    },
+                                                                  ),
+                                                                ),
+                                                                Padding(
+                                                                  padding:
+                                                                      const EdgeInsets
+                                                                          .all(8),
+                                                                  child:
+                                                                      TextFormField(
+                                                                    initialValue:
+                                                                        apkuqaList[index]
+                                                                            .success_metrics,
+                                                                    keyboardType:
+                                                                        TextInputType
+                                                                            .multiline,
+                                                                    maxLines:
+                                                                        null,
+                                                                    minLines: 1,
+                                                                    decoration:
+                                                                        const InputDecoration(
+                                                                      label: Text(
+                                                                          'ตัวชี้วัดความสำเร็จ'),
+                                                                      border:
+                                                                          OutlineInputBorder(),
+                                                                    ),
+                                                                    validator:
+                                                                        (input) {
+                                                                      if (input!
+                                                                          .isEmpty) {
+                                                                        return 'กรุณาระบุบ ตัวชี้วัดความสำเร็จ';
+                                                                      }
+                                                                      buff.insert(
+                                                                          4,
+                                                                          input);
+                                                                      return null;
+                                                                    },
+                                                                  ),
+                                                                ),
+                                                                Padding(
+                                                                  padding:
+                                                                      const EdgeInsets
+                                                                          .all(8),
+                                                                  child:
+                                                                      TextFormField(
+                                                                    initialValue:
+                                                                        apkuqaList[index]
+                                                                            .knowledgeManagementActivities,
+                                                                    keyboardType:
+                                                                        TextInputType
+                                                                            .multiline,
+                                                                    maxLines:
+                                                                        null,
+                                                                    minLines: 1,
+                                                                    decoration:
+                                                                        const InputDecoration(
+                                                                      label: Text(
+                                                                          'กิจกรรมการจัดการความรู้'),
+                                                                      border:
+                                                                          OutlineInputBorder(),
+                                                                    ),
+                                                                    validator:
+                                                                        (input) {
+                                                                      if (input!
+                                                                          .isEmpty) {
+                                                                        return 'กรุณาระบุบ กิจกรรมการจัดการความรู้';
+                                                                      }
+                                                                      buff.insert(
+                                                                          5,
+                                                                          input);
+                                                                      return null;
+                                                                    },
+                                                                  ),
+                                                                ),
+                                                                Padding(
+                                                                  padding:
+                                                                      const EdgeInsets
+                                                                          .all(8),
+                                                                  child:
+                                                                      TextFormField(
+                                                                    initialValue:
+                                                                        apkuqaList[index]
+                                                                            .periodOperated,
+                                                                    keyboardType:
+                                                                        TextInputType
+                                                                            .multiline,
+                                                                    maxLines:
+                                                                        null,
+                                                                    minLines: 1,
+                                                                    decoration:
+                                                                        const InputDecoration(
+                                                                      label: Text(
+                                                                          'ระยะเวลาที่ดำเนินการ'),
+                                                                      border:
+                                                                          OutlineInputBorder(),
+                                                                    ),
+                                                                    validator:
+                                                                        (input) {
+                                                                      if (input!
+                                                                          .isEmpty) {
+                                                                        return 'กรุณาระบุบ ระยะเวลาที่ดำเนินการ';
+                                                                      }
+                                                                      buff.insert(
+                                                                          6,
+                                                                          input);
+                                                                      return null;
+                                                                    },
+                                                                  ),
+                                                                ),
+                                                                Padding(
+                                                                  padding:
+                                                                      const EdgeInsets
+                                                                          .all(8),
+                                                                  child:
+                                                                      TextFormField(
+                                                                    initialValue:
+                                                                        apkuqaList[index]
+                                                                            .budget,
+                                                                    keyboardType:
+                                                                        TextInputType
+                                                                            .multiline,
+                                                                    maxLines:
+                                                                        null,
+                                                                    minLines: 1,
+                                                                    decoration:
+                                                                        const InputDecoration(
+                                                                      label: Text(
+                                                                          'งบประมาณ(ถ้ามี)'),
+                                                                      border:
+                                                                          OutlineInputBorder(),
+                                                                    ),
+                                                                    validator:
+                                                                        (input) {
+                                                                      if (input!
+                                                                          .isEmpty) {
+                                                                        return 'กรุณาระบุบ งบประมาณ(ถ้ามี)';
+                                                                      }
+                                                                      buff.insert(
+                                                                          7,
+                                                                          input);
+                                                                      return null;
+                                                                    },
+                                                                  ),
+                                                                ),
+                                                                Padding(
+                                                                  padding:
+                                                                      const EdgeInsets
+                                                                          .all(8),
+                                                                  child:
+                                                                      TextFormField(
+                                                                    initialValue:
+                                                                        apkuqaList[index]
+                                                                            .responsiblePerson,
+                                                                    keyboardType:
+                                                                        TextInputType
+                                                                            .multiline,
+                                                                    maxLines:
+                                                                        null,
+                                                                    minLines: 1,
+                                                                    decoration:
+                                                                        const InputDecoration(
+                                                                      label: Text(
+                                                                          'ผู้รับผิดชอบหลัก'),
+                                                                      border:
+                                                                          OutlineInputBorder(),
+                                                                    ),
+                                                                    validator:
+                                                                        (input) {
+                                                                      if (input!
+                                                                          .isEmpty) {
+                                                                        return 'กรุณาระบุบ ผู้รับผิดชอบหลัก';
+                                                                      }
+                                                                      buff.insert(
+                                                                          8,
+                                                                          input);
+                                                                      return null;
+                                                                    },
+                                                                  ),
+                                                                ),
+                                                                Row(
+                                                                  children: [
+                                                                    Expanded(
+                                                                      child:
+                                                                          Container(
+                                                                        margin:
+                                                                            const EdgeInsets.all(10),
+                                                                        child:
+                                                                            OutlinedButton(
+                                                                          child:
+                                                                              const Text('บันทึก'),
+                                                                          onPressed:
+                                                                              () {
+                                                                            var pass =
+                                                                                _formKey2.currentState!.validate();
+                                                                            if (pass) {
+                                                                              setState(() {
+                                                                                apkuqaList[index] = ApKuqs(target: buff[0], obligations: buff[1], objective: buff[2], output: buff[3], success_metrics: buff[4], knowledgeManagementActivities: buff[5], periodOperated: buff[6], budget: buff[7], responsiblePerson: buff[8]);
+                                                                              });
+                                                                              buff.clear();
+                                                                              Navigator.pop(context);
+                                                                            }
+                                                                          },
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                  ],
+                                                                )
+                                                              ],
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
                                                     );
                                                   },
-                                                ),
-                                                icon: const Icon(
-                                                  Icons.close,
-                                                  color: Colors.black,
-                                                ),
+                                                );
+                                              },
+                                            ),
+                                            IconButton(
+                                              onPressed: () => showDialog<Text>(
+                                                context: context,
+                                                builder:
+                                                    (BuildContext context) {
+                                                  return AlertDialog(
+                                                    title:
+                                                        const Text('แจ้งเตือน'),
+                                                    content:
+                                                        const Text('ยืนยันลบ'),
+                                                    actions: <Widget>[
+                                                      TextButton(
+                                                          onPressed: () {
+                                                            setState(() {
+                                                              apkuqaList
+                                                                  .removeAt(
+                                                                      index);
+                                                            });
+                                                            Navigator.pop(
+                                                                context);
+                                                          },
+                                                          child: const Text(
+                                                              'ยืนยัน')),
+                                                      TextButton(
+                                                          onPressed: () {
+                                                            Navigator.pop(
+                                                                context);
+                                                          },
+                                                          child: const Text(
+                                                              'ยกเลิก')),
+                                                    ],
+                                                  );
+                                                },
                                               ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                    );
-                                  },
-                                ),
-                                const Divider(),
-                                const SizedBox(height: 20),
-                              ],
+                                              icon: const Icon(
+                                                Icons.close,
+                                                color: Colors.black,
+                                              ),
+                                            ),
+                                          ],
+                                        )),
+                                      ]);
+                                    }),
+                                  )),
                             ),
                           ),
                           const Text('หมายเหตุ จากเจ้าหน้าที'),
@@ -1175,23 +1121,23 @@ class _EditReportFormState extends State<EditReportForm> {
                                   children: [
                                     Expanded(
                                       flex: 1,
-                                      child: TextTableWidget(text: 'ลำดับ'),
+                                      child: TextColumnWidget(text: 'ลำดับ'),
                                     ),
                                     Expanded(
                                       flex: 5,
-                                      child: TextTableWidget(
+                                      child: TextColumnWidget(
                                           text:
                                               'รายการสินทรัพย์ความรู้ที่จะได้รับจากการดำเนินการตามแผน ฯ'),
                                     ),
                                     Expanded(
                                       flex: 5,
-                                      child: TextTableWidget(
+                                      child: TextColumnWidget(
                                           text:
                                               'แหล่งจัดเก็บและเผยแพร่สินทรัพย์ความรู้ '),
                                     ),
                                     Expanded(
                                       flex: 5,
-                                      child: TextTableWidget(
+                                      child: TextColumnWidget(
                                           text:
                                               'แนวทางการนำสินทรัพย์ความรู้ไปใช้ให้เกิดประโยชน์สูงสุดต่อส่วนงาน'),
                                     ),
@@ -1565,23 +1511,6 @@ class _EditReportFormState extends State<EditReportForm> {
             ),
           ],
         ),
-      ),
-    );
-  }
-}
-
-class TextTableWidget extends StatelessWidget {
-  String text;
-  TextTableWidget({Key? key, required this.text}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      text,
-      textAlign: TextAlign.center,
-      style: const TextStyle(
-        color: Colors.black,
-        fontWeight: FontWeight.bold,
       ),
     );
   }
