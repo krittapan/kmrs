@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kmrs/admin/widgets/system_status.dart';
 import 'package:kmrs/admin/widgets/widgets.dart';
 import 'package:kmrs/app/app.dart';
 import 'package:kmrs/footer/footer.dart';
@@ -79,6 +80,8 @@ class _AdminDashboardState extends State<AdminDashboard> {
             children: <Widget>[
               const DataDashboard(),
               SementTabbar(userData: widget.userData),
+              const SystemStatus()
+              
             ],
           ),
         ),
