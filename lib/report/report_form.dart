@@ -1,3 +1,5 @@
+// ignore_for_file: lines_longer_than_80_chars
+
 import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -38,6 +40,7 @@ class _ReportFormState extends State<ReportForm> {
   String currentYear = '2565';
 
   Future addDoc(String uid) async {
+    print("widget.currentCycle   ${widget.currentCycle}");
     // Call the user's CollectionReference to add a new user
     return reports.add({
       'status': 1,
@@ -431,11 +434,13 @@ class _ReportFormState extends State<ReportForm> {
                                                                         if (pass) {
                                                                           setState(
                                                                               () {
-                                                                            asisList[index] = Asis(
-                                                                                strengths: buff[0],
-                                                                                weaknesses: buff[1],
-                                                                                opportunities: buff[2],
-                                                                                threatsl: buff[3]);
+                                                                            asisList[index] =
+                                                                                Asis(
+                                                                              strengths: buff[0],
+                                                                              weaknesses: buff[1],
+                                                                              opportunities: buff[2],
+                                                                              threatsl: buff[3],
+                                                                            );
                                                                           });
                                                                           buff.clear();
                                                                           Navigator.pop(
@@ -610,19 +615,26 @@ class _ReportFormState extends State<ReportForm> {
                                                                 if (pass) {
                                                                   asisList.add(
                                                                     Asis(
-                                                                      strengths:
-                                                                          buff[
-                                                                              0],
-                                                                      weaknesses:
-                                                                          buff[
-                                                                              1],
-                                                                      opportunities:
-                                                                          buff[
-                                                                              2],
-                                                                      threatsl:
-                                                                          buff[
-                                                                              3],
-                                                                    ),
+                                                                        strengths:
+                                                                            buff[
+                                                                                0],
+                                                                        weaknesses:
+                                                                            buff[
+                                                                                1],
+                                                                        opportunities:
+                                                                            buff[
+                                                                                2],
+                                                                        threatsl:
+                                                                            buff[
+                                                                                3],
+                                                                        opportunitiesCheck:
+                                                                            false,
+                                                                        strengthsCheck:
+                                                                            false,
+                                                                        threatslCheck:
+                                                                            false,
+                                                                        weaknessesCheck:
+                                                                            false),
                                                                   );
                                                                   setState(() {
                                                                     asisList
@@ -1543,9 +1555,8 @@ class _ReportFormState extends State<ReportForm> {
                                                                       .validate();
                                                                   if (pass) {
                                                                     apkuqaList.add(ApKuqs(
-                                                                        target:
-                                                                            buff[
-                                                                                0],
+                                                                        target: buff[
+                                                                            0],
                                                                         obligations:
                                                                             buff[
                                                                                 1],
@@ -1568,7 +1579,22 @@ class _ReportFormState extends State<ReportForm> {
                                                                             buff[
                                                                                 7],
                                                                         responsiblePerson:
-                                                                            buff[8]));
+                                                                            buff[
+                                                                                8],
+                                                                        knowledgeManagementActivitiesCheck:
+                                                                            false,
+                                                                        objectiveCheck:
+                                                                            false,
+                                                                        obligationsCheck:
+                                                                            '',
+                                                                        outputCheck:
+                                                                            false,
+                                                                        periodOperatedCheck:
+                                                                            false,
+                                                                        successMetricsCheck:
+                                                                            false,
+                                                                        targetCheck:
+                                                                            false));
                                                                     setState(
                                                                         () {
                                                                       apkuqaList
@@ -1834,7 +1860,8 @@ class _ReportFormState extends State<ReportForm> {
                                                                             apList[index] = Ap(
                                                                                 list_of_experiences: buff[0],
                                                                                 storage: buff[1],
-                                                                                guidelines: buff[2]);
+                                                                                guidelines: buff[2],
+                                                                              );
                                                                           });
                                                                           buff.clear();
                                                                           Navigator.pop(
@@ -1983,14 +2010,19 @@ class _ReportFormState extends State<ReportForm> {
                                                                 if (pass) {
                                                                   apList.add(
                                                                     Ap(
-                                                                        list_of_experiences:
-                                                                            buff[
-                                                                                0],
-                                                                        storage:
-                                                                            buff[
-                                                                                1],
+                                                                        list_of_experiences: buff[
+                                                                            0],
+                                                                        storage: buff[
+                                                                            1],
                                                                         guidelines:
-                                                                            buff[2]),
+                                                                            buff[
+                                                                                2],
+                                                                        guidelinesCheck:
+                                                                            false,
+                                                                        list_of_experiencesCheck:
+                                                                            '',
+                                                                        storageCheck:
+                                                                            ''),
                                                                   );
                                                                   setState(() {
                                                                     asisList

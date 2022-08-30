@@ -48,7 +48,7 @@ class _ChackReportFormState extends State<ChackReportForm> {
   late List<Ap> apList = [];
   late String search;
   bool tobeCheck = false;
-  bool swotChack = false;
+  bool swotChack = false;  
   bool isLodeing = true;
   List<bool> asisChack = [
     false,

@@ -1,6 +1,7 @@
 // ignore: avoid_web_libraries_in_flutter
+// ignore_for_file: must_be_immutable
+
 import 'dart:html';
-import 'dart:ui' as ui;
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -14,9 +15,8 @@ import 'package:kmrs/report/report_form.dart';
 import 'package:kmrs/user/user.dart';
 
 class UserDashboard extends StatefulWidget {
-  UserData userData;
-
   UserDashboard({Key? key, required this.userData}) : super(key: key);
+  UserData userData;
 
   @override
   _UserDashboardState createState() => _UserDashboardState();
@@ -26,11 +26,21 @@ class _UserDashboardState extends State<UserDashboard> {
   int isReport1 = 0;
   int isReport2 = 0;
   int isReport3 = 0;
-  String currentCycle = '1';
-  String currentYear = '2565';
+  String currentCycle = '';
+  String currentYear = '';
   String reportId1 = '';
   String reportId2 = '';
   String reportId3 = '';
+
+  Future getSystemStatus() async {
+    final QuerySnapshot snapshot =
+        await FirebaseFirestore.instance.collection('systemStatus').get();
+    print(snapshot.docs.first.data());
+    currentCycle = snapshot.docs.first['cycle'].toString();
+    currentYear = snapshot.docs.first['year'].toString();
+    print(currentCycle);
+    await getDocstatus();
+  }
 
   Future getDocstatus() async {
     final QuerySnapshot snapshot = await FirebaseFirestore.instance
@@ -69,7 +79,7 @@ class _UserDashboardState extends State<UserDashboard> {
   @override
   void initState() {
     super.initState();
-    getDocstatus();
+    getSystemStatus();
   }
 
   void setPageTitle(String title, BuildContext context) {
