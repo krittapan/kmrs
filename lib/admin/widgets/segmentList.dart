@@ -30,7 +30,7 @@ class _SegmentListState extends State<SegmentList> {
       case 1:
         return 'ไม่ส่งรายงาน';
       case 2:
-        return 'ส่งรายงาน';
+        return 'ส่งรายงาน รอตรวจสอบ';
       case 3:
         return 'เจ้าหน้าที่ตรวจสอบรายงาน';
       case 4:

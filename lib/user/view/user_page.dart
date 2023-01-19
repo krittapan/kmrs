@@ -26,8 +26,8 @@ class _UserDashboardState extends State<UserDashboard> {
   int isReport1 = 0;
   int isReport2 = 0;
   int isReport3 = 0;
-  String currentCycle = '';
-  String currentYear = '';
+  late String currentCycle;
+  late String currentYear;
   String reportId1 = '';
   String reportId2 = '';
   String reportId3 = '';
@@ -36,8 +36,10 @@ class _UserDashboardState extends State<UserDashboard> {
     final QuerySnapshot snapshot =
         await FirebaseFirestore.instance.collection('systemStatus').get();
     print(snapshot.docs.first.data());
-    currentCycle = snapshot.docs.first['cycle'].toString();
-    currentYear = snapshot.docs.first['year'].toString();
+    setState(() {
+      currentCycle = snapshot.docs.first['cycle'].toString();
+      currentYear = snapshot.docs.first['year'].toString();
+    });
     print(currentCycle);
     await getDocstatus();
   }
@@ -49,7 +51,7 @@ class _UserDashboardState extends State<UserDashboard> {
         .where('year', isEqualTo: currentYear)
         // .where('cycle', isEqualTo: currentYear)
         .get();
-
+    print(snapshot.size);
     snapshot.docs.forEach(
       (DocumentSnapshot doc) {
         setState(() {
@@ -78,8 +80,8 @@ class _UserDashboardState extends State<UserDashboard> {
 
   @override
   void initState() {
-    super.initState();
     getSystemStatus();
+    super.initState();
   }
 
   void setPageTitle(String title, BuildContext context) {
@@ -93,15 +95,15 @@ class _UserDashboardState extends State<UserDashboard> {
 
   String statusToString(dynamic status) {
     switch (status) {
-      case 0:
-        return 'ไม่ส่งรายงาน';
       case 1:
-        return 'ส่งรายงาน';
+        return 'ไม่ส่งรายงาน';
       case 2:
-        return 'ดำเนินการตรวจสอบรายงาน';
+        return 'ส่งรายงาน รอตรวจสอบ';
       case 3:
-        return 'ตรวจสอบรายงาน มีหมายเหตุปรับปรุง';
+        return 'เจ้าหน้าที่ตรวจสอบรายงาน';
       case 4:
+        return 'เจ้าหน้าที่ตรวจสอบรายงาน มีหมายเหตุปรับปรุงแก้ไข';
+      case 5:
         return 'ตรวจสอบรายงาน เสร็จสมบรูณ์';
       default:
         return 'ไม่ทราบสถานะ';
@@ -341,37 +343,39 @@ class _UserDashboardState extends State<UserDashboard> {
                                 ButtonReportCycle1(
                                   widget: widget,
                                   isReport1: isReport1,
-                                  currentCycle: currentCycle,
+                                  currentCycle: currentCycle!,
                                 ),
                                 ButtonEditReportCycle1(
                                   widget: widget,
                                   isReport1: isReport1,
                                   reportId: reportId1,
-                                  currentCycle: currentCycle,
+                                  currentCycle: currentCycle!,
                                 ),
                                 ButtonReportCycle2(
                                   widget: widget,
                                   isReport1: isReport1,
                                   isReport2: isReport2,
-                                  currentCycle: currentCycle,
+                                  currentCycle: currentCycle!,
                                 ),
                                 ButtonEditReportCycle2(
                                   widget: widget,
                                   isReport2: isReport2,
                                   isReport3: isReport3,
                                   reportId2: reportId2,
-                                  currentCycle: currentCycle,
+                                  currentCycle: currentCycle!,
                                 ),
                                 ButtonReportCycle3(
                                   widget: widget,
                                   isReport2: isReport2,
                                   isReport3: isReport3,
-                                  currentCycle: currentCycle,
+                                  currentCycle: currentCycle!,
                                 ),
                                 ButtonEditReportCycle3(
-                                    widget: widget,
-                                    isReport3: isReport3,
-                                    reportId3: reportId3)
+                                  widget: widget,
+                                  isReport3: isReport3,
+                                  reportId3: reportId3,
+                                  currentCycle: currentCycle!,
+                                )
                               ],
                             ),
                           ),
@@ -407,7 +411,7 @@ class ButtonReportCycle1 extends StatelessWidget {
       widthFactor: 1,
       child: Container(
         padding: const EdgeInsets.all(10),
-        child: isReport1 == 0 && (currentCycle == '1')
+        child: isReport1 == 0
             ? ElevatedButton.icon(
                 style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all<Color>(
@@ -466,7 +470,7 @@ class ButtonReportCycle2 extends StatelessWidget {
       widthFactor: 1,
       child: Container(
         padding: const EdgeInsets.all(10),
-        child: (isReport1 >= 2 && isReport2 == 0) && (currentCycle == '2')
+        child: isReport2 == 0 && int.parse(currentCycle) >= 2
             ? ElevatedButton.icon(
                 style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all<Color>(
@@ -525,7 +529,7 @@ class ButtonReportCycle3 extends StatelessWidget {
       widthFactor: 1,
       child: Container(
         padding: const EdgeInsets.all(10),
-        child: (isReport2 != 0) && (isReport3 == 0) && (currentCycle == '3')
+        child: isReport3 == 0 && int.parse(currentCycle) >= 3
             ? ElevatedButton.icon(
                 style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all<Color>(
@@ -589,7 +593,7 @@ class _ButtonEditReportCycle1State extends State<ButtonEditReportCycle1> {
       widthFactor: 1,
       child: Container(
         padding: const EdgeInsets.all(10),
-        child: (widget.isReport1 >= 1) && (int.parse(widget.currentCycle) <= 2)
+        child: (widget.isReport1 >= 1) && (int.parse(widget.currentCycle) >= 1)
             ? ElevatedButton.icon(
                 style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all<Color>(
@@ -649,9 +653,7 @@ class ButtonEditReportCycle2 extends StatelessWidget {
       widthFactor: 1,
       child: Container(
         padding: const EdgeInsets.all(10),
-        child: (isReport2 > 0) &&
-                (isReport3 == 0) &&
-                (int.parse(currentCycle) <= 3)
+        child: (isReport2 >= 1) && (int.parse(currentCycle) >= 2)
             ? ElevatedButton.icon(
                 style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all<Color>(
@@ -690,15 +692,17 @@ class ButtonEditReportCycle2 extends StatelessWidget {
 }
 
 class ButtonEditReportCycle3 extends StatelessWidget {
-  ButtonEditReportCycle3(
-      {Key? key,
-      required this.widget,
-      required this.isReport3,
-      required this.reportId3})
-      : super(key: key);
+  ButtonEditReportCycle3({
+    Key? key,
+    required this.widget,
+    required this.isReport3,
+    required this.reportId3,
+    required this.currentCycle,
+  }) : super(key: key);
   final UserDashboard widget;
   int isReport3;
   String reportId3;
+  String currentCycle;
 
   @override
   Widget build(BuildContext context) {
@@ -706,7 +710,7 @@ class ButtonEditReportCycle3 extends StatelessWidget {
       widthFactor: 1,
       child: Container(
         padding: const EdgeInsets.all(10),
-        child: isReport3 >= 1
+        child: (isReport3 >= 1) && (int.parse(currentCycle) >= 3)
             ? ElevatedButton.icon(
                 style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all<Color>(

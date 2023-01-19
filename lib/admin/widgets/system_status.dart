@@ -15,14 +15,31 @@ class _SystemStatusState extends State<SystemStatus> {
   TextEditingController yearController = TextEditingController();
 
   List<String> cycle = ['รอบ', '1', '2', '3'];
-  String currentCycle = 'รอบ';
+  late String currentCycle = 'รอบ';
+  late String currentYear = '';
   CollectionReference systemStatus =
       FirebaseFirestore.instance.collection('systemStatus');
+
+  Future getSystemStatus() async {
+    final QuerySnapshot snapshot =
+        await FirebaseFirestore.instance.collection('systemStatus').get();
+    setState(() {
+      print(snapshot.docs.first.data());
+      currentCycle = snapshot.docs.first['cycle'].toString();
+      currentYear = snapshot.docs.first['year'].toString();
+      print(currentCycle);
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getSystemStatus();
+  }
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    
     Future addDoc(String addYear, String addCycle) async {
       // Call the user's CollectionReference to add a new user
       return systemStatus.add({
@@ -39,7 +56,10 @@ class _SystemStatusState extends State<SystemStatus> {
           margin: EdgeInsets.fromLTRB(0, 0, 0, size.height / 1.277),
         );
         ScaffoldMessenger.of(context).showSnackBar(snackBar);
-        setState(() {});
+        setState(() {
+          currentCycle = addCycle;
+          currentYear = addYear;
+        });
       });
     }
 
@@ -57,10 +77,24 @@ class _SystemStatusState extends State<SystemStatus> {
           child: Column(
             // crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text('สถานะของระบบ', style: TextStyle(fontSize: 22)),
-              const SizedBox(
-                height: 20,
+              const Text('สถานะของระบบ', style: TextStyle(fontSize: 24)),
+              const SizedBox(height: 20),
+              Card(
+                margin: const EdgeInsets.all(10),
+                elevation: 4,
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(20),
+                  ),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                      'สถานะปัจจุบัณ ปี $currentYear รอบที่ $currentCycle ',
+                      style: const TextStyle(fontSize: 20)),
+                ),
               ),
+              const SizedBox(height: 20),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceAround,

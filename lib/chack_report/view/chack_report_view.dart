@@ -38,6 +38,7 @@ class _ChackReportFormState extends State<ChackReportForm> {
 
   List<String> buff = [];
   List<String> buff1 = [];
+  int statusDocument = 3;
   late String tobe = '';
   late String tobeComment = '';
   late String asisComment = '';
@@ -50,8 +51,10 @@ class _ChackReportFormState extends State<ChackReportForm> {
   late List<Ap> apList = [];
   late String search;
   bool tobeCheck = false;
-  bool swotChack = false;  
+  bool swotChack = false;
   bool isLodeing = true;
+  bool isCheckedDocComment = false;
+  bool isCheckedDoc = false;
   List<bool> asisChack = [
     false,
     false,
@@ -172,7 +175,7 @@ class _ChackReportFormState extends State<ChackReportForm> {
     // Call the user's CollectionReference to add a new user
     return reports.doc(widget.reportId).update({
       //'status': 'ส่งรายงานแผนแล้ว',
-      'status': 3,
+      'status': statusDocument,
       'tobeCheck': tobeCheck,
       'swotChack': swotChack,
       'tobeComment': tobeComment,
@@ -1698,42 +1701,103 @@ class _ChackReportFormState extends State<ChackReportForm> {
                               Expanded(
                                 child: Container(
                                   margin: const EdgeInsets.all(10),
-                                  child: OutlinedButton(
+                                  child: ElevatedButton(
                                     child: const Text('บันทึก'),
-                                    onPressed: () => showDialog<Text>(
+                                    onPressed: () => showDialog<Widget>(
                                       context: context,
                                       builder: (BuildContext context) {
-                                        return AlertDialog(
-                                          title: const Text('แจ้งเตือน'),
-                                          content: const Text(
-                                              'ยืนยัน การบันทึก การตรวจสอบ'),
-                                          actions: <Widget>[
-                                            TextButton(
-                                                onPressed: () async {
-                                                  await updateDoc()
-                                                      .whenComplete(
-                                                    () =>
-                                                        Navigator.push<AppBloc>(
-                                                      context,
-                                                      MaterialPageRoute(
-                                                        builder: (BuildContext
-                                                                context) =>
-                                                            AdminDashboard(
-                                                          userData:
-                                                              widget.userData,
+                                        return StatefulBuilder(
+                                            builder: (context, setState) {
+                                          return AlertDialog(
+                                            title: const Text('แจ้งเตือน'),
+                                            insetPadding:
+                                                const EdgeInsets.symmetric(
+                                                    horizontal: 50),
+                                            content: Container(
+                                              margin: const EdgeInsets.all(10),
+                                              child: Column(
+                                                mainAxisSize: MainAxisSize.min,
+                                                children: [
+                                                  const Text(
+                                                      'ยืนยัน การบันทึก การตรวจสอบ'),
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            10),
+                                                    child: CheckboxListTile(
+                                                      title: const Text(
+                                                          'มีหมายเหตุปรับปรุง',
+                                                          overflow: TextOverflow
+                                                              .ellipsis,
+                                                          maxLines: 1),
+                                                      onChanged: (value) {
+                                                        setState(() {
+                                                          isCheckedDocComment =
+                                                              value!;
+                                                          if (isCheckedDocComment ==
+                                                              true) {
+                                                            isCheckedDoc =
+                                                                false;
+                                                            statusDocument = 4;
+                                                          }
+                                                        });
+                                                      },
+                                                      value:
+                                                          isCheckedDocComment,
+                                                    ),
+                                                  ),
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            10),
+                                                    child: CheckboxListTile(
+                                                      title: const Text(
+                                                          'ตรวจสอบเสร็จสิ้น'),
+                                                      onChanged: (value) {
+                                                        setState(() {
+                                                          isCheckedDoc = value!;
+                                                          if (isCheckedDoc ==
+                                                              true) {
+                                                            isCheckedDocComment =
+                                                                false;
+                                                            statusDocument = 5;
+                                                          }
+                                                        });
+                                                      },
+                                                      value: isCheckedDoc,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                            actions: <Widget>[
+                                              TextButton(
+                                                  onPressed: () async {
+                                                    await updateDoc()
+                                                        .whenComplete(
+                                                      () => Navigator.push<
+                                                          AppBloc>(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                          builder: (BuildContext
+                                                                  context) =>
+                                                              AdminDashboard(
+                                                            userData:
+                                                                widget.userData,
+                                                          ),
                                                         ),
                                                       ),
-                                                    ),
-                                                  );
-                                                },
-                                                child: const Text('ยืนยัน')),
-                                            TextButton(
-                                                onPressed: () {
-                                                  Navigator.pop(context);
-                                                },
-                                                child: const Text('ยกเลิก')),
-                                          ],
-                                        );
+                                                    );
+                                                  },
+                                                  child: const Text('ยืนยัน')),
+                                              TextButton(
+                                                  onPressed: () {
+                                                    Navigator.pop(context);
+                                                  },
+                                                  child: const Text('ยกเลิก')),
+                                            ],
+                                          );
+                                        });
                                       },
                                     ),
                                   ),

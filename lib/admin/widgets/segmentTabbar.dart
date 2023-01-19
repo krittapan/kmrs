@@ -16,7 +16,17 @@ class SementTabbar extends StatefulWidget {
 }
 
 class _SementTabbarState extends State<SementTabbar> {
- 
+  Future getSystemStatus() async {
+    final QuerySnapshot snapshot =
+        await FirebaseFirestore.instance.collection('systemStatus').get();
+    setState(() {
+      print(snapshot.docs.first.data());
+      currentCycle = snapshot.docs.first['cycle'].toString();
+      currentYear = snapshot.docs.first['year'].toString();
+      print(currentCycle);
+    });
+  }
+
   String currentCycle = '1';
   String currentYear = '2565';
   List<String> items = [
@@ -27,6 +37,7 @@ class _SementTabbarState extends State<SementTabbar> {
   @override
   void initState() {
     super.initState();
+    getSystemStatus();
     // Add fild all doc in collection
     // FirebaseFirestore.instance.collection('reports').get().then(
     //       (value) => value.docs.forEach(
@@ -43,7 +54,7 @@ class _SementTabbarState extends State<SementTabbar> {
 
   @override
   Widget build(BuildContext context) {
-   final size = MediaQuery.of(context).size;
+    final size = MediaQuery.of(context).size;
 
     return Card(
       margin: const EdgeInsets.all(20),
@@ -142,7 +153,7 @@ class _SementTabbarState extends State<SementTabbar> {
                           ),
                         ),
                         Container(
-                          width: size.width*0.2,
+                          width: size.width * 0.2,
                         ),
                       ],
                     ),
