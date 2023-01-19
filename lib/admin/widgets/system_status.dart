@@ -22,6 +22,7 @@ class _SystemStatusState extends State<SystemStatus> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    
     Future addDoc(String addYear, String addCycle) async {
       // Call the user's CollectionReference to add a new user
       return systemStatus.add({

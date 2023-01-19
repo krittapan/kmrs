@@ -33,10 +33,10 @@ class _EditReportFormState extends State<EditReportForm> {
   List<String> buff = [];
   List<String> buff1 = [];
   late String tobe;
-  late String tobeComment;
+  late String tobeComment ;
   late String asisComment;
   late String apkuqaComment;
-  late String apComment;
+  late String apComment = "ทดสอบ";
   late String swotAsIs;
   late List<Asis> asisList = [];
   late List<ApKuqs> apkuqaList = [];
@@ -50,37 +50,38 @@ class _EditReportFormState extends State<EditReportForm> {
         .collection('reports')
         .doc(widget.reportId)
         .get()
-        .then(
-      (document) {
-        if (document.exists) {
-          setState(() {
-            tobe = document['tobe'].toString();
-            tobeComment = document['tobeComment'].toString();
-            asisComment = document['asisComment'].toString();
-            apkuqaComment = document['apkuqaComment'].toString();
-            apComment = document['apComment'].toString();
-            swotAsIs = document['swotAsIs'].toString();
-            List<dynamic> ass;
-            ass = document['asIs'] as List<dynamic>;
-            for (var i = 0; i < ass.length; i++) {
-              asisList.add(Asis.fromMap(ass[i] as Map<String, dynamic>));
-            }
-            ass.clear();
-            ass = document['apkuqa'] as List<dynamic>;
-            for (var i = 0; i < ass.length; i++) {
-              apkuqaList.add(ApKuqs.fromMap(ass[i] as Map<String, dynamic>));
-            }
-            ass.clear();
-            ass = document['ap'] as List<dynamic>;
-            for (var i = 0; i < ass.length; i++) {
-              apList.add(Ap.fromMap(ass[i] as Map<String, dynamic>));
-            }
-          });
-        } else {
-          print('Document does not exist on the database');
-        }
-      },
-    ).whenComplete(() => isLodeing = false);
+        .then((document) {
+      if (document.exists) {
+        setState(() {
+          tobe = document['tobe'].toString();
+          swotAsIs = document['swotAsIs'].toString();
+          apComment = document['apComment'].toString();
+          tobeComment = document['tobeComment'].toString();
+          asisComment = document['asisComment'].toString();
+          apkuqaComment = document['apkuqaComment'].toString();
+          List<dynamic> ass;
+          ass = document['asIs'] as List<dynamic>;
+          for (var i = 0; i < ass.length; i++) {
+            asisList.add(Asis.fromMap(ass[i] as Map<String, dynamic>));
+          }
+          ass.clear();
+          ass = document['apkuqa'] as List<dynamic>;
+          for (var i = 0; i < ass.length; i++) {
+            apkuqaList.add(ApKuqs.fromMap(ass[i] as Map<String, dynamic>));
+          }
+          ass.clear();
+          ass = document['ap'] as List<dynamic>;
+          for (var i = 0; i < ass.length; i++) {
+            apList.add(Ap.fromMap(ass[i] as Map<String, dynamic>));
+          }
+        });
+      } else {
+        print('Document does not exist on the database');
+      }
+    }).whenComplete(() {
+      //await updateDoc();
+      isLodeing = false;
+    });
   }
 
   Future updateDoc() async {

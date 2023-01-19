@@ -259,7 +259,7 @@ class _UserDashboardState extends State<UserDashboard> {
                             ),
                           ),
                         ),
-                        TextLabel(label: 'รายงานประจำปี - ระดับมหาลัย'),
+                        TextLabel(label: 'รายงานประจำปี - ระดับ มหาวิทยาลัย'),
                         Card(
                           margin: const EdgeInsets.all(20),
                           elevation: 4,

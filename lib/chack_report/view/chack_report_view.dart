@@ -139,6 +139,10 @@ class _ChackReportFormState extends State<ChackReportForm> {
           tobeCheck = document['tobeCheck'] as bool;
           swotChack = document['swotChack'] as bool;
           swotAsIs = document['swotAsIs'].toString();
+          apComment = document['apComment'].toString();
+          tobeComment = document['tobeComment'].toString();
+          asisComment = document['asisComment'].toString();
+          apkuqaComment = document['apkuqaComment'].toString();
           List<dynamic> ass;
           ass = document['asIs'] as List<dynamic>;
           for (var i = 0; i < ass.length; i++) {
@@ -629,6 +633,7 @@ class _ChackReportFormState extends State<ChackReportForm> {
                           Container(
                             margin: const EdgeInsets.all(10),
                             child: TextFormField(
+                              initialValue: asisComment,
                               onChanged: (value) => asisComment = value,
                               keyboardType: TextInputType.multiline,
                               maxLines: null,
@@ -1267,6 +1272,7 @@ class _ChackReportFormState extends State<ChackReportForm> {
                           Container(
                             margin: const EdgeInsets.all(10),
                             child: TextFormField(
+                              initialValue: apkuqaComment,
                               onChanged: (value) => apkuqaComment = value,
                               keyboardType: TextInputType.multiline,
                               maxLines: null,
@@ -1657,6 +1663,7 @@ class _ChackReportFormState extends State<ChackReportForm> {
                           Container(
                             margin: const EdgeInsets.all(10),
                             child: TextFormField(
+                              initialValue: apComment,
                               onChanged: (value) => apComment = value,
                               keyboardType: TextInputType.multiline,
                               maxLines: null,
@@ -1927,6 +1934,7 @@ class _ChackReportFormState extends State<ChackReportForm> {
             Container(
               margin: const EdgeInsets.all(10),
               child: TextFormField(
+                initialValue: tobeComment,
                 onChanged: (value) => tobeComment = value,
                 keyboardType: TextInputType.multiline,
                 maxLines: null,
